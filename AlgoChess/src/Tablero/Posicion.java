@@ -4,9 +4,17 @@ public class Posicion {
 	protected int fila;
 	protected int columna;
 	
-	public Posicion(int new_fila, int new_columna) {
-		fila = new_fila;
-		columna = new_columna;
+	private void setFila(int nuevaFila) {
+		fila = nuevaFila;
+	}
+	
+	private void setColumna(int nuevaColumna) {
+		columna = nuevaColumna;
+	}
+	
+	public Posicion(int nuevaFila, int nuevaColumna) {
+		this.setFila(nuevaFila);
+		this.setColumna(nuevaColumna);
 	}
 	
 	private int getFila() {
@@ -16,6 +24,7 @@ public class Posicion {
 	private int getColumna() {
 		return columna;
 	}
+	
 	
 	public int distancia(Posicion otraPosicion) {
 		if (otraPosicion.getFila() == fila){
