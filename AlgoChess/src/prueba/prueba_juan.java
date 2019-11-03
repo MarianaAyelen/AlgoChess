@@ -5,7 +5,8 @@ public class prueba_juan {
 	
 	public void hola() {
 			
-			a=1;
+			a=20;
+			
 		
 	}
 }
