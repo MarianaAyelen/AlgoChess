@@ -138,15 +138,45 @@ class UnidadesTest {
 		SoldadoDeInfanteria unSoldadoDeInfanteria = new SoldadoDeInfanteria();
 		Jinete unJinete = new Jinete();
 		Catapulta unaCatapulta = new Catapulta();
+		Catapulta otraCatapulta = new Catapulta();
+		
+		// Se realizaran ataques para que la unidad necesite mas de 15 de vida
+		
+		otraCatapulta.atacarADistancia(otroCurandero);
+		otraCatapulta.atacarADistancia(unSoldadoDeInfanteria);
+		otraCatapulta.atacarADistancia(unJinete);
+		otraCatapulta.atacarADistancia(unaCatapulta);
+		
 		
 		unCurandero.curarUnidad(otroCurandero);
 		unCurandero.curarUnidad(unSoldadoDeInfanteria);
 		unCurandero.curarUnidad(unJinete);
 		unCurandero.curarUnidad(unaCatapulta);
 		
-		assertEquals(otroCurandero.vidaDeLaUnidad(), 90);
-		assertEquals(unSoldadoDeInfanteria.vidaDeLaUnidad(), 115);
-		assertEquals(unJinete.vidaDeLaUnidad(), 115);
-		assertEquals(unaCatapulta.vidaDeLaUnidad(), 65);
+		assertEquals(otroCurandero.vidaDeLaUnidad(), 70);
+		assertEquals(unSoldadoDeInfanteria.vidaDeLaUnidad(), 95);
+		assertEquals(unJinete.vidaDeLaUnidad(), 95);
+		assertEquals(unaCatapulta.vidaDeLaUnidad(), 45);
+	}
+	
+	@Test
+	void test008CuradorCuraUnaUnidadSanaYNoSumaVida() {
+		
+		Curandero unCurandero = new Curandero();
+		Curandero otroCurandero = new Curandero();
+		SoldadoDeInfanteria unSoldadoDeInfanteria = new SoldadoDeInfanteria();
+		Jinete unJinete = new Jinete();
+		Catapulta unaCatapulta = new Catapulta();
+		Catapulta otraCatapulta = new Catapulta();
+		
+		unCurandero.curarUnidad(otroCurandero);
+		unCurandero.curarUnidad(unSoldadoDeInfanteria);
+		unCurandero.curarUnidad(unJinete);
+		unCurandero.curarUnidad(unaCatapulta);
+		
+		assertEquals(otroCurandero.vidaDeLaUnidad(), 75);
+		assertEquals(unSoldadoDeInfanteria.vidaDeLaUnidad(), 100);
+		assertEquals(unJinete.vidaDeLaUnidad(), 100);
+		assertEquals(unaCatapulta.vidaDeLaUnidad(), 50);
 	}
 }	
