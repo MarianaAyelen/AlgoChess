@@ -9,9 +9,11 @@ public class Jinete extends UnidadAtacante {
 		vida = 100;
 		danioCuerpoAcuerpo = 5;
 		danioADistancia = 15;
+		movilidad = new unidadMovil();
 			}
 
 	public void realizarComportamiento(Unidad unaUnidad) {
+		chequearAtaqueAUnidadEnemiga(unaUnidad);
 		//chequear condiciones de distancias y agregar el otro ataque
 		unaUnidad.restarVida(danioADistancia);
 	}

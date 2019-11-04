@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import Excepciones.JugadorNoPuedeAgregarMasEntidades;
 import Jugadores.Jugador;
+import Tablero.Tablero;
 import Unidades.*;
 
 
@@ -17,11 +18,20 @@ class JugadorTest {
 	void test001JugadorNoPuedeTomarMasEntidadesDeLasQuePuntos() {
 		
 		Jugador jugador1 = new Jugador("Jugador1");
+		Tablero tablero = new Tablero(20, 20);
+		Unidad unaUnidad;
 		
-		jugador1.agregarCatapulta();
-		jugador1.agregarCatapulta();
-
-	
+		try {
+		for (int i = 0; i <5; i++) {
+			unaUnidad = new Catapulta();
+			unaUnidad.asignarPropietario(jugador1);
+			jugador1.agregarCatapulta(tablero, i, i);
+		}
+		}catch (JugadorNoPuedeAgregarMasEntidades e) {
+			System.out.println("No tiene puntos para agregar esa undiad");
+		}
+		
+		assertEquals(jugador1.cantidadDeUnidades(), 4);
 		
 		
 	}

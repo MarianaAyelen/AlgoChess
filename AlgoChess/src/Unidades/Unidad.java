@@ -1,8 +1,9 @@
 package Unidades;
 
-import com.sun.org.apache.xml.internal.resolver.helpers.PublicId;
+
 
 import Jugadores.*;
+import Excepciones.*;
 
 public class Unidad {
 	
@@ -10,6 +11,7 @@ public class Unidad {
 	protected int costo;
 	protected int vida;
 	protected int vidaMax;
+	protected Movilidad movilidad;
  
 	
 	public void asignarPropietario(Jugador unJugador) {
@@ -29,6 +31,10 @@ public class Unidad {
 			
 	}
 	
+	public int obtenerCosto() {
+		return costo;
+	}
+
 	public void realizarComportamiento(Unidad unaUnidad) {
 	}
 	

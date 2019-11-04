@@ -4,13 +4,11 @@ package Jugadores;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import Excepciones.JugadorNoPuedeAgregarMasEntidades;
 import Unidades.Unidad;
-import sun.font.TrueTypeFont;
 import Unidades.*;
-
+import Tablero.Tablero;
 
 public class Jugador {
 
@@ -19,44 +17,63 @@ public class Jugador {
 		private List<Unidad> unidadesJugador = new ArrayList<Unidad>();
 		
 		public Jugador(String nombreJugador) {
-			puntosIniciales = 20;
 			nombre = nombreJugador;
+			puntosIniciales = 20;
 		}
 		
-		public void agregarSoldadoDeInfanteria() {
-			SoldadoDeInfanteria unSoldadoDeInfanteria = new SoldadoDeInfanteria();
-			this.sePuedeColocarUnidad(1);
-			unidadesJugador.add(unSoldadoDeInfanteria);
+		public void agregarSoldadoInfanteria(Tablero tablero, int posX, int posY) {
 			
+			SoldadoDeInfanteria unSoldadoDeInfanteria = new SoldadoDeInfanteria();
+			restarPuntos(unSoldadoDeInfanteria);
+			unSoldadoDeInfanteria.asignarPropietario(this);
+			tablero.agregarUnidad(unSoldadoDeInfanteria, posX, posY);
+			unidadesJugador.add(unSoldadoDeInfanteria);
 		}
 		
-		public void agregarJinete() {
+		public void agregarJinete(Tablero tablero, int posX, int posY) {
+			
 			Jinete unJinete = new Jinete();
-			this.sePuedeColocarUnidad(3);
+			restarPuntos(unJinete);
+			unJinete.asignarPropietario(this);
+			tablero.agregarUnidad(unJinete,posX,posY);
 			unidadesJugador.add(unJinete);
 		}
 		
-		public void agregarCatapulta() {
+		public void agregarCatapulta(Tablero tablero, int posX, int posY) {
 			Catapulta unaCatapulta = new Catapulta();
-			this.sePuedeColocarUnidad(5);
+			restarPuntos(unaCatapulta);
+			unaCatapulta.asignarPropietario(this);
+			tablero.agregarUnidad(unaCatapulta, posX, posY);
 			unidadesJugador.add(unaCatapulta);
+			
 		}
-		public void agregarCurandero() {
+		
+		public void agregarCurandero(Tablero tablero, int posX, int posY) {
 			Curandero unCurandero = new Curandero();
-			this.sePuedeColocarUnidad(2);
+			restarPuntos(unCurandero);
+			unCurandero.asignarPropietario(this);
+			tablero.agregarUnidad(unCurandero, posX, posY);
 			unidadesJugador.add(unCurandero);
 		}
 		
-		public Unidad devolverUnidad(int posicion) {
-			Unidad unaUnidad;
-			unaUnidad = this.unidadesJugador.get(posicion);
-			return unaUnidad;
+	
+		private void restarPuntos(Unidad unaUnidad) {
+			
+			int costoUnidad = unaUnidad.obtenerCosto();
+			if (puntosIniciales < costoUnidad) {
+				throw new JugadorNoPuedeAgregarMasEntidades();
+			}else {
+				puntosIniciales = puntosIniciales - costoUnidad;
+			}
+			
+		}
+		public void realizarComportamiento(Unidad unaUnidad, Unidad otraUnidad) {
+			
+			unaUnidad.realizarComportamiento(otraUnidad);
 		}
 		
-		private void sePuedeColocarUnidad(int puntosARestar) {
-	
-			if (puntosIniciales < puntosARestar) {
-				throw new JugadorNoPuedeAgregarMasEntidades();
-			}
+		// metodos para pruebas
+		public int cantidadDeUnidades() {
+			return unidadesJugador.size();
 		}
 }
