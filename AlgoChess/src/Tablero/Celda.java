@@ -1,37 +1,64 @@
 package Tablero;
 
 import Unidades.Unidad;
+import Jugadores.Jugador;
+import Excepciones.*;
 
 public class Celda {
-	protected Posicion posicion;
-	protected boolean libre;
-	protected Unidad unidad;
+	private Jugador propietario;
+	private boolean habilitada;
+	private Unidad unidad;
+	private int pos_x;
+	private int pos_y;
 	
-	public Celda(Posicion nuevaPosicion) {
-		posicion = nuevaPosicion;
-		libre = true;
+	public Celda() {
 		unidad = null;
+		propietario = null;
+		habilitada = true;
 	}
 	
-	private void setPosicion(Posicion nuevaPosicion) {
-		posicion = nuevaPosicion;
+	public Celda(boolean flag) {
+		unidad = null;
+		propietario = null;
+		habilitada = flag;
+	}
+		
+	public void asignarPropietario(Jugador unJugador) {
+		propietario = unJugador;
 	}
 	
 	private void vaciarCelda() {
-		libre = true;
+		habilitada = true;
 	}
 	
 	private void ocuparCelda() {
-		libre = false;
+		habilitada = false;
 	}
 	
 	public boolean estaVacia() {
-		return libre;
+		return habilitada;
 	}
 	
-	public void agregarUnidad(Unidad nuevaUnidad) {
+	public void agregarUnidad (Unidad nuevaUnidad) {
 		unidad = nuevaUnidad;
 		this.ocuparCelda();
+	}
+	
+	public void agregarUnidadEnCasilleroVacio( Unidad nuevaUnidad ) {
+		if ( this.estaVacia() ) {
+			this.agregarUnidad(nuevaUnidad);
+		}else {
+			// throw new movimientoImposibleCeldaInhabilitada();
+		}
+	}
+	
+	public void agregarUnidadEnTerritorioAliado(Unidad nuevaUnidad) {
+		if ( this.obtenerPropietario() == nuevaUnidad.obtenerPropietario() ) {
+				this.agregarUnidadEnCasilleroVacio(nuevaUnidad);
+		}else {
+			// throw new JugadorNoPuedeColocarEntidadesEnTerritorioEnemigo();
+			System.out.println("No se puede colocar una unidad en territorio enemigo.");
+		}
 	}
 	
 	public void sacarUnidad() {
@@ -39,5 +66,13 @@ public class Celda {
 		this.vaciarCelda();
 	}
 	
+	// Metodo para tests
+	public Unidad obtenerEntidad() {
+		return unidad;
+	}
+	
+	public Jugador obtenerPropietario() {
+		return propietario;
+	}	
 }
 
