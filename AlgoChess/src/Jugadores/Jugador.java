@@ -48,6 +48,8 @@ public class Jugador {
 			puntosIniciales = puntosIniciales - puntosARestar;
 			if (puntosIniciales == 0) {
 				throw new JugadorNoPuedeAgregarMasEntidades();
+
 			}
+
 		}
 }
