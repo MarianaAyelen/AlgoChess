@@ -1,0 +1,116 @@
+package algoChest.test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
+
+import Unidades.*;
+import Tablero.*;
+import Jugadores.*;
+import Excepciones.*;
+
+class CeldaTest {
+
+	@Test
+	void test000ColocarUnaEntidadEnUnaCelda() {
+		
+		Celda unaCelda = new Celda();
+		SoldadoDeInfanteria unSoldadoDeInfanteria = new SoldadoDeInfanteria();
+		
+		unaCelda.agregarUnidad(unSoldadoDeInfanteria);
+		
+		assertEquals(unaCelda.estaVacia(), false);
+		assertEquals(unaCelda.obtenerEntidad() , unSoldadoDeInfanteria);
+	}
+	
+	@Test
+	void test001ColocarYSacarUnaEntidadDeUnaCelda() {
+		
+		Celda unaCelda = new Celda();
+		SoldadoDeInfanteria unSoldadoDeInfanteria = new SoldadoDeInfanteria();
+		
+		unaCelda.agregarUnidad(unSoldadoDeInfanteria);
+		unaCelda.sacarUnidad();
+		
+		assertEquals(unaCelda.estaVacia(), true);
+		assertEquals(unaCelda.obtenerEntidad() , null);
+	}
+	
+	@Test
+	void test002AsignarPropietarioAUnaCelda() {
+		
+		Celda unaCelda = new Celda();
+		Jugador unJugador = new Jugador("Alejandro");
+		
+		unaCelda.asignarPropietario(unJugador);
+				
+		assertEquals(unaCelda.obtenerPropietario() , unJugador);
+	}
+
+	@Test
+	void test003ColocarUnaEntidadEnTerritorioAliado() {
+		
+		Celda unaCelda = new Celda();
+		Jugador unJugador = new Jugador("Alejandro");
+		SoldadoDeInfanteria unSoldadoDeInfanteria = new SoldadoDeInfanteria();
+		
+		unSoldadoDeInfanteria.asignarPropietario(unJugador);
+		unaCelda.asignarPropietario(unJugador);
+		unaCelda.agregarUnidadEnTerritorioAliado(unSoldadoDeInfanteria);
+		
+		assertEquals(unaCelda.estaVacia(), false);
+		assertEquals(unaCelda.obtenerEntidad() , unSoldadoDeInfanteria);
+	}
+	
+	@Test
+	void test004ColocarUnaEntidadEnTerritorioEnemigo() {
+		
+		Celda unaCelda = new Celda();
+		Jugador unJugador = new Jugador("Alejandro");
+		Jugador otroJugador = new Jugador("Lucas");
+		SoldadoDeInfanteria unSoldadoDeInfanteria = new SoldadoDeInfanteria();
+		
+		unSoldadoDeInfanteria.asignarPropietario(unJugador);
+		unaCelda.asignarPropietario(otroJugador);
+		
+		unaCelda.agregarUnidadEnTerritorioAliado(unSoldadoDeInfanteria);
+
+		assertEquals(unaCelda.estaVacia(), true);
+		assertEquals(unaCelda.obtenerEntidad() , null);
+	}	
+	
+	@Test
+	void test005ColocarUnaEntidadEnCasilleroLibre() {
+		
+		Celda unaCelda = new Celda();
+		Jugador unJugador = new Jugador("Alejandro");
+		SoldadoDeInfanteria unSoldadoDeInfanteria = new SoldadoDeInfanteria();
+		
+		unSoldadoDeInfanteria.asignarPropietario(unJugador);
+		unaCelda.asignarPropietario(unJugador);
+		
+		unaCelda.agregarUnidadEnTerritorioAliado(unSoldadoDeInfanteria);
+
+		assertEquals(unaCelda.estaVacia(), false);
+		assertEquals(unaCelda.obtenerEntidad() , unSoldadoDeInfanteria);
+	}	
+	
+	@Test
+	void test006ColocarUnaEntidadEnCasilleroOcupado() {
+		
+		Celda unaCelda = new Celda();
+		Jugador unJugador = new Jugador("Alejandro");
+		SoldadoDeInfanteria unSoldadoDeInfanteria = new SoldadoDeInfanteria();
+		SoldadoDeInfanteria otroSoldadoDeInfanteria = new SoldadoDeInfanteria();
+		
+		unSoldadoDeInfanteria.asignarPropietario(unJugador);
+		otroSoldadoDeInfanteria.asignarPropietario(unJugador);
+		unaCelda.asignarPropietario(unJugador);
+		
+		unaCelda.agregarUnidadEnTerritorioAliado(unSoldadoDeInfanteria);
+		unaCelda.agregarUnidadEnTerritorioAliado(otroSoldadoDeInfanteria);
+
+		assertEquals(unaCelda.estaVacia(), false);
+		assertEquals(unaCelda.obtenerEntidad() , unSoldadoDeInfanteria);
+	}	
+}
