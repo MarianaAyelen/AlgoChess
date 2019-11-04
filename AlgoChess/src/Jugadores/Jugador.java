@@ -43,6 +43,7 @@ public class Jugador {
 			this.restarPuntos(3);
 		}
 		
+		
 		private void restarPuntos(int puntosARestar) {
 			
 			puntosIniciales = puntosIniciales - puntosARestar;

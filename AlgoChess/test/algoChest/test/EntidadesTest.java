@@ -31,8 +31,7 @@ class EntidadesTest {
 		jugador2.agregarCurandero();
 		jugador2.agregarJinete();
 		
-		
-		
+				
 		
 	}
 

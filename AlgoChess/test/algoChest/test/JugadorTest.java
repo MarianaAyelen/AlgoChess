@@ -22,7 +22,6 @@ class JugadorTest {
 		jugador1.agregarCatapulta();
 
 		
-	
 		try {
 			jugador1.agregarCatapulta();
 		}catch (JugadorNoPuedeAgregarMasEntidades e) {
