@@ -22,7 +22,8 @@ public class Unidad {
 			
 	}
 	
-
+	public void realizarComportamiento(Unidad unaUnidad) {
+	}
 	
 	// Metodos utilizados para las pruebas 
 	

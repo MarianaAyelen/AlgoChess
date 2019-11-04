@@ -11,6 +11,10 @@ public class Jinete extends UnidadAtacante {
 		danioADistancia = 15;
 			}
 
-
+	public void realizarComportamiento(Unidad unaUnidad) {
+		//chequear condiciones de distancias y agregar el otro ataque
+		unaUnidad.restarVida(danioADistancia);
+	}
+	
 	
 }

@@ -23,15 +23,17 @@ class EntidadesTest {
 	
 		Jugador jugador1 =  new Jugador("jugador1");
 		Jugador jugador2 = new Jugador("jugador2");
+		Unidad unidadAliada ;
+		Unidad unidadEnemiga;
 		
 		jugador1.agregarSoldadoDeInfanteria();
+		unidadAliada = jugador1.devolverUnidad(0);
 		
 		jugador2.agregarSoldadoDeInfanteria();
-		jugador2.agregarCatapulta();
-		jugador2.agregarCurandero();
-		jugador2.agregarJinete();
-		
-				
+		unidadEnemiga = jugador2.devolverUnidad(0);
+		unidadAliada.realizarComportamiento(unidadEnemiga);
+			
+		assertEquals(unidadEnemiga.vidaDeLaUnidad(), 90);
 		
 	}
 

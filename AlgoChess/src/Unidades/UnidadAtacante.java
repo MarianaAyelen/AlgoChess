@@ -7,6 +7,11 @@ public class UnidadAtacante extends Unidad {
 	protected int danioADistancia;
 	protected int danioCuerpoAcuerpo;
 	
+	
+	public void realizarComportamiento(Unidad unaUnidad) {	
+	}
+	
+	/*
 	public void atacarCuerpoACuerpo(Unidad unaUnidad) {
 		unaUnidad.restarVida(danioCuerpoAcuerpo);
 	}
@@ -14,5 +19,6 @@ public class UnidadAtacante extends Unidad {
 	public void atacarADistancia(Unidad unaUnidad) {
 		unaUnidad.restarVida(danioADistancia);
 	}
+	*/
 	
 }

@@ -4,8 +4,11 @@ package Jugadores;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
+
 import Excepciones.JugadorNoPuedeAgregarMasEntidades;
 import Unidades.Unidad;
+import sun.font.TrueTypeFont;
 import Unidades.*;
 
 
@@ -22,35 +25,38 @@ public class Jugador {
 		
 		public void agregarSoldadoDeInfanteria() {
 			SoldadoDeInfanteria unSoldadoDeInfanteria = new SoldadoDeInfanteria();
+			this.sePuedeColocarUnidad(1);
 			unidadesJugador.add(unSoldadoDeInfanteria);
-			this.restarPuntos(1);
+			
 		}
 		
 		public void agregarJinete() {
 			Jinete unJinete = new Jinete();
+			this.sePuedeColocarUnidad(3);
 			unidadesJugador.add(unJinete);
-			this.restarPuntos(3);
 		}
 		
 		public void agregarCatapulta() {
 			Catapulta unaCatapulta = new Catapulta();
+			this.sePuedeColocarUnidad(5);
 			unidadesJugador.add(unaCatapulta);
-			this.restarPuntos(5);
 		}
 		public void agregarCurandero() {
 			Curandero unCurandero = new Curandero();
+			this.sePuedeColocarUnidad(2);
 			unidadesJugador.add(unCurandero);
-			this.restarPuntos(3);
 		}
 		
+		public Unidad devolverUnidad(int posicion) {
+			Unidad unaUnidad;
+			unaUnidad = this.unidadesJugador.get(posicion);
+			return unaUnidad;
+		}
 		
-		private void restarPuntos(int puntosARestar) {
-			
-			puntosIniciales = puntosIniciales - puntosARestar;
-			if (puntosIniciales == 0) {
+		private void sePuedeColocarUnidad(int puntosARestar) {
+	
+			if (puntosIniciales < puntosARestar) {
 				throw new JugadorNoPuedeAgregarMasEntidades();
-
 			}
-
 		}
 }

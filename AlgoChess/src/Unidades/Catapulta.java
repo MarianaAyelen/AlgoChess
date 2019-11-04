@@ -1,6 +1,5 @@
 package Unidades;
 
-import org.omg.CORBA.PRIVATE_MEMBER;
 
 public class Catapulta extends UnidadAtacante {
 
@@ -12,6 +11,10 @@ public class Catapulta extends UnidadAtacante {
 		danioCuerpoAcuerpo = 0;
 		danioADistancia = 20;
 	
+	}
+	
+	public void realizarComportamiento(Unidad unaUnidad) {
+		unaUnidad.restarVida(danioADistancia);
 	}
 	
 	

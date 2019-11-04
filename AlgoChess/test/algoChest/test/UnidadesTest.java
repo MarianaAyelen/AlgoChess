@@ -19,13 +19,12 @@ class UnidadesTest {
 		Curandero unCurandero = new Curandero();
 		
 		
-		unSoldadoDeInfanteria.atacarCuerpoACuerpo(otroSoldadoDeInfanteria);
-		unSoldadoDeInfanteria.atacarCuerpoACuerpo(otroSoldadoDeInfanteria);
-		unSoldadoDeInfanteria.atacarCuerpoACuerpo(unJinete);
-		unSoldadoDeInfanteria.atacarCuerpoACuerpo(unaCatapulta);
-		unSoldadoDeInfanteria.atacarCuerpoACuerpo(unCurandero);
+		unSoldadoDeInfanteria.realizarComportamiento(otroSoldadoDeInfanteria);
+		unSoldadoDeInfanteria.realizarComportamiento(unaCatapulta);
+		unSoldadoDeInfanteria.realizarComportamiento(unCurandero);
+		unSoldadoDeInfanteria.realizarComportamiento(unJinete);
 		
-		assertEquals(otroSoldadoDeInfanteria.vidaDeLaUnidad(), 80);
+		assertEquals(otroSoldadoDeInfanteria.vidaDeLaUnidad(), 90);
 		assertEquals(unJinete.vidaDeLaUnidad(), 90);
 		assertEquals(unaCatapulta.vidaDeLaUnidad(), 40);
 		assertEquals(unCurandero.vidaDeLaUnidad(), 65);
@@ -40,18 +39,18 @@ class UnidadesTest {
 		Catapulta unaCatapulta = new Catapulta();
 		Curandero unCurandero = new Curandero();
 	
-		unJinete.atacarCuerpoACuerpo(otroJinete);
-		unJinete.atacarCuerpoACuerpo(unSoldadoDeInfanteria);
-		unJinete.atacarCuerpoACuerpo(unaCatapulta);
-		unJinete.atacarCuerpoACuerpo(unCurandero);
+		unJinete.realizarComportamiento(otroJinete);
+		unJinete.realizarComportamiento(unSoldadoDeInfanteria);
+		unJinete.realizarComportamiento(unaCatapulta);
+		unJinete.realizarComportamiento(unCurandero);
 		
-		assertEquals(otroJinete.vidaDeLaUnidad(), 95);
-		assertEquals(unSoldadoDeInfanteria.vidaDeLaUnidad(), 95);
-		assertEquals(unaCatapulta.vidaDeLaUnidad(), 45);
-		assertEquals(unCurandero.vidaDeLaUnidad(), 70);
+		assertEquals(otroJinete.vidaDeLaUnidad(), 85);
+		assertEquals(unSoldadoDeInfanteria.vidaDeLaUnidad(), 85);
+		assertEquals(unaCatapulta.vidaDeLaUnidad(), 35);
+		assertEquals(unCurandero.vidaDeLaUnidad(), 60);
 	}
 	
-	@Test
+/*	@Test
 	void test003CatapultaAtacaCuerpoACuerpoYNoRestaVida() {
 		Catapulta unaCatapulta = new Catapulta();
 		Catapulta otraCatapulta = new Catapulta();
@@ -59,18 +58,19 @@ class UnidadesTest {
 		SoldadoDeInfanteria unSoldadoDeInfanteria = new SoldadoDeInfanteria();
 		Curandero unCurandero = new Curandero();
 	
-		unaCatapulta.atacarCuerpoACuerpo(otraCatapulta);
-		unaCatapulta.atacarCuerpoACuerpo(unJinete);
-		unaCatapulta.atacarCuerpoACuerpo(unSoldadoDeInfanteria);
-		unaCatapulta.atacarCuerpoACuerpo(unCurandero);
+		unaCatapulta.realizarComportamiento(otraCatapulta);
+		unaCatapulta.realizarComportamiento(unJinete);
+		unaCatapulta.realizarComportamiento(unSoldadoDeInfanteria);
+		unaCatapulta.realizarComportamiento(unCurandero);
 		
 		assertEquals(unJinete.vidaDeLaUnidad(), 100);
 		assertEquals(unSoldadoDeInfanteria.vidaDeLaUnidad(), 100);
 		assertEquals(otraCatapulta.vidaDeLaUnidad(), 50);
 		assertEquals(unCurandero.vidaDeLaUnidad(), 75);
 	}
+	*/
 	
-	@Test
+	/*@Test
 	void test004SoldadoDeInfanteriaAtacaADistanciaYNoRestaVida() {
 		
 		SoldadoDeInfanteria unSoldadoDeInfanteria = new SoldadoDeInfanteria();
@@ -79,16 +79,16 @@ class UnidadesTest {
 		Catapulta unaCatapulta = new Catapulta();
 		Curandero unCurandero = new Curandero();
 		
-		unSoldadoDeInfanteria.atacarADistancia(otroSoldadoDeInfanteria);
-		unSoldadoDeInfanteria.atacarADistancia(unJinete);
-		unSoldadoDeInfanteria.atacarADistancia(unaCatapulta);
-		unSoldadoDeInfanteria.atacarADistancia(unCurandero);
+		unSoldadoDeInfanteria.realizarComportamiento(otroSoldadoDeInfanteria);
+		unSoldadoDeInfanteria.realizarComportamiento(unJinete);
+		unSoldadoDeInfanteria.realizarComportamiento(unaCatapulta);
+		unSoldadoDeInfanteria.realizarComportamiento(unCurandero);
 		
 		assertEquals(otroSoldadoDeInfanteria.vidaDeLaUnidad(), 100);
 		assertEquals(unJinete.vidaDeLaUnidad(), 100);
 		assertEquals(unaCatapulta.vidaDeLaUnidad(), 50);
 		assertEquals(unCurandero.vidaDeLaUnidad(), 75);
-	}
+	}*/
 	
 	@Test
 	void test005JineteAtacaADistanciaYRestaVida() {
@@ -99,10 +99,10 @@ class UnidadesTest {
 		Catapulta unaCatapulta = new Catapulta();
 		Curandero unCurandero = new Curandero();
 		
-		unJinete.atacarADistancia(otroJinete);
-		unJinete.atacarADistancia(unSoldadoDeInfanteria);
-		unJinete.atacarADistancia(unaCatapulta);
-		unJinete.atacarADistancia(unCurandero);
+		unJinete.realizarComportamiento(otroJinete);
+		unJinete.realizarComportamiento(unSoldadoDeInfanteria);
+		unJinete.realizarComportamiento(unaCatapulta);
+		unJinete.realizarComportamiento(unCurandero);
 		
 		assertEquals(otroJinete.vidaDeLaUnidad(), 85);
 		assertEquals(unSoldadoDeInfanteria.vidaDeLaUnidad(), 85);
@@ -120,10 +120,10 @@ class UnidadesTest {
 		SoldadoDeInfanteria unSoldadoDeInfanteria = new SoldadoDeInfanteria();
 		Curandero unCurandero = new Curandero();
 		
-		unaCatapulta.atacarADistancia(otraCatapulta);
-		unaCatapulta.atacarADistancia(unJinete);
-		unaCatapulta.atacarADistancia(unSoldadoDeInfanteria);
-		unaCatapulta.atacarADistancia(unCurandero);
+		unaCatapulta.realizarComportamiento(otraCatapulta);
+		unaCatapulta.realizarComportamiento(unJinete);
+		unaCatapulta.realizarComportamiento(unSoldadoDeInfanteria);
+		unaCatapulta.realizarComportamiento(unCurandero);
 		
 		assertEquals(otraCatapulta.vidaDeLaUnidad(), 30);
 		assertEquals(unSoldadoDeInfanteria.vidaDeLaUnidad(), 80);
@@ -143,16 +143,16 @@ class UnidadesTest {
 		
 		// Se realizaran ataques para que la unidad necesite mas de 15 de vida
 		
-		otraCatapulta.atacarADistancia(otroCurandero);
-		otraCatapulta.atacarADistancia(unSoldadoDeInfanteria);
-		otraCatapulta.atacarADistancia(unJinete);
-		otraCatapulta.atacarADistancia(unaCatapulta);
+		otraCatapulta.realizarComportamiento(otroCurandero);
+		otraCatapulta.realizarComportamiento(unSoldadoDeInfanteria);
+		otraCatapulta.realizarComportamiento(unJinete);
+		otraCatapulta.realizarComportamiento(unaCatapulta);
 		
 		
-		unCurandero.curarUnidad(otroCurandero);
-		unCurandero.curarUnidad(unSoldadoDeInfanteria);
-		unCurandero.curarUnidad(unJinete);
-		unCurandero.curarUnidad(unaCatapulta);
+		unCurandero.realizarComportamiento(otroCurandero);
+		unCurandero.realizarComportamiento(unSoldadoDeInfanteria);
+		unCurandero.realizarComportamiento(unJinete);
+		unCurandero.realizarComportamiento(unaCatapulta);
 		
 		assertEquals(otroCurandero.vidaDeLaUnidad(), 70);
 		assertEquals(unSoldadoDeInfanteria.vidaDeLaUnidad(), 95);
@@ -169,10 +169,10 @@ class UnidadesTest {
 		Jinete unJinete = new Jinete();
 		Catapulta unaCatapulta = new Catapulta();
 		
-		unCurandero.curarUnidad(otroCurandero);
-		unCurandero.curarUnidad(unSoldadoDeInfanteria);
-		unCurandero.curarUnidad(unJinete);
-		unCurandero.curarUnidad(unaCatapulta);
+		unCurandero.realizarComportamiento(otroCurandero);
+		unCurandero.realizarComportamiento(unSoldadoDeInfanteria);
+		unCurandero.realizarComportamiento(unJinete);
+		unCurandero.realizarComportamiento(unaCatapulta);
 		
 		assertEquals(otroCurandero.vidaDeLaUnidad(), 75);
 		assertEquals(unSoldadoDeInfanteria.vidaDeLaUnidad(), 100);

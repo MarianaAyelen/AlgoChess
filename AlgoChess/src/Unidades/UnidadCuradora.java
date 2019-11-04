@@ -4,7 +4,7 @@ public class UnidadCuradora extends Unidad {
 
 	protected int curacion; 
 	
-	public void curarUnidad(Unidad unaUnidad) {
+	public void realizarComportamiento(Unidad unaUnidad) {
 		unaUnidad.sumarVida(curacion);
 	}
 	

@@ -14,8 +14,10 @@ public class SoldadoDeInfanteria extends UnidadAtacante {
 		
 		}
 		
+		public void realizarComportamiento(Unidad unaUnidad) {
+			unaUnidad.restarVida(danioCuerpoAcuerpo);
+		}
 		
 	
-		
 		
 }
