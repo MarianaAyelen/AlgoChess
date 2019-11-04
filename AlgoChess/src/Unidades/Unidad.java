@@ -1,6 +1,6 @@
 package Unidades;
 
-import com.sun.jndi.url.iiopname.iiopnameURLContextFactory;
+import com.sun.org.apache.xml.internal.resolver.helpers.PublicId;
 
 public class Unidad {
 	
@@ -10,7 +10,7 @@ public class Unidad {
  
 	
 	public void restarVida(int danioSufrido) {
-		
+	
 		vida = vida - danioSufrido; 
 	}	
 	
@@ -20,8 +20,9 @@ public class Unidad {
 			vida = vidaMax; 
 		}
 			
-	
 	}
+	
+
 	
 	// Metodos utilizados para las pruebas 
 	

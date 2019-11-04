@@ -1,5 +1,6 @@
 package algoChest.test;
 
+
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
@@ -167,7 +168,6 @@ class UnidadesTest {
 		SoldadoDeInfanteria unSoldadoDeInfanteria = new SoldadoDeInfanteria();
 		Jinete unJinete = new Jinete();
 		Catapulta unaCatapulta = new Catapulta();
-		Catapulta otraCatapulta = new Catapulta();
 		
 		unCurandero.curarUnidad(otroCurandero);
 		unCurandero.curarUnidad(unSoldadoDeInfanteria);
