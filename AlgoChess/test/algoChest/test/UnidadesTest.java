@@ -4,8 +4,9 @@ package algoChest.test;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
-
+import Tablero.Celda;
 import Unidades.*;
+import Jugadores.*;
 
 class UnidadesTest {
 
@@ -178,5 +179,35 @@ class UnidadesTest {
 		assertEquals(unSoldadoDeInfanteria.vidaDeLaUnidad(), 100);
 		assertEquals(unJinete.vidaDeLaUnidad(), 100);
 		assertEquals(unaCatapulta.vidaDeLaUnidad(), 50);
+	}
+	
+	@Test
+	void test009ObtenerPosicionEntidad() {
+		
+		Curandero unCurandero = new Curandero();
+		Celda unaCelda = new Celda();
+		
+		unaCelda.asignarPosicion(3, 4);
+		unCurandero.asignarCelda(unaCelda);
+		
+		assertEquals(unCurandero.obtenerPosicionX(), 3);
+		assertEquals(unCurandero.obtenerPosicionY(), 4);
+	}
+	
+	@Test
+	void test010CalcularDistanciaEntreDosEntidades() {
+		
+		Curandero unCurandero = new Curandero();
+		Curandero otroCurandero = new Curandero();
+		Celda unaCelda = new Celda();
+		Celda otraCelda = new Celda();
+		
+		unaCelda.asignarPosicion(3, 3);
+		otraCelda.asignarPosicion(3, 10);
+		
+		unCurandero.asignarCelda(unaCelda);
+		otroCurandero.asignarCelda(otraCelda);
+		
+		assertEquals(unCurandero.calcularDistancia(otroCurandero), 7*7);
 	}
 }	

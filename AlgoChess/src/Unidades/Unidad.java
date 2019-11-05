@@ -70,6 +70,4 @@ public class Unidad {
 	public Celda obtenerCelda() {
 		return celdaActual; 
 	}
-	
-	
 }
