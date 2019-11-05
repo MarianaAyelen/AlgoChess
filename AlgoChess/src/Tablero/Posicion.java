@@ -17,11 +17,11 @@ public class Posicion {
 		this.setColumna(nuevaColumna);
 	}
 	
-	private int getFila() {
+	public int getFila() {
 		return fila;
 	}
 	
-	private int getColumna() {
+	public int getColumna() {
 		return columna;
 	}
 	

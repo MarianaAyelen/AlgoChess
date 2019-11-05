@@ -14,8 +14,9 @@ public class Unidad {
 	protected int costo;
 	protected int vida;
 	protected int vidaMax;
+	//protected int distanciaMaxMovilidad
 	protected Movilidad movilidad;
-	
+		
 	public int calcularDistancia(Unidad otraUnidad) {
 		int deltaX = this.obtenerPosicionX() - otraUnidad.obtenerPosicionX();
 		int deltaY = this.obtenerPosicionY() - otraUnidad.obtenerPosicionY();
@@ -61,6 +62,12 @@ public class Unidad {
 	public Jugador obtenerPropietario() {
 		return propietario;
 	}
+	
+	//Movimiento
+	public void mover(Celda destino) throws Exception {
+		this.movilidad.mover(this, destino);
+	}
+	
 	// Metodos utilizados para las pruebas 
 	
 	public int vidaDeLaUnidad() {

@@ -30,6 +30,14 @@ public class Celda {
 		pos_x = x;
 		pos_y = y;
 	}
+	
+	public Celda(Posicion pos) {
+		pos_x = pos.getFila();
+		pos_y = pos.getColumna();
+		unidad = null;
+		propietario = null;
+		habilitada = true;
+	}
 		
 	public void asignarPropietario(Jugador unJugador) {
 		propietario = unJugador;
@@ -53,20 +61,21 @@ public class Celda {
 		this.ocuparCelda();
 	}
 	
-	public void agregarUnidadEnCasilleroVacio( Unidad nuevaUnidad ) {
+	public void agregarUnidadEnCasilleroVacio( Unidad nuevaUnidad ) throws movimientoImposibleCeldaInhabilitada {
 		if ( this.estaVacia() ) {
 			this.agregarUnidad(nuevaUnidad);
 		}else {
-			// throw new movimientoImposibleCeldaInhabilitada();
+			 throw new movimientoImposibleCeldaInhabilitada();
+			//System.out.println("No se puede colocar una unidad, celda no vacía.");
 		}
 	}
 	
-	public void agregarUnidadEnTerritorioAliado(Unidad nuevaUnidad) {
+	public void agregarUnidadEnTerritorioAliado(Unidad nuevaUnidad) throws Exception {
 		if ( this.obtenerPropietario() == nuevaUnidad.obtenerPropietario() ) {
 				this.agregarUnidadEnCasilleroVacio(nuevaUnidad);
 		}else {
-			// throw new JugadorNoPuedeColocarEntidadesEnTerritorioEnemigo();
-			System.out.println("No se puede colocar una unidad en territorio enemigo.");
+			 throw new JugadorNoPuedeColocarEntidadesEnTerritorioEnemigo();
+			//System.out.println("No se puede colocar una unidad en territorio enemigo.");
 		}
 	}
 	

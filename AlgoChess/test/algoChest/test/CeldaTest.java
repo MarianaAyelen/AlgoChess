@@ -1,12 +1,13 @@
 package algoChest.test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import org.junit.jupiter.api.Test;
-
 import Unidades.*;
 import Tablero.*;
 import Jugadores.*;
+
+import static org.junit.Assert.assertEquals;
+
+import org.junit.jupiter.api.Test;
+
 import Excepciones.*;
 
 class CeldaTest {
@@ -59,7 +60,7 @@ class CeldaTest {
 	}
 
 	@Test
-	void test003ColocarUnaEntidadEnTerritorioAliado() {
+	void test003ColocarUnaEntidadEnTerritorioAliado() throws Exception {
 		
 		Celda unaCelda = new Celda();
 		Jugador unJugador = new Jugador("Alejandro");
@@ -74,7 +75,7 @@ class CeldaTest {
 	}
 	
 	@Test
-	void test004ColocarUnaEntidadEnTerritorioEnemigo() {
+	void test004ColocarUnaEntidadEnTerritorioEnemigo() throws Exception {
 		
 		Celda unaCelda = new Celda();
 		Jugador unJugador = new Jugador("Alejandro");
@@ -91,7 +92,7 @@ class CeldaTest {
 	}	
 	
 	@Test
-	void test005ColocarUnaEntidadEnCasilleroLibre() {
+	void test005ColocarUnaEntidadEnCasilleroLibre() throws Exception {
 		
 		Celda unaCelda = new Celda();
 		Jugador unJugador = new Jugador("Alejandro");
@@ -107,7 +108,7 @@ class CeldaTest {
 	}	
 	
 	@Test
-	void test006ColocarUnaEntidadEnCasilleroOcupado() {
+	void test006ColocarUnaEntidadEnCasilleroOcupado() throws Exception {
 		
 		Celda unaCelda = new Celda();
 		Jugador unJugador = new Jugador("Alejandro");

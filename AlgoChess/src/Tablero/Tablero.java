@@ -67,7 +67,11 @@ public class Tablero {
 	}
 	
 	public void agregarUnidad(Unidad nuevaUnidad, int pos_x, int pos_y) {
-		tablero[pos_x][pos_y].agregarUnidadEnTerritorioAliado(nuevaUnidad);
+		try {
+			tablero[pos_x][pos_y].agregarUnidadEnTerritorioAliado(nuevaUnidad);			
+		}catch(Exception e) {
+			//TODO
+		}
 	}
 	
 	//Metodo para los test
