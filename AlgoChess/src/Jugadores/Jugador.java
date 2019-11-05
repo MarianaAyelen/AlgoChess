@@ -39,6 +39,8 @@ public class Jugador {
 			unidadesJugador.add(unJinete);
 		}
 		
+		
+		
 		public void agregarCatapulta() {
 			Catapulta unaCatapulta = new Catapulta();
 			restarPuntos(unaCatapulta);
