@@ -5,20 +5,33 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import Tablero.Celda;
-import Unidades.*;
 import Jugadores.*;
+import Unidades.*;
+import Excepciones.*;
+
 
 class UnidadesTest {
 
 	@Test
 	void test001SoldadoDeInfanteriaAtacaCuerpoACuerpoYRestaVida() {
 		
+		Jugador unJugador = new Jugador("marina");
+		Jugador otroJugador = new Jugador("alejandro");
+
 		SoldadoDeInfanteria unSoldadoDeInfanteria = new SoldadoDeInfanteria();
 		SoldadoDeInfanteria otroSoldadoDeInfanteria = new SoldadoDeInfanteria();
 		Jinete unJinete = new Jinete();
 		Catapulta unaCatapulta = new Catapulta();
 		Curandero unCurandero = new Curandero();
+
+		//unidades jugador 1
+		unSoldadoDeInfanteria.asignarPropietario(unJugador);
 		
+		//unidades jugador 2
+		unaCatapulta.asignarPropietario(otroJugador);
+		unJinete.asignarPropietario(otroJugador);
+		unCurandero.asignarPropietario(otroJugador);
+		otroSoldadoDeInfanteria.asignarPropietario(otroJugador);
 		
 		unSoldadoDeInfanteria.realizarComportamiento(otroSoldadoDeInfanteria);
 		unSoldadoDeInfanteria.realizarComportamiento(unaCatapulta);
@@ -34,12 +47,25 @@ class UnidadesTest {
 	
 	@Test
 	void test002JineteAtacaCuerpoACuerpoYRestaVida() {
+
+		Jugador unJugador = new Jugador("mariana");
+		Jugador otroJugador = new Jugador("alejandro");
+
 		Jinete unJinete = new Jinete();
 		Jinete otroJinete = new Jinete();
 		SoldadoDeInfanteria unSoldadoDeInfanteria = new SoldadoDeInfanteria();
 		Catapulta unaCatapulta = new Catapulta();
 		Curandero unCurandero = new Curandero();
-	
+
+		// unidades jugador 1
+		unJinete.asignarPropietario(unJugador);
+		
+		//unidades jugador 2
+		otroJinete.asignarPropietario(otroJugador);
+		unSoldadoDeInfanteria.asignarPropietario(otroJugador);
+		unCurandero.asignarPropietario(otroJugador);
+		unaCatapulta.asignarPropietario(otroJugador);
+		
 		unJinete.realizarComportamiento(otroJinete);
 		unJinete.realizarComportamiento(unSoldadoDeInfanteria);
 		unJinete.realizarComportamiento(unaCatapulta);
@@ -93,12 +119,24 @@ class UnidadesTest {
 	
 	@Test
 	void test005JineteAtacaADistanciaYRestaVida() {
-		
+
+		Jugador unJugador = new Jugador("marina");
+		Jugador otroJugador = new Jugador("alejandro");
+
 		Jinete unJinete = new Jinete();
 		Jinete otroJinete = new Jinete();
 		SoldadoDeInfanteria unSoldadoDeInfanteria = new SoldadoDeInfanteria();
 		Catapulta unaCatapulta = new Catapulta();
 		Curandero unCurandero = new Curandero();
+
+		// unidades jugador 1
+		unJinete.asignarPropietario(unJugador);
+		
+		// unidades jugador 2
+		otroJinete.asignarPropietario(otroJugador);
+		unSoldadoDeInfanteria.asignarPropietario(otroJugador);
+		unaCatapulta.asignarPropietario(otroJugador);
+		unCurandero.asignarPropietario(otroJugador);
 		
 		unJinete.realizarComportamiento(otroJinete);
 		unJinete.realizarComportamiento(unSoldadoDeInfanteria);
@@ -115,11 +153,23 @@ class UnidadesTest {
 	@Test
 	void test006CatapultaAtacaADistanciaYRestaVida() {
 		
+		Jugador unJugador = new Jugador("mariana");
+		Jugador otroJugador = new Jugador("alejandro");
+
 		Catapulta unaCatapulta = new Catapulta();
 		Catapulta otraCatapulta = new Catapulta();
 		Jinete unJinete = new Jinete();
 		SoldadoDeInfanteria unSoldadoDeInfanteria = new SoldadoDeInfanteria();
 		Curandero unCurandero = new Curandero();
+		
+		// unidades jugador 1
+		unaCatapulta.asignarPropietario(unJugador);
+		
+		// unidades jugador 2
+		otraCatapulta.asignarPropietario(otroJugador);
+		unCurandero.asignarPropietario(otroJugador);
+		unJinete.asignarPropietario(otroJugador);
+		unSoldadoDeInfanteria.asignarPropietario(otroJugador);
 		
 		unaCatapulta.realizarComportamiento(otraCatapulta);
 		unaCatapulta.realizarComportamiento(unJinete);
@@ -135,12 +185,25 @@ class UnidadesTest {
 	@Test
 	void test007CuradorCuraUnaUnidadYSumaVida() {
 		
+		Jugador unJugador = new Jugador("marina");
+		Jugador otroJugador = new Jugador("alejandro");
+		
 		Curandero unCurandero = new Curandero();
 		Curandero otroCurandero = new Curandero();
 		SoldadoDeInfanteria unSoldadoDeInfanteria = new SoldadoDeInfanteria();
 		Jinete unJinete = new Jinete();
 		Catapulta unaCatapulta = new Catapulta();
 		Catapulta otraCatapulta = new Catapulta();
+		
+		// unidades el jugador 1
+		unaCatapulta.asignarPropietario(unJugador);
+		unCurandero.asignarPropietario(unJugador);
+		unSoldadoDeInfanteria.asignarPropietario(unJugador);
+		unJinete.asignarPropietario(unJugador);
+		otroCurandero.asignarPropietario(unJugador);
+		
+		// unidades del jugador 2
+		otraCatapulta.asignarPropietario(otroJugador);
 		
 		// Se realizaran ataques para que la unidad necesite mas de 15 de vida
 		

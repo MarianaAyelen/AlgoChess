@@ -1,6 +1,8 @@
 package Unidades;
 
 import Excepciones.JugadorNoPuedeAtacarFichaAliada;
+import Jugadores.*;
+
 
 public class UnidadAtacante extends Unidad {
 
@@ -14,18 +16,8 @@ public class UnidadAtacante extends Unidad {
 	
 	protected void chequearAtaqueAUnidadEnemiga(Unidad unaUnidad) {
 		if (this.obtenerPropietario() == unaUnidad.obtenerPropietario()) {
-			throw new JugadorNoPuedeAtacarFichaAliada();
-			
+			throw new JugadorNoPuedeAtacarFichaAliada();			
 		}
 	}
-	/*
-	public void atacarCuerpoACuerpo(Unidad unaUnidad) {
-		unaUnidad.restarVida(danioCuerpoAcuerpo);
-	}
-	
-	public void atacarADistancia(Unidad unaUnidad) {
-		unaUnidad.restarVida(danioADistancia);
-	}
-	*/
 	
 }

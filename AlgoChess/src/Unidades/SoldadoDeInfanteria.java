@@ -1,6 +1,6 @@
 package Unidades;
 
-
+import Excepciones.SoldadoDeInfanteriaSoloAtacaACortaDistancia;
 
 public class SoldadoDeInfanteria extends UnidadAtacante {
 
@@ -17,6 +17,10 @@ public class SoldadoDeInfanteria extends UnidadAtacante {
 		
 		public void realizarComportamiento(Unidad unaUnidad) {
 			chequearAtaqueAUnidadEnemiga(unaUnidad);
+			int distancia = this.calcularDistancia(unaUnidad);
+			if (distancia > 2) {
+				throw new SoldadoDeInfanteriaSoloAtacaACortaDistancia();
+			}
 			unaUnidad.restarVida(danioCuerpoAcuerpo);
 		}
 		

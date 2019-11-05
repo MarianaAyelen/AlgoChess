@@ -14,7 +14,7 @@ public class Jinete extends UnidadAtacante {
 
 	public void realizarComportamiento(Unidad unaUnidad) {
 		chequearAtaqueAUnidadEnemiga(unaUnidad);
-		//chequear condiciones de distancias y agregar el otro ataque
+		
 		unaUnidad.restarVida(danioADistancia);
 	}
 	

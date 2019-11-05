@@ -19,7 +19,7 @@ public class Unidad {
 	public int calcularDistancia(Unidad otraUnidad) {
 		int deltaX = this.obtenerPosicionX() - otraUnidad.obtenerPosicionX();
 		int deltaY = this.obtenerPosicionY() - otraUnidad.obtenerPosicionY();
-		return ( deltaX*deltaX + deltaY*deltaY ) ;
+		return (int) (Math.sqrt(deltaX*deltaX + deltaY*deltaY)  ) ;
 	}
 	
 	public void asignarCelda(Celda unaCelda) {

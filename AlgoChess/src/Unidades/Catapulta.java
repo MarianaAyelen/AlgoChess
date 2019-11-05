@@ -1,5 +1,7 @@
 package Unidades;
 
+import Excepciones.CatapultaSoloAtacaADistancia;
+import Excepciones.SoldadoDeInfanteriaSoloAtacaACortaDistancia;
 
 public class Catapulta extends UnidadAtacante {
 
@@ -16,6 +18,13 @@ public class Catapulta extends UnidadAtacante {
 	
 	public void realizarComportamiento(Unidad unaUnidad) {
 		chequearAtaqueAUnidadEnemiga(unaUnidad);
+		
+		int distancia = this.calcularDistancia(unaUnidad);
+		
+		if (distancia < 6) {
+			throw new CatapultaSoloAtacaADistancia();
+		}
+
 		unaUnidad.restarVida(danioADistancia);
 	}
 	

@@ -1,6 +1,7 @@
 package Excepciones;
 
-public class JugadorNoPuedeAtacarFichaAliada extends RuntimeException {
-
+public class CatapultaSoloAtacaADistancia extends RuntimeException {
 	private static final long serialVersionUID = 1L;
+
+
 }
