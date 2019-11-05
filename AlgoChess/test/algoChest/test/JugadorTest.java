@@ -18,17 +18,13 @@ class JugadorTest {
 	void test001JugadorNoPuedeTomarMasEntidadesDeLasQuePuntos() {
 		
 		Jugador jugador1 = new Jugador("Jugador1");
-		Tablero tablero = new Tablero(20, 20);
-		Unidad unaUnidad;
 		
 		try {
-		for (int i = 0; i <5; i++) {
-			unaUnidad = new Catapulta();
-			unaUnidad.asignarPropietario(jugador1);
-			jugador1.agregarCatapulta(tablero, i, i);
-		}
-		}catch (JugadorNoPuedeAgregarMasEntidades e) {
-			System.out.println("No tiene puntos para agregar esa undiad");
+			for (int i = 0; i < 7; i++) {
+				jugador1.agregarCatapulta();
+			}
+		} catch (JugadorNoPuedeAgregarMasEntidades e) {
+			System.out.println("No tiene puntos para agregar esa unidad");
 		}
 		
 		assertEquals(jugador1.cantidadDeUnidades(), 4);

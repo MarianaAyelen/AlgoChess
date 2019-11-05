@@ -1,12 +1,15 @@
 package Jugadores;
 
 
+
 import java.util.ArrayList;
 import java.util.List;
 
 
 import Excepciones.JugadorNoPuedeAgregarMasEntidades;
+import Excepciones.JugadorNoTieneMasPuntos;
 import Unidades.Unidad;
+import sun.awt.AWTAccessor.SystemColorAccessor;
 import Unidades.*;
 import Tablero.Tablero;
 
@@ -21,42 +24,40 @@ public class Jugador {
 			puntosIniciales = 20;
 		}
 		
-		public void agregarSoldadoInfanteria(Tablero tablero, int posX, int posY) {
-			
+		
+		public void agregarSoldadoInfanteria() {
 			SoldadoDeInfanteria unSoldadoDeInfanteria = new SoldadoDeInfanteria();
 			restarPuntos(unSoldadoDeInfanteria);
 			unSoldadoDeInfanteria.asignarPropietario(this);
-			tablero.agregarUnidad(unSoldadoDeInfanteria, posX, posY);
 			unidadesJugador.add(unSoldadoDeInfanteria);
 		}
 		
-		public void agregarJinete(Tablero tablero, int posX, int posY) {
-			
+		public void agregarjinete() {
 			Jinete unJinete = new Jinete();
 			restarPuntos(unJinete);
 			unJinete.asignarPropietario(this);
-			tablero.agregarUnidad(unJinete,posX,posY);
 			unidadesJugador.add(unJinete);
 		}
 		
-		public void agregarCatapulta(Tablero tablero, int posX, int posY) {
+		public void agregarCatapulta() {
 			Catapulta unaCatapulta = new Catapulta();
 			restarPuntos(unaCatapulta);
 			unaCatapulta.asignarPropietario(this);
-			tablero.agregarUnidad(unaCatapulta, posX, posY);
 			unidadesJugador.add(unaCatapulta);
-			
 		}
 		
-		public void agregarCurandero(Tablero tablero, int posX, int posY) {
+		public void agregarCurandero() {
 			Curandero unCurandero = new Curandero();
 			restarPuntos(unCurandero);
 			unCurandero.asignarPropietario(this);
-			tablero.agregarUnidad(unCurandero, posX, posY);
 			unidadesJugador.add(unCurandero);
 		}
 		
-	
+		public void agregarUnidadAlTablero( Tablero tablero, int posX, int posY) {
+						
+			tablero.agregarUnidad(unidadesJugador.get(1), posX, posY);
+		}
+			
 		private void restarPuntos(Unidad unaUnidad) {
 			
 			int costoUnidad = unaUnidad.obtenerCosto();
@@ -71,6 +72,11 @@ public class Jugador {
 			
 			unaUnidad.realizarComportamiento(otraUnidad);
 		}
+		
+		public void eliminarUnidad(Unidad unaUnidad) {
+			
+		}
+		
 		
 		// metodos para pruebas
 		public int cantidadDeUnidades() {
