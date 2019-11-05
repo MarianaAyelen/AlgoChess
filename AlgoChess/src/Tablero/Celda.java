@@ -22,6 +22,14 @@ public class Celda {
 		propietario = null;
 		habilitada = flag;
 	}
+	
+	public Celda(int x, int y, boolean flag) {
+		unidad = null;
+		propietario = null;
+		habilitada = flag;
+		pos_x = x;
+		pos_y = y;
+	}
 		
 	public void asignarPropietario(Jugador unJugador) {
 		propietario = unJugador;
@@ -41,6 +49,7 @@ public class Celda {
 	
 	public void agregarUnidad (Unidad nuevaUnidad) {
 		unidad = nuevaUnidad;
+		unidad.asignarCelda(this);
 		this.ocuparCelda();
 	}
 	
@@ -64,6 +73,19 @@ public class Celda {
 	public void sacarUnidad() {
 		unidad = null;
 		this.vaciarCelda();
+	}
+	
+	public void asignarPosicion(int x, int y) {
+		pos_x = x;
+		pos_y = y;
+	}
+	
+	public int obtenerPosicionX() {
+		return pos_x;
+	}
+
+	public int obtenerPosicionY() {
+		return pos_y;
 	}
 	
 	// Metodo para tests
