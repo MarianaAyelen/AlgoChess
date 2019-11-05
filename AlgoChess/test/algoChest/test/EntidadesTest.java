@@ -29,10 +29,12 @@ class EntidadesTest {
 		Jugador jugador2 = new Jugador("jugador2");
 		Unidad unidadAliada ;
 		Unidad unidadEnemiga;
-		
-		jugador1.agregarSoldadoInfanteria(tablero,1,1);
-		jugador2.agregarSoldadoInfanteria(tablero,2,2);
-		
+	/*	
+		jugador1.agregarSoldadoInfanteria();
+		jugador2.agregarSoldadoInfanteria();
+		jugador1.agregarUnidadAlTablero(tablero,1,1);
+		jugador2.agregarUnidadAlTablero(tablero,1,2);
+		*/
 	}		
 	
 	@Test
