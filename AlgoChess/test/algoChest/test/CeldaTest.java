@@ -24,6 +24,17 @@ class CeldaTest {
 	}
 	
 	@Test
+	void test0001ColocarUnaEntidadEnUnaCeldaYVerificarQueLaEntidadSepaSuPosicion() {
+		
+		Celda unaCelda = new Celda();
+		SoldadoDeInfanteria unSoldadoDeInfanteria = new SoldadoDeInfanteria();
+		
+		unaCelda.agregarUnidad(unSoldadoDeInfanteria);
+		
+		assertEquals(unSoldadoDeInfanteria.obtenerCelda(), unaCelda);
+	}
+	
+	@Test
 	void test001ColocarYSacarUnaEntidadDeUnaCelda() {
 		
 		Celda unaCelda = new Celda();
@@ -112,5 +123,16 @@ class CeldaTest {
 
 		assertEquals(unaCelda.estaVacia(), false);
 		assertEquals(unaCelda.obtenerEntidad() , unSoldadoDeInfanteria);
+	}	
+	
+	@Test
+	void test007ObtenerPosicionDeUnaCelda() {
+		
+		Celda unaCelda = new Celda();
+
+		unaCelda.asignarPosicion(3, 4);
+		
+		assertEquals(unaCelda.obtenerPosicionX() , 3);
+		assertEquals(unaCelda.obtenerPosicionY() , 4);
 	}	
 }
