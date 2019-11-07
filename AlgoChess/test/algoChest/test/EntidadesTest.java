@@ -17,17 +17,9 @@ import Unidades.*;
 
 class EntidadesTest {
 
-	@Test
-	void test001EntidadMovibleSePuedeMoverEnTodasLasDirecciones() {
-	
-	}
-	@Test
-	void test002EntidadMovibleNoPuedeMoverseACasilleroOcupado() {
-	
-	}
 	
 	@Test
-	void test003SoldadoDeInfanteriaAliadoAtacaAPiezaYVerificaQueSeRestaVida() {
+	void test001SoldadoDeInfanteriaAliadoAtacaAPiezaYVerificaQueSeRestaVida() {
 	
 		Celda celdaAliado = new Celda();
 		Celda celdaEnemigo = new Celda();
@@ -56,7 +48,7 @@ class EntidadesTest {
 	}		
 	
 	@Test
-	void test004JineteAliadoAtacaAPiezaYVerificaQueSeRestaVida() {
+	void test002JineteAliadoAtacaAPiezaYVerificaQueSeRestaVida() {
 		Celda celdaAliado = new Celda();
 		Celda celdaEnemigo = new Celda();
 		
@@ -84,7 +76,7 @@ class EntidadesTest {
 	}		
 	
 	@Test
-	void test005CatapultaAliadoAtacaAPiezaYVerificaQueSeRestaVida() {
+	void test003CatapultaAliadoAtacaAPiezaYVerificaQueSeRestaVida() {
 		Celda celdaAliado = new Celda();
 		Celda celdaEnemigo = new Celda();
 		
@@ -113,7 +105,7 @@ class EntidadesTest {
 	}		
 	
 	@Test
-	void test006CuranderoAliadoCuraAPiezaYVerificaQueSeSumaVida() {
+	void test004CuranderoAliadoCuraAPiezaYVerificaQueSeSumaVida() {
 		Celda celdaCurandero = new Celda();
 		Celda celdaSoldado = new Celda();
 		Celda celdaCatapulta = new Celda();
@@ -155,7 +147,7 @@ class EntidadesTest {
 	}		
 
 	@Test
-	void test007UnidadAliadaNoPuedeAtacarUnidadAliada() {
+	void test005UnidadAliadaNoPuedeAtacarUnidadAliada() {
 
 		Jugador unJugador = new Jugador("mariana");
 		SoldadoDeInfanteria unSoldadoDeInfanteria = new SoldadoDeInfanteria();
@@ -172,7 +164,7 @@ class EntidadesTest {
 	}		
 
 	@Test
-	void test008UnidadAliadaNoPuedeCurarUndidadEnemiga() {
+	void test006UnidadAliadaNoPuedeCurarUndidadEnemiga() {
 		Jugador jugadorAliado = new Jugador("mariana");
 		Jugador jugadorEnemigo = new Jugador("Alejandro");
 		Celda celdaAliada = new Celda();
@@ -212,7 +204,7 @@ class EntidadesTest {
 	}		
 
 	@Test
-	void test009SoldadoDeInfanteriaSoloPuedeAtacarACortaDistancia() {
+	void test007SoldadoDeInfanteriaSoloPuedeAtacarACortaDistancia() {
 	
 		Celda celdaAliado = new Celda();
 		Celda celdaEnemigo = new Celda();
@@ -244,7 +236,7 @@ class EntidadesTest {
 	}		
 	
 	@Test
-	void test010CatapultaSoloAtacaADistanciaslejanas() {
+	void test008CatapultaSoloAtacaADistanciaslejanas() {
 		Celda celdaAliado = new Celda();
 		Celda celdaEnemigo = new Celda();
 		
@@ -277,7 +269,7 @@ class EntidadesTest {
 	}		
 
 	@Test
-	void test011CuranderoAliadoCuraAPiezaYVerificaQueSeSumaVida() {
+	void test009CuranderoAliadoCuraAPiezaYVerificaQueSeSumaVida() {
 		Celda celdaCurandero = new Celda();
 		Celda celdaSoldado = new Celda();
 		Celda celdaCatapulta = new Celda();
