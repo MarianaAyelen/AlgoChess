@@ -57,8 +57,8 @@ public class Celda {
 	
 	public void agregarUnidad (Unidad nuevaUnidad) {
 		unidad = nuevaUnidad;
-		unidad.asignarCelda(this);
 		this.ocuparCelda();
+		unidad.asignarCelda(this);
 	}
 	
 	public void agregarUnidadEnCasilleroVacio( Unidad nuevaUnidad ) throws movimientoImposibleCeldaInhabilitada {
@@ -66,7 +66,6 @@ public class Celda {
 			this.agregarUnidad(nuevaUnidad);
 		}else {
 			 throw new movimientoImposibleCeldaInhabilitada();
-			//System.out.println("No se puede colocar una unidad, celda no vacía.");
 		}
 	}
 	
@@ -104,6 +103,24 @@ public class Celda {
 	
 	public Jugador obtenerPropietario() {
 		return propietario;
-	}	
+	}
+	
+	public int calcularDistancia(Celda otraCelda) {
+		int deltaX = this.pos_x - otraCelda.pos_x;
+		int deltaY = this.pos_y - otraCelda.pos_y;
+		return (int) (Math.sqrt(deltaX*deltaX + deltaY*deltaY)  ) ;
+	}
+	
+	public boolean mismaFila(Celda otraCelda) {
+		return (this.pos_x==otraCelda.pos_x);
+	}
+
+	public boolean mismaColumna(Celda otraCelda) {
+		return (this.pos_y==otraCelda.pos_y);
+	}
+
+	public boolean mismaDiagonal(Celda otraCelda) {
+		return true;
+	}
 }
 

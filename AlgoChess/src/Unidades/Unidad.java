@@ -14,8 +14,8 @@ public class Unidad {
 	protected int costo;
 	protected int vida;
 	protected int vidaMax;
-	//protected int distanciaMaxMovilidad
 	protected Movilidad movilidad;
+	protected static final int DISTANCIA_MOVIMIENTO_MAX = 1;
 		
 	public int calcularDistancia(Unidad otraUnidad) {
 		int deltaX = this.obtenerPosicionX() - otraUnidad.obtenerPosicionX();
@@ -25,6 +25,10 @@ public class Unidad {
 	
 	public void asignarCelda(Celda unaCelda) {
 		celdaActual = unaCelda;
+		if(unaCelda.estaVacia())
+		{
+			unaCelda.agregarUnidad(this);
+		}
 	}
 	
 	public int obtenerPosicionX() {

@@ -45,9 +45,33 @@ public class MovilidadTest {
 			jinete.mover(celdaDestino);			
 		}catch(Exception e)
 		{
-			//should never get here
+			assertEquals(true,false);//should never get here
 		}
 		assertEquals(jinete.obtenerCelda(),celdaDestino);
 	}
 
+	@Test
+	void moverUnidadMovilAMismaCelda() {
+		Jinete jinete = new Jinete();
+		Celda celdaOrigen = new Celda(0,0,true);
+		jinete.asignarCelda(celdaOrigen);
+		Celda celdaDestino = celdaOrigen;
+	    assertThrows(movimientoImposibleDistanciaNula.class, () -> {
+	        jinete.mover(celdaDestino);
+	    });		
+	}
+	
+	@Test
+	void moverUnidadMovilDistanciaMayorAMaxima() {
+		Jinete jinete = new Jinete();
+		Celda celdaOrigen = new Celda(0,0,true);
+		jinete.asignarCelda(celdaOrigen);
+		Celda celdaDestino = new Celda(3,3,true);
+	    assertThrows(movimientoImposibleDistanciaMayorAMaxima.class, () -> {
+	        jinete.mover(celdaDestino);
+	    });		
+	}
+
+
+	
 }
