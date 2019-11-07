@@ -85,7 +85,11 @@ class CeldaTest {
 		unSoldadoDeInfanteria.asignarPropietario(unJugador);
 		unaCelda.asignarPropietario(otroJugador);
 		
-		unaCelda.agregarUnidadEnTerritorioAliado(unSoldadoDeInfanteria);
+		try {
+			unaCelda.agregarUnidadEnTerritorioAliado(unSoldadoDeInfanteria);
+		}catch (JugadorNoPuedeColocarEntidadesEnTerritorioEnemigo e) {
+			// TODO: handle exception
+		}
 
 		assertEquals(unaCelda.estaVacia(), true);
 		assertEquals(unaCelda.obtenerEntidad() , null);
@@ -120,8 +124,12 @@ class CeldaTest {
 		unaCelda.asignarPropietario(unJugador);
 		
 		unaCelda.agregarUnidadEnTerritorioAliado(unSoldadoDeInfanteria);
-		unaCelda.agregarUnidadEnTerritorioAliado(otroSoldadoDeInfanteria);
-
+		try {
+			unaCelda.agregarUnidadEnTerritorioAliado(otroSoldadoDeInfanteria);
+		}catch (movimientoImposibleCeldaInhabilitada e) {
+			// TODO: handle exception
+		}
+		
 		assertEquals(unaCelda.estaVacia(), false);
 		assertEquals(unaCelda.obtenerEntidad() , unSoldadoDeInfanteria);
 	}	
