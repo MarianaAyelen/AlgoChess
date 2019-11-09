@@ -1,5 +1,7 @@
 package Unidades;
 
+import java.util.List;
+
 import Excepciones.movimientoImposibleCeldaInhabilitada;
 import Excepciones.movimientoImposibleDistanciaMayorAMaxima;
 import Excepciones.movimientoImposibleDistanciaNula;

@@ -1,7 +1,12 @@
 package Tablero;
 
+import Unidades.SoldadoDeInfanteria;
 import Unidades.Unidad;
 import Jugadores.Jugador;
+
+import java.util.Iterator;
+import java.util.List;
+
 import Excepciones.*;
 
 public class Celda {
@@ -121,6 +126,36 @@ public class Celda {
 
 	public boolean mismaDiagonal(Celda otraCelda) {
 		return true;
+	}
+	
+	public void aumentarFila() {
+		pos_x = pos_x + 1;
+	}
+	
+	public void aumentarColumna() {
+		pos_y = pos_y + 1;
+	}
+	
+	public boolean tresCeldasUnidas(Celda celda2 , Celda celda3 ) {
+		boolean celdasUnidas = false;
+		
+		if(this.calcularDistancia(celda2)==1) {
+			if(this.calcularDistancia(celda3)==1) {
+				celdasUnidas = true;
+			}
+			if(celda2.calcularDistancia(celda3)==1) {
+				celdasUnidas = true;	
+			}
+		}
+		if(this.calcularDistancia(celda3)==1) {
+			if(celda2.calcularDistancia(celda3)==1) {
+				celdasUnidas = true;
+			}else {
+				celdasUnidas = false;
+			}		
+		}
+		
+		return celdasUnidas;
 	}
 }
 

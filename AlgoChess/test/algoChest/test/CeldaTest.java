@@ -143,5 +143,35 @@ class CeldaTest {
 		
 		assertEquals(unaCelda.obtenerPosicionX() , 3);
 		assertEquals(unaCelda.obtenerPosicionY() , 4);
+	}
+	
+	@Test
+	void test008TresCeldasUnidas() {
+		
+		Celda celda1 = new Celda();
+		Celda celda2 = new Celda();
+		Celda celda3 = new Celda();
+
+		celda1.asignarPosicion(2, 2);
+		celda2.asignarPosicion(2, 3); 
+		celda3 .asignarPosicion(2, 4);
+		
+		assertEquals(celda1.tresCeldasUnidas(celda2, celda3) , true);
+
 	}	
+	
+	@Test
+	void test009TresCeldasNoUnidas() {
+		
+		Celda celda1 = new Celda();
+		Celda celda2 = new Celda();
+		Celda celda3 = new Celda();
+
+		celda1.asignarPosicion(2, 2);
+		celda2.asignarPosicion(2, 3); 
+		celda3 .asignarPosicion(2, 5);
+		
+		assertEquals(celda1.tresCeldasUnidas(celda2, celda3) , false);
+
+	}
 }

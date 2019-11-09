@@ -1,5 +1,6 @@
 package algoChest.test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.hamcrest.SelfDescribing;
@@ -309,5 +310,49 @@ class EntidadesTest {
 		assertEquals(unSoldadoDeInfanteria.vidaDeLaUnidad(), 80);
 		
 	}		
+	
+	@Test
+	void test009EsBatallon() {
+		
+		Celda celda1 = new Celda();
+		Celda celda2 = new Celda();
+		Celda celda3 = new Celda();
 
+		celda1.asignarPosicion(2, 2);
+		celda2.asignarPosicion(2, 3); 
+		celda3 .asignarPosicion(2, 4);
+		
+		SoldadoDeInfanteria soldado1 = new SoldadoDeInfanteria();
+		SoldadoDeInfanteria soldado2 = new SoldadoDeInfanteria();
+		SoldadoDeInfanteria soldado3 = new SoldadoDeInfanteria();
+		soldado1.asignarCelda(celda1);
+		soldado2.asignarCelda(celda2);
+		soldado3.asignarCelda(celda3);
+		
+		
+		assertEquals(soldado1.esBatallon(soldado2, soldado3), true);
+
+	}
+	
+	@Test
+	void test010NoEsBatallon() {
+		
+		Celda celda1 = new Celda();
+		Celda celda2 = new Celda();
+		Celda celda3 = new Celda();
+
+		celda1.asignarPosicion(2, 2);
+		celda2.asignarPosicion(2, 3); 
+		celda3 .asignarPosicion(2, 5);
+		
+		SoldadoDeInfanteria soldado1 = new SoldadoDeInfanteria();
+		SoldadoDeInfanteria soldado2 = new SoldadoDeInfanteria();
+		SoldadoDeInfanteria soldado3 = new SoldadoDeInfanteria();
+		soldado1.asignarCelda(celda1);
+		soldado2.asignarCelda(celda2);
+		soldado3.asignarCelda(celda3);
+		
+		assertEquals(soldado1.esBatallon(soldado2, soldado3), false);
+
+	}
 }
