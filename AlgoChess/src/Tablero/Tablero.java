@@ -78,5 +78,15 @@ public class Tablero {
 	public Unidad obtenerUnidad(int pos_x, int pos_y) {
 		return tablero[pos_x][pos_y].obtenerEntidad();
 	}
+	
+	private Celda obtenerCelda(int pos_x, int pos_y) {
+		return tablero[pos_x][pos_y];
+	}
  	
+	public void moverUnidad(int posInicialx, int posInicialy,int posFinalx, int posFinaly ) throws Exception {
+		
+		Celda celdaFinal = this.obtenerCelda(posFinalx, posFinaly);
+		this.obtenerUnidad(posInicialx, posInicialy).mover(celdaFinal);
+		
+	}
 }
