@@ -21,7 +21,8 @@ public class MovilidadTest {
 	        catap.mover(celdaDestino);
 	    });
 	}
-
+	
+	/*
 	@Test
 	void test01moverUnidadMovilACeldaOcupada() {
 		Jinete jinete = new Jinete();
@@ -33,7 +34,7 @@ public class MovilidadTest {
 	    assertThrows(movimientoImposibleCeldaInhabilitada.class, () -> {
 	        jinete.mover(celdaDestino);
 	    });		
-	}
+	}*/
 
 	@Test
 	void test02moverUnidadMovilACeldaVacia() {
