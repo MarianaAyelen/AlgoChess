@@ -26,8 +26,9 @@ public class unidadMovil implements Movilidad{
 //		if(!destino.estaVacia()) {
 //			throw new movimientoImposibleCeldaInhabilitada();
 //		}
-		destino.agregarUnidadEnCasilleroVacio(u);					
-		celdaVieja.sacarUnidad();
+		if(destino.agregarUnidadEnCasilleroVacio(u)) {					
+			celdaVieja.sacarUnidad();
+		}
 	}
 
 }

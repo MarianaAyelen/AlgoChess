@@ -1,11 +1,8 @@
 package Tablero;
 
-import Unidades.SoldadoDeInfanteria;
 import Unidades.Unidad;
 import Jugadores.Jugador;
 
-import java.util.Iterator;
-import java.util.List;
 
 import Excepciones.*;
 
@@ -66,12 +63,16 @@ public class Celda {
 		unidad.asignarCelda(this);
 	}
 	
-	public void agregarUnidadEnCasilleroVacio( Unidad nuevaUnidad ) throws movimientoImposibleCeldaInhabilitada {
+	public boolean agregarUnidadEnCasilleroVacio( Unidad nuevaUnidad ) throws movimientoImposibleCeldaInhabilitada {
+		boolean estaVacia = false;
 		if ( this.estaVacia() ) {
 			this.agregarUnidad(nuevaUnidad);
-		}else {
-			 throw new movimientoImposibleCeldaInhabilitada();
+			estaVacia = true;
 		}
+			//else {
+		//	 throw new movimientoImposibleCeldaInhabilitada();
+		//}
+		return estaVacia;
 	}
 	
 	public void agregarUnidadEnTerritorioAliado(Unidad nuevaUnidad) throws Exception {

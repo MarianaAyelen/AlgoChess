@@ -134,4 +134,71 @@ class TableroTest {
 		
 	}
 	
+	@Test
+	void test004VerificaMovimientoDeBatallonConObstaculo() throws Exception {
+		Tablero unTablero = new Tablero(20,20);
+		Jugador[] jugadores = new Jugador[2];
+		Jugador unJugador = new Jugador("Juan1");
+		Jugador otroJugador = new Jugador("Juan2");
+		jugadores[0] = unJugador;
+		jugadores[1] = otroJugador;
+		
+		SoldadoDeInfanteria unSoldadoDeInfanteria1 = new SoldadoDeInfanteria();
+		unSoldadoDeInfanteria1.asignarPropietario(unJugador);
+		SoldadoDeInfanteria unSoldadoDeInfanteria2 = new SoldadoDeInfanteria();
+		unSoldadoDeInfanteria2.asignarPropietario(unJugador);
+		SoldadoDeInfanteria unSoldadoDeInfanteria3 = new SoldadoDeInfanteria();
+		unSoldadoDeInfanteria3.asignarPropietario(unJugador);
+		Jinete unJinete = new Jinete();
+		unJinete.asignarPropietario(unJugador);
+		
+		unTablero.generarTerritorios(jugadores);
+		
+		int pos_2 = 2;
+		int pos_3 = 3;
+		int pos_4 = 4;
+			
+		unTablero.agregarUnidad(unSoldadoDeInfanteria1, pos_2, pos_2);
+		unTablero.agregarUnidad(unSoldadoDeInfanteria2, pos_2, pos_3);
+		unTablero.agregarUnidad(unSoldadoDeInfanteria3, pos_2, pos_4);
+		unTablero.agregarUnidad(unJinete, pos_3, pos_4);
+		
+		assertEquals(unTablero.obtenerUnidad(pos_2, pos_2), unSoldadoDeInfanteria1);
+		assertEquals(unTablero.obtenerUnidad(pos_2, pos_3), unSoldadoDeInfanteria2);
+		assertEquals(unTablero.obtenerUnidad(pos_2, pos_4), unSoldadoDeInfanteria3);
+		
+		int posInicialx[];
+		posInicialx = new int[3];
+		int posInicialy[];
+		posInicialy = new int[3];
+		int posFinalx[];
+		posFinalx = new int[3];
+		int posFinaly[];
+		posFinaly = new int[3];
+		
+		posInicialx[0] = pos_2;
+		posInicialx[1] = pos_2;
+		posInicialx[2] = pos_2;
+		
+		posInicialy[0] = pos_2;
+		posInicialy[1] = pos_3;
+		posInicialy[2] = pos_4;		
+		
+		posFinalx[0] = pos_3;
+		posFinalx[1] = pos_3;
+		posFinalx[2] = pos_3;		
+		
+		posFinaly[0] = pos_2;
+		posFinaly[1] = pos_3;
+		posFinaly[2] = pos_4;
+		unTablero.moverBatallon(posInicialx, posInicialy, posFinalx, posFinaly);
+		assertEquals(unTablero.obtenerUnidad(pos_3, pos_2), unSoldadoDeInfanteria1);
+		assertEquals(unTablero.obtenerUnidad(pos_2, pos_2), null);
+		
+		assertEquals(unTablero.obtenerUnidad(pos_2, pos_4), unSoldadoDeInfanteria3);
+		assertEquals(unTablero.obtenerUnidad(pos_3, pos_3), unSoldadoDeInfanteria2);
+		assertEquals(unTablero.obtenerUnidad(pos_3, pos_4), unJinete);
+		
+	}
+	
 }
