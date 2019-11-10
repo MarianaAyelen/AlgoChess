@@ -216,11 +216,8 @@ class TableroTest {
 		unSoldadoDeInfanteria2.asignarPropietario(unJugador);
 		SoldadoDeInfanteria unSoldadoDeInfanteria3 = new SoldadoDeInfanteria();
 		unSoldadoDeInfanteria3.asignarPropietario(unJugador);
-		Jinete unJinete = new Jinete();
-		unJinete.asignarPropietario(unJugador);
 		
 		unTablero.generarTerritorios(jugadores);
-		
 		int pos_2 = 2;
 		int pos_3 = 3;
 		int pos_4 = 4;
