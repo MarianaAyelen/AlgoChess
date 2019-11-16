@@ -68,6 +68,9 @@ public class Celda {
 		if ( this.estaVacia() ) {
 			this.agregarUnidad(nuevaUnidad);
 			estaVacia = true;
+			
+		}else {
+			System.out.println("La celda no esta vacia");
 		}
 			//else {
 		//	 throw new movimientoImposibleCeldaInhabilitada();
@@ -102,14 +105,7 @@ public class Celda {
 		return pos_y;
 	}
 	
-	// Metodo para tests
-	public Unidad obtenerEntidad() {
-		return unidad;
-	}
 	
-	public Jugador obtenerPropietario() {
-		return propietario;
-	}
 	
 	public int calcularDistancia(Celda otraCelda) {
 		int deltaX = this.pos_x - otraCelda.pos_x;
@@ -158,5 +154,44 @@ public class Celda {
 		
 		return celdasUnidas;
 	}
+	
+	public boolean esDistanciaCercana(Celda otraCelda) {
+		boolean esDistanciaCercana = false;
+		if (this.calcularDistancia(otraCelda)>0 && this.calcularDistancia(otraCelda)<3) {
+			esDistanciaCercana = true;
+		}
+		return esDistanciaCercana;
+	}
+	
+	public boolean esDistanciaMedia(Celda otraCelda) {
+		boolean esMediaDistancia = false;
+		//System.out.println(this.calcularDistancia(otraCelda));
+		if (this.calcularDistancia(otraCelda)>2 && this.calcularDistancia(otraCelda)<6) {
+			
+
+			esMediaDistancia = true;
+		}
+		return esMediaDistancia;
+	}
+	
+	public boolean esDistanciaLejana(Celda otraCelda) {
+		boolean esDistanciaLejana = false;
+		if (this.calcularDistancia(otraCelda)>5) {
+			esDistanciaLejana = true;
+		}
+		return esDistanciaLejana;
+	}
+	
+	
+	
+	// Metodo para tests
+	public Unidad obtenerEntidad() {
+		return unidad;
+	}
+	
+	public Jugador obtenerPropietario() {
+		return propietario;
+	}
+	
 }
 
