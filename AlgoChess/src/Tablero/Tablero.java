@@ -3,6 +3,8 @@ package Tablero;
 import Jugadores.*;
 import Unidades.*;
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Tablero {
 
@@ -16,7 +18,6 @@ public class Tablero {
 		tablero = new Celda[n+2][m+2]; 	// Creo una matriz de referencias a objetos Celda (aun no estan creadas las intancias de las celdas)
 		this.generarTablero();
 	}
-	
 	
 	private void generarTablero() { 
 		  this.generarBordeSuperior();
@@ -94,6 +95,52 @@ public class Tablero {
 		soldado1.moverBatallon(soldado2, soldado3, destino1, destino2, destino3);
 	}
 	
+	public List<Celda> devolverCeldasDistanciaCercana(Celda unaCelda) {
+		List<Celda> celdasCercanas = new ArrayList<Celda>();
+		for(int row=1; row< cantidadFilas-1; row++) { // -1 porque los bordes no cuentan
+			for(int col=1; col< cantidadColumnas-1; col++) {
+				if(tablero[row][col].esDistanciaCercana(unaCelda)) {
+					celdasCercanas.add(tablero[row][col]);
+				}
+			}
+		}
+		return celdasCercanas;
+	}
+	
+	public boolean hayUnidadesEnemigasEnDistanciaCercana(Unidad unaUnidad) {
+		boolean hayUnidadesEnemigasEnDistanciaCercana = false; 
+		List<Celda> celdasCercanas = new ArrayList<Celda>();
+		celdasCercanas = this.devolverCeldasDistanciaCercana(unaUnidad.obtenerCelda());
+		Iterator<Celda> iteradorCelda = celdasCercanas.iterator();
+		Celda celdaAuxiliar = new Celda();
+		while (iteradorCelda.hasNext()) {
+			celdaAuxiliar = iteradorCelda.next();
+			if(!celdaAuxiliar.estaVacia()) {
+				if(!(celdaAuxiliar.obtenerEntidad().esUnidadAliada(unaUnidad))) {
+			
+					hayUnidadesEnemigasEnDistanciaCercana = true;
+				}
+			
+			}
+		}
+		return hayUnidadesEnemigasEnDistanciaCercana;
+	}
+	
+	public void realizarComportamiento(int posInicialx, int posInicialy,int posFinalx, int posFinaly ) {
+		Unidad unaUnidad = this.obtenerUnidad(posInicialx, posInicialy);
+		Unidad otraUnidad = this.obtenerUnidad(posFinalx, posFinaly);
+		if(unaUnidad != null && otraUnidad != null) {
+			unaUnidad.realizarComportamiento(otraUnidad);
+		}
+		if(unaUnidad == null ) {
+			System.out.println("unidad atacante nula");
+		}
+		if(otraUnidad == null ) {
+			System.out.println("unidad defensora nula");		
+		}
+		
+	}
+	
 	//Metodo para los test
 	public Unidad obtenerUnidad(int pos_x, int pos_y) {
 		return tablero[pos_x][pos_y].obtenerEntidad();
@@ -102,5 +149,6 @@ public class Tablero {
 	private Celda obtenerCelda(int pos_x, int pos_y) {
 		return tablero[pos_x][pos_y];
 	}
+	
 	
 }
