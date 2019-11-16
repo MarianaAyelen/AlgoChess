@@ -169,9 +169,44 @@ class CeldaTest {
 
 		celda1.asignarPosicion(2, 2);
 		celda2.asignarPosicion(2, 3); 
-		celda3 .asignarPosicion(2, 5);
+		celda3.asignarPosicion(2, 5);
 		
 		assertEquals(celda1.tresCeldasUnidas(celda2, celda3) , false);
+
+	}
+	
+	@Test
+	void test010EsDistanciaCercana() {
+		
+		Celda celda1 = new Celda();
+		Celda celda2 = new Celda();
+		Celda celda3 = new Celda();
+
+		celda1.asignarPosicion(2, 2);
+		celda2.asignarPosicion(2, 4); 
+		celda3.asignarPosicion(2, 5);
+		
+		assertEquals(celda1.esDistanciaCercana(celda2) , true);
+		assertEquals(celda1.esDistanciaCercana(celda3) , false);
+
+	}
+	
+	@Test
+	void test010EsDistanciaMedia() {
+		
+		Celda celda1 = new Celda();
+		Celda celda2 = new Celda();
+		Celda celda3 = new Celda();
+		Celda celda4 = new Celda();
+
+		celda1.asignarPosicion(2, 2);
+		celda2.asignarPosicion(2, 4); 
+		celda3.asignarPosicion(2, 5);
+		celda4.asignarPosicion(10, 5);
+		
+		assertEquals(celda1.esDistanciaMedia(celda2) , false);
+		assertEquals(celda1.esDistanciaMedia(celda3) , true);
+		assertEquals(celda1.esDistanciaMedia(celda4) , false);
 
 	}
 }
