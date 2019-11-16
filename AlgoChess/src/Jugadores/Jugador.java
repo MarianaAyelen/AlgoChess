@@ -3,12 +3,14 @@ package Jugadores;
 
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 
 import Excepciones.JugadorNoPuedeAgregarMasEntidades;
 import Excepciones.JugadorNoTieneMasPuntos;
 import Unidades.Unidad;
+import Unidades.SoldadoDeInfanteria;
 import Unidades.*;
 import Tablero.Tablero;
 
@@ -17,12 +19,20 @@ public class Jugador {
 		private String nombre;
 		private int puntosIniciales;
 		private List<Unidad> unidadesJugador = new ArrayList<Unidad>();
+		private Tablero tablero;
 		
 		public Jugador(String nombreJugador) {
 			nombre = nombreJugador;
 			puntosIniciales = 20;
 		}
 		
+		public void agregarTablero(Tablero tableroDelJuego) {
+			tablero = tableroDelJuego;
+		}
+		
+		public boolean hayUnidadesEnemigasCercanas(Unidad unaUnidad) {
+			return tablero.hayUnidadesEnemigasEnDistanciaCercana(unaUnidad);
+		}
 		
 		public void agregarSoldadoInfanteria() {
 			SoldadoDeInfanteria unSoldadoDeInfanteria = new SoldadoDeInfanteria();
@@ -37,8 +47,6 @@ public class Jugador {
 			unJinete.asignarPropietario(this);
 			unidadesJugador.add(unJinete);
 		}
-		
-		
 		
 		public void agregarCatapulta() {
 			Catapulta unaCatapulta = new Catapulta();
@@ -69,14 +77,24 @@ public class Jugador {
 			}
 			
 		}
-		public void realizarComportamiento(Unidad unaUnidad, Unidad otraUnidad) {
-			
-			unaUnidad.realizarComportamiento(otraUnidad);
-		}
 		
 		public void eliminarUnidad(Unidad unaUnidad) {
 			
 		}
+		
+		
+		public List<Unidad> unidadesAliadasEnDistanciaCercana(Unidad unaUnidad) {
+			List<Unidad> unidadesCercanas = new ArrayList<Unidad>();
+			Iterator<Unidad> iteradorUnidades = unidadesJugador.iterator();
+			while (iteradorUnidades.hasNext()) {
+				Unidad otraUnidad = iteradorUnidades.next();
+				if(otraUnidad.estaADistanciaCercana(unaUnidad)) {
+					unidadesCercanas.add(otraUnidad);
+				}
+			}
+			return unidadesCercanas;
+		}
+		
 		
 		
 		// metodos para pruebas
