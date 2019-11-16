@@ -6,6 +6,8 @@ import Jugadores.*;
 import Excepciones.*;
 import Tablero.*;
 import java.lang.Math;
+import java.util.Iterator;
+import java.util.List;
 
 public class Unidad {
 	
@@ -59,12 +61,58 @@ public class Unidad {
 	public int obtenerCosto() {
 		return costo;
 	}
-
+	
 	public void realizarComportamiento(Unidad unaUnidad) {
 	}
 	
 	public Jugador obtenerPropietario() {
 		return propietario;
+	}
+	
+	public boolean estaADistanciaCercana(Unidad unaUnidad) {
+		boolean esDistanciaCercana = false;
+		if (this.obtenerCelda().esDistanciaCercana(unaUnidad.obtenerCelda())) {
+			esDistanciaCercana = true;
+		}
+		return esDistanciaCercana;
+	}
+	
+	public boolean estaADistanciaMedia(Unidad unaUnidad) {
+		
+		return (this.obtenerCelda()).esDistanciaMedia(unaUnidad.obtenerCelda());
+	}
+	
+	public boolean estaADistanciaLejana(Unidad unaUnidad) {
+		boolean esDistanciaLejana = false;
+		if (this.obtenerCelda().esDistanciaLejana(unaUnidad.obtenerCelda())) {
+			esDistanciaLejana = true;
+		}
+		return esDistanciaLejana;
+	}
+	
+	public boolean haySoldadoDeInfanteriaAliadoEnDistanciaCercana(Unidad unaUnidad) {
+		boolean haySoldadoEnDistanciaCercana = false;
+		List<Unidad> unidadesCercanas = propietario.unidadesAliadasEnDistanciaCercana(unaUnidad);
+		Iterator<Unidad> iteradorUnidades = unidadesCercanas.iterator();
+		while (iteradorUnidades.hasNext()) {
+			Unidad otraUnidad = iteradorUnidades.next();
+			if(otraUnidad instanceof SoldadoDeInfanteria) {
+				haySoldadoEnDistanciaCercana = true;
+			}
+		}
+		return haySoldadoEnDistanciaCercana;
+	}
+	
+	public boolean esUnidadAliada(Unidad unaUnidad) {
+		boolean esUnidadAliada = false;
+		if (propietario.equals(unaUnidad.obtenerPropietario())) {
+			esUnidadAliada = true;
+		}
+		return esUnidadAliada;
+	}
+	
+	public boolean hayUnidadesEnemigasCercanas() {
+		return propietario.hayUnidadesEnemigasCercanas(this);
 	}
 	
 	//Movimiento
