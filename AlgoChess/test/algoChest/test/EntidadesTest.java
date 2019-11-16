@@ -47,7 +47,7 @@ class EntidadesTest {
 		assertEquals(unJinete.vidaDeLaUnidad(), 90);
 	
 	}		
-	
+	/* Se comenta el test porque es necesario pasarlo al test de Tablero ya que jinete necesita utilizar el tablero
 	@Test
 	void test002JineteAliadoAtacaAPiezaYVerificaQueSeRestaVida() {
 		Celda celdaAliado = new Celda();
@@ -75,7 +75,7 @@ class EntidadesTest {
 		assertEquals(unSoldadoDeInfanteria.vidaDeLaUnidad(), 85);
 	
 	}		
-	
+	*/
 	@Test
 	void test003CatapultaAliadoAtacaAPiezaYVerificaQueSeRestaVida() {
 		Celda celdaAliado = new Celda();
@@ -355,4 +355,5 @@ class EntidadesTest {
 		assertEquals(soldado1.esBatallon(soldado2, soldado3), false);
 
 	}
+	
 }
