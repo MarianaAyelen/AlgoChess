@@ -82,8 +82,9 @@ public class Celda {
 		if ( this.obtenerPropietario() == nuevaUnidad.obtenerPropietario() ) {
 				this.agregarUnidadEnCasilleroVacio(nuevaUnidad);
 		}else {
+			System.out.println("No se puede agregar en territorio enemigo");
 			 throw new JugadorNoPuedeColocarEntidadesEnTerritorioEnemigo();
-			//System.out.println("No se puede colocar una unidad en territorio enemigo.");
+			
 		}
 	}
 	

@@ -28,13 +28,13 @@ public class Tablero {
 	}
 	
 	private void generarBordeSuperior() {
-		for (int j = 1; j < cantidadColumnas-1; j++ ) {
+		for (int j = 1; j < cantidadColumnas+1; j++ ) {
 			tablero[0][j] = new Celda(0, j, false);;
 		}
 	}
 	
 	private void generarBordeInferior() {
-		for (int j = 1; j < cantidadColumnas-1; j++ ) {
+		for (int j = 1; j < cantidadColumnas+1; j++ ) {
 			tablero[cantidadFilas-1][j] = new Celda(cantidadFilas-1, j, false);
 		}
 	}

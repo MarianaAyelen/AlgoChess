@@ -1,6 +1,7 @@
 package Unidades;
 
 import Excepciones.SoldadoDeInfanteriaSoloAtacaACortaDistancia;
+import Excepciones.jugadorSeQuedaSinUnidades;
 import Tablero.Celda;
 
 import java.util.List;
@@ -26,7 +27,12 @@ public class SoldadoDeInfanteria extends UnidadAtacante {
 			if (distancia > 2) {
 				throw new SoldadoDeInfanteriaSoloAtacaACortaDistancia();
 			}
-			unaUnidad.restarVida(danioCuerpoAcuerpo);
+			try {
+				unaUnidad.restarVida(danioCuerpoAcuerpo);
+			} catch (unidadSeQuedaSinVida e1) {
+				unaUnidad.unidadSinVida();
+			} 
+			
 		}
 		
 		public boolean esBatallon(SoldadoDeInfanteria soldado2, SoldadoDeInfanteria soldado3) {

@@ -45,9 +45,19 @@ public class Unidad {
 		propietario = unJugador;
 	}
 	
+	public void unidadSinVida() {
+		
+			this.propietario.eliminarUnidadSinVida(this);
+			this.celdaActual.sacarUnidad();
+
+		
+	}
 	public void restarVida(int danioSufrido) {
 	
 		vida = vida - danioSufrido; 
+		if (vida <= 0) {
+			throw new unidadSeQuedaSinVida();
+		}
 	}	
 	
 	public void sumarVida(int curacionGanada) {
@@ -128,5 +138,13 @@ public class Unidad {
 	
 	public Celda obtenerCelda() {
 		return celdaActual; 
+	}
+	
+	public String obtenerNombrePropietario() {
+		return this.propietario.obtenerPropietario();
+	}
+	
+	public int obtenerVida() {
+		return this.vida;
 	}
 }

@@ -23,11 +23,18 @@ public class Jinete extends UnidadAtacante {
 	public void realizarComportamiento(Unidad unaUnidad) {
 		chequearAtaqueAUnidadEnemiga(unaUnidad);
 		if((this.haySoldadoDeInfanteriaAliadoEnDistanciaCercana(unaUnidad) || !this.hayUnidadesEnemigasCercanas()) && this.estaADistanciaMedia(unaUnidad)) {
-			unaUnidad.restarVida(danioADistancia);
+			try {
+				unaUnidad.restarVida(danioADistancia);
+			}catch (unidadSeQuedaSinVida e1) {
+				unaUnidad.unidadSinVida();
+			} 
 		}
 		if(this.estaADistanciaCercana(unaUnidad)) {
-			unaUnidad.restarVida(danioCuerpoAcuerpo);
-	
+			try {
+				unaUnidad.restarVida(danioCuerpoAcuerpo);
+			}catch (unidadSeQuedaSinVida e1) {
+				unaUnidad.unidadSinVida();
+			} 	
 		}
 	}
 	

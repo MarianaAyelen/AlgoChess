@@ -24,9 +24,11 @@ public class Catapulta extends UnidadAtacante {
 		if (distancia < 6) {
 			throw new CatapultaSoloAtacaADistancia();
 		}
-
+		try {
 		unaUnidad.restarVida(danioADistancia);
+		}catch (unidadSeQuedaSinVida e1) {
+			unaUnidad.unidadSinVida();
+		} 
+	
 	}
-	
-	
 }

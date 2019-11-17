@@ -9,6 +9,7 @@ import java.util.List;
 
 import Excepciones.JugadorNoPuedeAgregarMasEntidades;
 import Excepciones.JugadorNoTieneMasPuntos;
+import Excepciones.jugadorSeQuedaSinUnidades;
 import Unidades.Unidad;
 import Unidades.SoldadoDeInfanteria;
 import Unidades.*;
@@ -62,9 +63,21 @@ public class Jugador {
 			unidadesJugador.add(unCurandero);
 		}
 		
-		public void agregarUnidadAlTablero( Tablero tablero, int posX, int posY) {
+		
+		 public void eliminarUnidadSinVida(Unidad unaUnidad) {
+			 for (int i = 0; i < unidadesJugador.size(); i++) {
+				if (unidadesJugador.get(i) == unaUnidad) {
+					unidadesJugador.remove(i);
+				}
+			}
+			if(unidadesJugador.size() == 0) {
+				throw new jugadorSeQuedaSinUnidades();
+			}
+		}
+		
+		public void agregarUnidadAlTablero( Tablero tablero, int posX, int posY, int posicionLista) {
 						
-			tablero.agregarUnidad(unidadesJugador.get(1), posX, posY);
+			tablero.agregarUnidad(unidadesJugador.get(posicionLista), posX, posY);
 		}
 			
 		private void restarPuntos(Unidad unaUnidad) {
@@ -78,9 +91,7 @@ public class Jugador {
 			
 		}
 		
-		public void eliminarUnidad(Unidad unaUnidad) {
-			
-		}
+		
 		
 		
 		public List<Unidad> unidadesAliadasEnDistanciaCercana(Unidad unaUnidad) {
@@ -95,10 +106,18 @@ public class Jugador {
 			return unidadesCercanas;
 		}
 		
-		
+		public String jugadorPerdedor() {
+			return this.nombre;
+		}
 		
 		// metodos para pruebas
 		public int cantidadDeUnidades() {
 			return unidadesJugador.size();
+		}
+		public String obtenerPropietario() {
+			return this.nombre;
+		}
+		public Unidad obtenerUnidadEnPosicion(int posicion) {
+			return this.unidadesJugador.get(posicion);
 		}
 }

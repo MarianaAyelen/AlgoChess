@@ -393,5 +393,43 @@ class TableroTest {
 
 		assertEquals(unTablero.devolverCeldasDistanciaCercana(celda1).size(), 24);
 	}
+	
+	@Test
+	void test011JugadorPierdaUnidadYSeVaciaCelda() {
+		
+		Tablero unTablero = new Tablero(20,20);
+		Jugador[] jugadores = new Jugador[2];
+		Jugador unJugador = new Jugador("Alejandro");
+		Jugador otroJugador = new Jugador("Mariana");
+		jugadores[0] = unJugador;
+		jugadores[1] = otroJugador;
+		
+		unJugador.agregarSoldadoInfanteria();
+		otroJugador.agregarSoldadoInfanteria();
+	
+		unTablero.generarTerritorios(jugadores);
+		
+
+		int jugadorAliadoPosX = 9;
+		int jugadorAliadoPosY = 1;
+		int jugadorEnemigoPosX = 11;
+		int jugadorEnemigoPosY = 1;
+		
+		unJugador.agregarUnidadAlTablero(unTablero, jugadorAliadoPosX, jugadorAliadoPosY, 0);
+		otroJugador.agregarCatapulta();
+		otroJugador.agregarUnidadAlTablero(unTablero, jugadorEnemigoPosX, jugadorEnemigoPosY, 0);
+		
+		Unidad unaUnidad = unTablero.obtenerUnidad(jugadorEnemigoPosX, jugadorEnemigoPosY);
+		
+		
+		for (int i = 0; i < 10; i++) {
+				unTablero.realizarComportamiento(jugadorAliadoPosX, jugadorAliadoPosY, jugadorEnemigoPosX, jugadorEnemigoPosY);
+		}
+			
+			
+		Celda unaCelda = unaUnidad.obtenerCelda();	
+		
+		assertEquals(unaCelda.obtenerEntidad(), null);
+	}
 
 }
