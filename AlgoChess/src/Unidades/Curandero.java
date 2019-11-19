@@ -29,7 +29,7 @@ public class Curandero extends UnidadCuradora {
 			}
 		}
 		protected void chequearCuracionNoACatapulta(Unidad unaUnidad) {
-			if(unaUnidad.tipoDeUnidad()!=0) { //No catapulta
+			if(unaUnidad.tipoDeUnidad()==0) { //Catapulta
 				throw new CuranderoNoPuedeCurarCatapulta();
 			}
 		}

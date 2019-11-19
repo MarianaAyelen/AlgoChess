@@ -7,10 +7,12 @@ import org.hamcrest.SelfDescribing;
 import org.junit.jupiter.api.Test;
 
 import Excepciones.CatapultaSoloAtacaADistancia;
+import Excepciones.CuranderoNoPuedeCurarCatapulta;
 import Excepciones.CuranderoSoloCuraADistanciaMedia;
 import Excepciones.JugadorNoPuedeAtacarFichaAliada;
 import Excepciones.JugadorNoPuedeCurarAunidadEnemiga;
 import Excepciones.SoldadoDeInfanteriaSoloAtacaACortaDistancia;
+import Excepciones.movimientoImposibleUnidadNoMovil;
 import Jugadores.Jugador;
 import Tablero.Celda;
 import Tablero.Tablero;
@@ -312,7 +314,7 @@ class EntidadesTest {
 	}		
 	
 	@Test
-	void test009EsBatallon() {
+	void test010EsBatallon() {
 		
 		Celda celda1 = new Celda();
 		Celda celda2 = new Celda();
@@ -335,7 +337,7 @@ class EntidadesTest {
 	}
 	
 	@Test
-	void test010NoEsBatallon() {
+	void test011NoEsBatallon() {
 		
 		Celda celda1 = new Celda();
 		Celda celda2 = new Celda();
@@ -355,5 +357,31 @@ class EntidadesTest {
 		assertEquals(soldado1.esBatallon(soldado2, soldado3), false);
 
 	}
+	
+	@Test
+	void test012CuranderoNoPuedeCurarCatapulta() {
+		Jugador jugadorAliado = new Jugador("Juan");
+		Celda celdaCuradora = new Celda();
+		Celda celdaACurar = new Celda();
+		
+		celdaCuradora.asignarPosicion(1, 1);
+		celdaACurar.asignarPosicion(1, 4);
+
+		Catapulta unaCatapulta = new Catapulta();
+		Curandero unCurandero = new Curandero();
+		
+		// unidades jugador enemigo
+		unaCatapulta.asignarPropietario(jugadorAliado);
+		unaCatapulta.asignarCelda(celdaACurar);
+		
+		unCurandero.asignarPropietario(jugadorAliado);
+		unCurandero.asignarCelda(celdaCuradora);
+		
+	    assertThrows(CuranderoNoPuedeCurarCatapulta.class, () -> {
+	    	unCurandero.realizarComportamiento(unaCatapulta);;
+	    });
+		
+	}		
+
 	
 }
