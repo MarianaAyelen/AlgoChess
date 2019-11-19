@@ -1,11 +1,7 @@
 package Unidades;
 
-import java.util.List;
-
-import Excepciones.movimientoImposibleCeldaInhabilitada;
 import Excepciones.movimientoImposibleDistanciaMayorAMaxima;
 import Excepciones.movimientoImposibleDistanciaNula;
-import Excepciones.movimientoImposibleUnidadNoMovil;
 import Tablero.Celda;
 
 public class unidadMovil implements Movilidad{

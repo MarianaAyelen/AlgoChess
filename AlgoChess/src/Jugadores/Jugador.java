@@ -92,8 +92,6 @@ public class Jugador {
 		}
 		
 		
-		
-		
 		public List<Unidad> unidadesAliadasEnDistanciaCercana(Unidad unaUnidad) {
 			List<Unidad> unidadesCercanas = new ArrayList<Unidad>();
 			Iterator<Unidad> iteradorUnidades = unidadesJugador.iterator();
@@ -104,6 +102,18 @@ public class Jugador {
 				}
 			}
 			return unidadesCercanas;
+		}
+		
+		public void agregarUnidadesContiguasAliadas(Unidad unaUnidad, List<Unidad> unidadesContiguas) {//incluye sucesion de unidades contiguas
+			Iterator<Unidad> iteradorUnidades = unidadesJugador.iterator();
+			while (iteradorUnidades.hasNext()) {
+				Unidad otraUnidad = iteradorUnidades.next();
+				if(otraUnidad.calcularDistancia(unaUnidad)==1
+					&& !unidadesContiguas.contains(otraUnidad)) {
+					unidadesContiguas.add(otraUnidad);
+					agregarUnidadesContiguasAliadas(otraUnidad, unidadesContiguas);//recursividad en la busqueda
+				}
+			}
 		}
 		
 		public String jugadorPerdedor() {
@@ -119,5 +129,9 @@ public class Jugador {
 		}
 		public Unidad obtenerUnidadEnPosicion(int posicion) {
 			return this.unidadesJugador.get(posicion);
+		}
+		
+		public void agregarUnidad(Unidad unaUnidad) {
+			unidadesJugador.add(unaUnidad);
 		}
 }

@@ -380,8 +380,62 @@ class EntidadesTest {
 	    assertThrows(CuranderoNoPuedeCurarCatapulta.class, () -> {
 	    	unCurandero.realizarComportamiento(unaCatapulta);;
 	    });
+	}
+	
+	
+	@Test
+	void test013CatapultaAtacaAUnidadesContiguas() {
+		Celda celdaAliado = new Celda();
+		Celda celdaEnemigo1 = new Celda();
+		Celda celdaEnemigo2 = new Celda();
+		Celda celdaEnemigo3 = new Celda();
+		Celda celdaEnemigo4 = new Celda();
 		
-	}		
+		celdaAliado.asignarPosicion(1, 1);
+		celdaEnemigo1.asignarPosicion(1, 7);
+		celdaEnemigo2.asignarPosicion(2, 8);
+		celdaEnemigo3.asignarPosicion(3, 8);
+		celdaEnemigo4.asignarPosicion(5, 5);//fuera de rango
+		
+		
+		Jugador jugadorAliado = new Jugador("mariana");
+		Jugador jugadorEnemimigo = new Jugador("alejandro");
+		
+		// jugador aliado
+		Catapulta unaCatapulta = new Catapulta();
+		unaCatapulta.asignarPropietario(jugadorAliado);
+		
+		// jugador enemigo
+		SoldadoDeInfanteria unSoldadoDeInfanteria1 = new SoldadoDeInfanteria();
+		unSoldadoDeInfanteria1.asignarPropietario(jugadorEnemimigo);
+		jugadorEnemimigo.agregarUnidad(unSoldadoDeInfanteria1);
 
+		SoldadoDeInfanteria unSoldadoDeInfanteria2 = new SoldadoDeInfanteria();
+		unSoldadoDeInfanteria2.asignarPropietario(jugadorEnemimigo);
+		jugadorEnemimigo.agregarUnidad(unSoldadoDeInfanteria2);
+
+		SoldadoDeInfanteria unSoldadoDeInfanteria3 = new SoldadoDeInfanteria();
+		unSoldadoDeInfanteria3.asignarPropietario(jugadorEnemimigo);
+		jugadorEnemimigo.agregarUnidad(unSoldadoDeInfanteria3);
+		
+		SoldadoDeInfanteria unSoldadoDeInfanteria4 = new SoldadoDeInfanteria();
+		unSoldadoDeInfanteria4.asignarPropietario(jugadorEnemimigo);
+		jugadorEnemimigo.agregarUnidad(unSoldadoDeInfanteria4);
+		
+		unaCatapulta.asignarCelda(celdaAliado);
+		unSoldadoDeInfanteria1.asignarCelda(celdaEnemigo1);
+		unSoldadoDeInfanteria2.asignarCelda(celdaEnemigo2);
+		unSoldadoDeInfanteria3.asignarCelda(celdaEnemigo3);
+		unSoldadoDeInfanteria4.asignarCelda(celdaEnemigo4);
+		
+		unaCatapulta.realizarComportamiento(unSoldadoDeInfanteria1);
+		
+		assertEquals(unSoldadoDeInfanteria1.vidaDeLaUnidad(), 80);
+		assertEquals(unSoldadoDeInfanteria2.vidaDeLaUnidad(), 80);
+		assertEquals(unSoldadoDeInfanteria3.vidaDeLaUnidad(), 80);
+		assertEquals(unSoldadoDeInfanteria4.vidaDeLaUnidad(), 100);
+	
+	
+	}		
 	
 }
