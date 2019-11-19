@@ -130,6 +130,11 @@ public class Unidad {
 		this.movilidad.mover(this, destino);
 	}
 	
+	//Tipo de unidad
+	public int tipoDeUnidad() { //Catap:0,Cur:1,Jin:2,Sold:3 //TODO: mejorar implementacion (atributo en clase unidad)
+		return -1;
+	}
+	
 	// Metodos utilizados para las pruebas 
 	
 	public int vidaDeLaUnidad() {

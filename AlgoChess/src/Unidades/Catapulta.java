@@ -31,4 +31,9 @@ public class Catapulta extends UnidadAtacante {
 		} 
 	
 	}
+	
+	//Tipo de unidad
+	public int tipoDeUnidad() {
+		return 0;
+	}
 }

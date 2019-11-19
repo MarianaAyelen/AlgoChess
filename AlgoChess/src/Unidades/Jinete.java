@@ -38,5 +38,10 @@ public class Jinete extends UnidadAtacante {
 		}
 	}
 	
+	//Tipo de unidad
+	public int tipoDeUnidad() {
+		return 2;
+	}
+	
 	
 }

@@ -58,5 +58,10 @@ public class SoldadoDeInfanteria extends UnidadAtacante {
 			
 		}
 		
+		//Tipo de unidad
+		public int tipoDeUnidad() {
+			return 3;
+		}
+		
 		
 }

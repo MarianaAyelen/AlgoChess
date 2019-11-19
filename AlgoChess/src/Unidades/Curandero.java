@@ -1,5 +1,6 @@
 package Unidades;
 
+import Excepciones.CuranderoNoPuedeCurarCatapulta;
 import Excepciones.CuranderoSoloCuraADistanciaMedia;
 import Excepciones.JugadorNoPuedeCurarAunidadEnemiga;
 
@@ -14,6 +15,7 @@ public class Curandero extends UnidadCuradora {
 		
 		public void realizarComportamiento(Unidad unaUnidad) {
 			chequearCuracionAUnidadAliada(unaUnidad);
+			chequearCuracionNoACatapulta(unaUnidad);
 			int distancia = this.calcularDistancia(unaUnidad);
 			if(distancia < 3 || distancia > 5) {
 				throw new CuranderoSoloCuraADistanciaMedia();
@@ -25,5 +27,15 @@ public class Curandero extends UnidadCuradora {
 			if (this.obtenerPropietario() != unaUnidad.obtenerPropietario()) {
 				throw new JugadorNoPuedeCurarAunidadEnemiga();
 			}
+		}
+		protected void chequearCuracionNoACatapulta(Unidad unaUnidad) {
+			if(unaUnidad.tipoDeUnidad()!=0) { //No catapulta
+				throw new CuranderoNoPuedeCurarCatapulta();
+			}
+		}
+		
+		//Tipo de unidad
+		public int tipoDeUnidad() {
+			return 1;
 		}
 }
