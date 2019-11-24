@@ -431,5 +431,36 @@ class TableroTest {
 		
 		assertEquals(unaCelda.obtenerEntidad(), null);
 	}
+	
+	@Test
+	void test012MoverUnidad() {
+		
+		Tablero unTablero = new Tablero(20,20);
+		Jugador[] jugadores = new Jugador[2];
+		Jugador unJugador = new Jugador("pepe");
+		Jugador otroJugador = new Jugador("roberto");
+		jugadores[0] = unJugador;
+		jugadores[1] = otroJugador;
+		
+		unTablero.generarTerritorios(jugadores);
+		Jinete unJinete = new Jinete();	
+		unJinete.asignarPropietario(unJugador);
+		int posInicialX = 9;
+		int posInicialY = 1;
+		
+		int destinoX = 10;
+		int destinoY = 2;
+		
+		unTablero.agregarUnidad(unJinete, posInicialX, posInicialY);
+		try {
+			unTablero.moverUnidad(posInicialX, posInicialY, destinoX, destinoY);
+			assertEquals(unTablero.obtenerUnidad(posInicialX, posInicialY), null);
+			assertEquals(unTablero.obtenerUnidad(destinoX, destinoY), unJinete);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
 
 }
