@@ -9,10 +9,10 @@ import java.util.List;
 
 import Excepciones.JugadorNoPuedeAgregarMasEntidades;
 import Excepciones.JugadorNoTieneMasPuntos;
-import Excepciones.jugadorSeQuedaSinUnidades;
 import Unidades.Unidad;
 import Unidades.SoldadoDeInfanteria;
 import Unidades.*;
+import Tablero.Celda;
 import Tablero.Tablero;
 
 public class Jugador {
@@ -27,6 +27,27 @@ public class Jugador {
 			puntosIniciales = 20;
 		}
 		
+		public void turnoJugador() {
+			Celda celdaOrigen, celdaDestino;
+			int posOrigenX, posOrigenY, posFinalX, posFinaly;
+			
+			
+			System.out.println("Elegir pieza para jugar este turno");			
+			//elegir celda por tablero
+			celdaOrigen = new Celda();
+			posOrigenX = celdaOrigen.obtenerPosicionX();
+			posOrigenY = celdaOrigen.obtenerPosicionY();
+
+			System.out.println("Elegir pieza para realizar comportamiento");			
+			//elegir celda por tablero
+			celdaDestino = new Celda();
+			posFinalX = celdaDestino.obtenerPosicionX();
+			posFinaly = celdaDestino.obtenerPosicionY();
+			
+			tablero.realizarComportamiento(posOrigenX,posOrigenY,posFinalX,posFinaly);
+
+			
+		}
 		public void agregarTablero(Tablero tableroDelJuego) {
 			tablero = tableroDelJuego;
 		}
@@ -70,9 +91,6 @@ public class Jugador {
 					unidadesJugador.remove(i);
 				}
 			}
-			if(unidadesJugador.size() == 0) {
-				throw new jugadorSeQuedaSinUnidades();
-			}
 		}
 		
 		public void agregarUnidadAlTablero( Tablero tablero, int posX, int posY, int posicionLista) {
@@ -102,6 +120,15 @@ public class Jugador {
 				}
 			}
 			return unidadesCercanas;
+		}
+		
+		public void comparUnidades() {
+			
+			
+		}
+		
+		public void ubicarUnidades() {
+			
 		}
 		
 		public void agregarUnidadesContiguasAliadas(Unidad unaUnidad, List<Unidad> unidadesContiguas) {//incluye sucesion de unidades contiguas

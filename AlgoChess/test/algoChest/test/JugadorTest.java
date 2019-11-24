@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 
 import Excepciones.JugadorNoPuedeAgregarMasEntidades;
 import Excepciones.jugadorPierde;
-import Excepciones.jugadorSeQuedaSinUnidades;
 import Jugadores.Jugador;
 import Tablero.Tablero;
 import Unidades.*;
@@ -36,6 +35,8 @@ class JugadorTest {
 		
 	}
 
+	//test creado en juego 
+	/*
 	@Test
 	void test002JugadorQueSeQuedaSinEntidadesEsElPerdedor() {
 		Tablero unTablero = new Tablero(20,20);
@@ -71,7 +72,7 @@ class JugadorTest {
 	
 		assertEquals(jugadorPerdedor.obtenerPropietario(), "Mariana");
 	}
-	
+	*/
 		
 	@Test
 	void test003JugadorPierdeUnaUnidad() {
@@ -96,14 +97,11 @@ class JugadorTest {
 		unJugador.agregarUnidadAlTablero(unTablero, jugadorAliadoPosX, jugadorAliadoPosY, 0);
 		otroJugador.agregarUnidadAlTablero(unTablero, jugadorEnemigoPosX, jugadorEnemigoPosY, 0);
 		
-		try {
-			for (int i = 0; i < 10; i++) {
-				unTablero.realizarComportamiento(jugadorAliadoPosX, jugadorAliadoPosY, jugadorEnemigoPosX, jugadorEnemigoPosY);
-			}
-				
-		} catch (jugadorSeQuedaSinUnidades e) {
-			
+	
+		for (int i = 0; i < 10; i++) {
+			unTablero.realizarComportamiento(jugadorAliadoPosX, jugadorAliadoPosY, jugadorEnemigoPosX, jugadorEnemigoPosY);
 		}
+				
 		
 		assertEquals(otroJugador.cantidadDeUnidades(), 0);
 	}

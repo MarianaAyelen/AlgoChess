@@ -1,7 +1,6 @@
 package Unidades;
 
 import Excepciones.SoldadoDeInfanteriaSoloAtacaACortaDistancia;
-import Excepciones.jugadorSeQuedaSinUnidades;
 import Tablero.Celda;
 
 import java.util.List;
