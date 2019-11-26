@@ -27,4 +27,21 @@ public class unidadMovil implements Movilidad{
 		}
 	}
 
+	@Override
+	public void mover(Unidad u, int[] direccion) throws Exception  {
+		Celda celdaVieja = u.celdaActual;
+		
+		if(direccion[0]==0 && direccion[1]==0) {
+			
+			throw new movimientoImposibleDistanciaNula();
+		}
+		if(direccion[0]>1 || direccion[1]>1 || direccion[0]<-1 || direccion[1]<-1) {
+			throw new movimientoImposibleDistanciaMayorAMaxima();
+		}
+		Celda celdaDestino = u.propietario.obtenerCeldaConDireccion(u.obtenerPosicionX(), u.obtenerPosicionY(), direccion);
+		if(celdaDestino.agregarUnidadEnCasilleroVacio(u)) {					
+			celdaVieja.sacarUnidad();
+		}
+	}
+
 }

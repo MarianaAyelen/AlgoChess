@@ -109,14 +109,31 @@ public class Jugador {
 			
 		}
 		
+		public List<SoldadoDeInfanteria> soldadosAliadosEnDistanciaCercana(SoldadoDeInfanteria unSoldado) {
+			List<SoldadoDeInfanteria> soldadosCercanos = new ArrayList<SoldadoDeInfanteria>();
+			List<Unidad> unidadesCercanas = new ArrayList<Unidad>();
+			unidadesCercanas = unidadesAliadasEnDistanciaCercana(unSoldado);
+			Iterator<Unidad> iteradorUnidades = unidadesCercanas.iterator();
+			while (iteradorUnidades.hasNext()) {
+				Unidad unidad = iteradorUnidades.next();
+				if(unidad instanceof SoldadoDeInfanteria ) {
+					soldadosCercanos.add((SoldadoDeInfanteria) unidad);
+				}
+			}
+			return soldadosCercanos;
+		}
+		
 		
 		public List<Unidad> unidadesAliadasEnDistanciaCercana(Unidad unaUnidad) {
 			List<Unidad> unidadesCercanas = new ArrayList<Unidad>();
 			Iterator<Unidad> iteradorUnidades = unidadesJugador.iterator();
+			Unidad otraUnidad;
 			while (iteradorUnidades.hasNext()) {
-				Unidad otraUnidad = iteradorUnidades.next();
-				if(otraUnidad.estaADistanciaCercana(unaUnidad)) {
-					unidadesCercanas.add(otraUnidad);
+				otraUnidad = iteradorUnidades.next();
+				if(unaUnidad != otraUnidad) {
+					if(unaUnidad.estaADistanciaCercana(otraUnidad)) {
+						unidadesCercanas.add(otraUnidad);
+					}
 				}
 			}
 			return unidadesCercanas;
@@ -147,6 +164,9 @@ public class Jugador {
 			return this.nombre;
 		}
 		
+		public Celda obtenerCeldaConDireccion(int posX, int posY, int[] direccion) {
+			return this.tablero.obtenerCeldaConDireccion(posX, posY, direccion);
+		}
 		// metodos para pruebas
 		public int cantidadDeUnidades() {
 			return unidadesJugador.size();

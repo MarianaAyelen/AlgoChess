@@ -90,51 +90,28 @@ class TableroTest {
 		Jugador otroJugador = new Jugador("Juan2");
 		jugadores[0] = unJugador;
 		jugadores[1] = otroJugador;
+
+		unJugador.agregarTablero(unTablero);
+		otroJugador.agregarTablero(unTablero);
 		
-		SoldadoDeInfanteria unSoldadoDeInfanteria1 = new SoldadoDeInfanteria();
-		unSoldadoDeInfanteria1.asignarPropietario(unJugador);
-		SoldadoDeInfanteria unSoldadoDeInfanteria2 = new SoldadoDeInfanteria();
-		unSoldadoDeInfanteria2.asignarPropietario(unJugador);
-		SoldadoDeInfanteria unSoldadoDeInfanteria3 = new SoldadoDeInfanteria();
-		unSoldadoDeInfanteria3.asignarPropietario(unJugador);
-		
+		unJugador.agregarSoldadoInfanteria();
+		unJugador.agregarSoldadoInfanteria();
+		unJugador.agregarSoldadoInfanteria();
+	
 		unTablero.generarTerritorios(jugadores);
 		int pos_2 = 2;
 		int pos_3 = 3;
 		int pos_4 = 4;
+				
+		unJugador.agregarUnidadAlTablero(unTablero, pos_2, pos_2, 0);
+		unJugador.agregarUnidadAlTablero(unTablero, pos_2, pos_3, 1);
+		unJugador.agregarUnidadAlTablero(unTablero, pos_2, pos_4, 2);
 			
-		unTablero.agregarUnidad(unSoldadoDeInfanteria1, pos_2, pos_2);
-		unTablero.agregarUnidad(unSoldadoDeInfanteria2, pos_2, pos_3);
-		unTablero.agregarUnidad(unSoldadoDeInfanteria3, pos_2, pos_4);
+		unTablero.moverBatallon(pos_2, pos_2, pos_3, pos_2);
 		
-		int posInicialx[];
-		posInicialx = new int[3];
-		int posInicialy[];
-		posInicialy = new int[3];
-		int posFinalx[];
-		posFinalx = new int[3];
-		int posFinaly[];
-		posFinaly = new int[3];
-		
-		posInicialx[0] = pos_2;
-		posInicialx[1] = pos_2;
-		posInicialx[2] = pos_2;
-		
-		posInicialy[0] = pos_2;
-		posInicialy[1] = pos_3;
-		posInicialy[2] = pos_4;		
-		
-		posFinalx[0] = pos_3;
-		posFinalx[1] = pos_3;
-		posFinalx[2] = pos_3;		
-		
-		posFinaly[0] = pos_2;
-		posFinaly[1] = pos_3;
-		posFinaly[2] = pos_4;
-		unTablero.moverBatallon(posInicialx, posInicialy, posFinalx, posFinaly);
-		assertEquals(unTablero.obtenerUnidad(pos_3, pos_2), unSoldadoDeInfanteria1);
-		assertEquals(unTablero.obtenerUnidad(pos_3, pos_3), unSoldadoDeInfanteria2);
-		assertEquals(unTablero.obtenerUnidad(pos_3, pos_4), unSoldadoDeInfanteria3);
+		assertEquals(unTablero.obtenerUnidad(pos_3, pos_2), unJugador.obtenerUnidadEnPosicion(0));
+		assertEquals(unTablero.obtenerUnidad(pos_3, pos_3), unJugador.obtenerUnidadEnPosicion(1));
+		assertEquals(unTablero.obtenerUnidad(pos_3, pos_4), unJugador.obtenerUnidadEnPosicion(2));
 
 		assertEquals(unTablero.obtenerUnidad(pos_2, pos_2), null);
 		assertEquals(unTablero.obtenerUnidad(pos_2, pos_3), null);
@@ -151,97 +128,71 @@ class TableroTest {
 		Jugador otroJugador = new Jugador("Juan2");
 		jugadores[0] = unJugador;
 		jugadores[1] = otroJugador;
+
+		unJugador.agregarTablero(unTablero);
+		otroJugador.agregarTablero(unTablero);
 		
-		SoldadoDeInfanteria unSoldadoDeInfanteria1 = new SoldadoDeInfanteria();
-		unSoldadoDeInfanteria1.asignarPropietario(unJugador);
-		SoldadoDeInfanteria unSoldadoDeInfanteria2 = new SoldadoDeInfanteria();
-		unSoldadoDeInfanteria2.asignarPropietario(unJugador);
-		SoldadoDeInfanteria unSoldadoDeInfanteria3 = new SoldadoDeInfanteria();
-		unSoldadoDeInfanteria3.asignarPropietario(unJugador);
-		Jinete unJinete = new Jinete();
-		unJinete.asignarPropietario(unJugador);
-		
+		unJugador.agregarSoldadoInfanteria();
+		unJugador.agregarSoldadoInfanteria();
+		unJugador.agregarSoldadoInfanteria();
+		unJugador.agregarCurandero();
+	
 		unTablero.generarTerritorios(jugadores);
-		
 		int pos_2 = 2;
 		int pos_3 = 3;
 		int pos_4 = 4;
+				
+		unJugador.agregarUnidadAlTablero(unTablero, pos_2, pos_2, 0);// soldado en posicion (2,2)
+		unJugador.agregarUnidadAlTablero(unTablero, pos_2, pos_3, 1);// soldado en posicion (2,3)
+		unJugador.agregarUnidadAlTablero(unTablero, pos_2, pos_4, 2);// soldado en posicion (2,4)
+		unJugador.agregarUnidadAlTablero(unTablero, pos_3, pos_4, 3);// curandero en posicion (3,4)
 			
-		unTablero.agregarUnidad(unSoldadoDeInfanteria1, pos_2, pos_2);
-		unTablero.agregarUnidad(unSoldadoDeInfanteria2, pos_2, pos_3);
-		unTablero.agregarUnidad(unSoldadoDeInfanteria3, pos_2, pos_4);
-		unTablero.agregarUnidad(unJinete, pos_3, pos_4);
+		unTablero.moverBatallon(pos_2, pos_2, pos_3, pos_2);
 		
-		assertEquals(unTablero.obtenerUnidad(pos_2, pos_2), unSoldadoDeInfanteria1);
-		assertEquals(unTablero.obtenerUnidad(pos_2, pos_3), unSoldadoDeInfanteria2);
-		assertEquals(unTablero.obtenerUnidad(pos_2, pos_4), unSoldadoDeInfanteria3);
-		
-		int posInicialx[];
-		posInicialx = new int[3];
-		int posInicialy[];
-		posInicialy = new int[3];
-		int posFinalx[];
-		posFinalx = new int[3];
-		int posFinaly[];
-		posFinaly = new int[3];
-		
-		posInicialx[0] = pos_2;
-		posInicialx[1] = pos_2;
-		posInicialx[2] = pos_2;
-		
-		posInicialy[0] = pos_2;
-		posInicialy[1] = pos_3;
-		posInicialy[2] = pos_4;		
-		
-		posFinalx[0] = pos_3;
-		posFinalx[1] = pos_3;
-		posFinalx[2] = pos_3;		
-		
-		posFinaly[0] = pos_2;
-		posFinaly[1] = pos_3;
-		posFinaly[2] = pos_4;
-		unTablero.moverBatallon(posInicialx, posInicialy, posFinalx, posFinaly);
-		assertEquals(unTablero.obtenerUnidad(pos_3, pos_2), unSoldadoDeInfanteria1);
-		assertEquals(unTablero.obtenerUnidad(pos_2, pos_2), null);
-		
-		assertEquals(unTablero.obtenerUnidad(pos_2, pos_4), unSoldadoDeInfanteria3);
-		assertEquals(unTablero.obtenerUnidad(pos_3, pos_3), unSoldadoDeInfanteria2);
-		assertEquals(unTablero.obtenerUnidad(pos_3, pos_4), unJinete);
-		
+		assertEquals(unTablero.obtenerUnidad(pos_3, pos_2), unJugador.obtenerUnidadEnPosicion(0));// soldado en posicion (3,2)
+		assertEquals(unTablero.obtenerUnidad(pos_3, pos_3), unJugador.obtenerUnidadEnPosicion(1));// soldado en posicion (3,3)
+		assertEquals(unTablero.obtenerUnidad(pos_2, pos_4), unJugador.obtenerUnidadEnPosicion(2));// soldado que no se puede mover
+		assertEquals(unTablero.obtenerUnidad(pos_3, pos_4), unJugador.obtenerUnidadEnPosicion(3));// curandero que es el obstaculo
+			
 	}
 	
 	@Test
-	void test005HayUnidadesEnemigasEnDistanciaCercana() {
-		
+	void test005VerificaMovimientoDeBatallon_4SoldadosContiguosSoloSeMueven3() throws Exception {
 		Tablero unTablero = new Tablero(20,20);
 		Jugador[] jugadores = new Jugador[2];
-		Jugador jugadorAliado = new Jugador("juan1");
-		Jugador jugadorEnemigo = new Jugador("juan2");
-		jugadores[0] = jugadorAliado;
-		jugadores[1] = jugadorEnemigo;
-		jugadorAliado.agregarTablero(unTablero);
-		jugadorEnemigo.agregarTablero(unTablero);
+		Jugador unJugador = new Jugador("Juan1");
+		Jugador otroJugador = new Jugador("Juan2");
+		jugadores[0] = unJugador;
+		jugadores[1] = otroJugador;
+
+		unJugador.agregarTablero(unTablero);
+		otroJugador.agregarTablero(unTablero);
 		
-		// jugador aliado
-		Jinete unJinete = new Jinete();
-		unJinete.asignarPropietario(jugadorAliado);
-		
-		// jugador enemigo
-		SoldadoDeInfanteria unSoldadoDeInfanteria = new SoldadoDeInfanteria();
-		unSoldadoDeInfanteria.asignarPropietario(jugadorEnemigo);
-		
-		//Posicionamiento
+		unJugador.agregarSoldadoInfanteria();
+		unJugador.agregarSoldadoInfanteria();
+		unJugador.agregarSoldadoInfanteria();
+		unJugador.agregarSoldadoInfanteria();
+	
 		unTablero.generarTerritorios(jugadores);
 		int pos_2 = 2;
 		int pos_3 = 3;
-		int pos_15 = 19;
+		int pos_4 = 4;
+		int pos_5 = 5;
+				
+		unJugador.agregarUnidadAlTablero(unTablero, pos_2, pos_2, 0);// soldado en posicion (2,2)
+		unJugador.agregarUnidadAlTablero(unTablero, pos_2, pos_3, 1);// soldado en posicion (2,3)
+		unJugador.agregarUnidadAlTablero(unTablero, pos_2, pos_4, 2);// soldado en posicion (2,4)
+		unJugador.agregarUnidadAlTablero(unTablero, pos_2, pos_5, 3);// soldado en posicion (2,5)
 			
-		unTablero.agregarUnidad(unJinete, pos_2, pos_2);
-		unTablero.agregarUnidad(unSoldadoDeInfanteria, pos_15, pos_2);
+		unTablero.moverBatallon(pos_2, pos_3, pos_3, pos_3);
 		
-		assertEquals(unTablero.hayUnidadesEnemigasEnDistanciaCercana(unJinete), false);
-	
+		assertEquals(unTablero.obtenerUnidad(pos_3, pos_2), unJugador.obtenerUnidadEnPosicion(0));// soldado que se mueve con el batallon
+		assertEquals(unTablero.obtenerUnidad(pos_3, pos_3), unJugador.obtenerUnidadEnPosicion(1));// soldado que se mueve con el batallon
+		assertEquals(unTablero.obtenerUnidad(pos_3, pos_4), unJugador.obtenerUnidadEnPosicion(2));// soldado que se mueve con el batallon
+		assertEquals(unTablero.obtenerUnidad(pos_2, pos_5), unJugador.obtenerUnidadEnPosicion(3));// soldado que no se mueve
+			
 	}
+	
 	
 	@Test
 	void test006JineteAliadoAtacaAPiezaEnDistanciaMediaYVerificaQueSeRestaVida() {
@@ -460,7 +411,39 @@ class TableroTest {
 			e.printStackTrace();
 		}
 		
-		
 	}
+	@Test
+	void test013HayUnidadesEnemigasEnDistanciaCercana() {
+		
+		Tablero unTablero = new Tablero(20,20);
+		Jugador[] jugadores = new Jugador[2];
+		Jugador jugadorAliado = new Jugador("juan1");
+		Jugador jugadorEnemigo = new Jugador("juan2");
+		jugadores[0] = jugadorAliado;
+		jugadores[1] = jugadorEnemigo;
+		jugadorAliado.agregarTablero(unTablero);
+		jugadorEnemigo.agregarTablero(unTablero);
+		
+		// jugador aliado
+		Jinete unJinete = new Jinete();
+		unJinete.asignarPropietario(jugadorAliado);
+		
+		// jugador enemigo
+		SoldadoDeInfanteria unSoldadoDeInfanteria = new SoldadoDeInfanteria();
+		unSoldadoDeInfanteria.asignarPropietario(jugadorEnemigo);
+		
+		//Posicionamiento
+		unTablero.generarTerritorios(jugadores);
+		int pos_2 = 2;
+		int pos_3 = 3;
+		int pos_15 = 19;
+			
+		unTablero.agregarUnidad(unJinete, pos_2, pos_2);
+		unTablero.agregarUnidad(unSoldadoDeInfanteria, pos_15, pos_2);
+		
+		assertEquals(unTablero.hayUnidadesEnemigasEnDistanciaCercana(unJinete), false);
+	
+	}
+	
 
 }

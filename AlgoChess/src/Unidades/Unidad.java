@@ -79,9 +79,17 @@ public class Unidad {
 		return propietario;
 	}
 	
+	public boolean estaADistanciaUno(Unidad unaUnidad) {
+		boolean estaADistanciaUno = false;
+		if (this.obtenerCelda().esDistanciaUno(unaUnidad.obtenerCelda())) {
+			estaADistanciaUno = true;
+		}
+		return estaADistanciaUno;
+	}
+	
 	public boolean estaADistanciaCercana(Unidad unaUnidad) {
 		boolean esDistanciaCercana = false;
-		if (this.obtenerCelda().esDistanciaCercana(unaUnidad.obtenerCelda())) {
+		if ((this.obtenerCelda()).esDistanciaCercana(unaUnidad.obtenerCelda())) {
 			esDistanciaCercana = true;
 		}
 		return esDistanciaCercana;
@@ -128,6 +136,10 @@ public class Unidad {
 	//Movimiento
 	public void mover(Celda destino) throws Exception {
 		this.movilidad.mover(this, destino);
+	}
+	
+	public void mover(int[] direccion) throws Exception {
+		this.movilidad.mover(this, direccion);
 	}
 	
 	//Tipo de unidad

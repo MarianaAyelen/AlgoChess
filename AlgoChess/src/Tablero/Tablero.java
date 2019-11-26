@@ -83,16 +83,17 @@ public class Tablero {
 		
 	}
 
-	public void moverBatallon(int[] posInicialx, int[] posInicialy, int[] posFinalx, int[] posFinaly ) throws Exception {
+	public void moverBatallon(int posInicialx, int posInicialy, int posFinalx, int posFinaly ) throws Exception {
+		if (this.obtenerUnidad(posInicialx, posInicialy) instanceof SoldadoDeInfanteria) {
+			
+			Celda celdaDestino = this.obtenerCelda(posFinalx, posFinaly);
+			Batallon batallon = new Batallon((SoldadoDeInfanteria) this.obtenerUnidad(posInicialx, posInicialy), celdaDestino);
+			batallon.moverBatallon();
+		}
+		else {
+			System.out.println("no es soldado");
+		}
 		
-		Celda destino1 = this.obtenerCelda(posFinalx[0], posFinaly[0]);
-		Celda destino2 = this.obtenerCelda(posFinalx[1], posFinaly[1]);
-		Celda destino3 = this.obtenerCelda(posFinalx[2], posFinaly[2]);
-		
-		SoldadoDeInfanteria soldado1 = (SoldadoDeInfanteria) this.obtenerUnidad(posInicialx[0], posInicialy[0]);
-		SoldadoDeInfanteria soldado2 = (SoldadoDeInfanteria) this.obtenerUnidad(posInicialx[1], posInicialy[1]);
-		SoldadoDeInfanteria soldado3 = (SoldadoDeInfanteria) this.obtenerUnidad(posInicialx[2], posInicialy[2]);
-		soldado1.moverBatallon(soldado2, soldado3, destino1, destino2, destino3);
 	}
 	
 	public List<Celda> devolverCeldasDistanciaCercana(Celda unaCelda) {
@@ -139,6 +140,11 @@ public class Tablero {
 			System.out.println("unidad defensora nula");		
 		}
 		
+	}
+	
+	public Celda obtenerCeldaConDireccion(int posX, int posY, int[] direccion) {
+		
+		return this.obtenerCelda(posX + direccion[0], posY + direccion[1]);
 	}
 	
 	//Metodo para los test

@@ -106,7 +106,23 @@ public class Celda {
 		return pos_y;
 	}
 	
+	public void modificarFila(int fila) {
+		pos_x = pos_x + fila;
+	}
 	
+	public void modificarColumna(int columna) {
+		pos_y = pos_y + columna;
+	}
+	
+	public int[] calcularDistanciaAbsoluta(Celda otraCelda) {
+		int deltaX = otraCelda.pos_x - this.pos_x;
+		int deltaY = otraCelda.pos_y - this.pos_y;
+		int posicion [];
+		posicion = new int[2];
+		posicion[0] = deltaX;
+		posicion[1] = deltaY;
+		return posicion;
+	}
 	
 	public int calcularDistancia(Celda otraCelda) {
 		int deltaX = this.pos_x - otraCelda.pos_x;
@@ -154,6 +170,14 @@ public class Celda {
 		}
 		
 		return celdasUnidas;
+	}
+	
+	public boolean esDistanciaUno(Celda otraCelda) {
+		boolean esDistanciaUno = false;
+		if (this.calcularDistancia(otraCelda) == 1) {
+			esDistanciaUno = true;
+		}
+		return esDistanciaUno;
 	}
 	
 	public boolean esDistanciaCercana(Celda otraCelda) {

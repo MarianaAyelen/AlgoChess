@@ -10,4 +10,10 @@ public class unidadNoMovil implements Movilidad {
 		throw new movimientoImposibleUnidadNoMovil();
 	}
 
+	@Override
+	public void mover(Unidad u, int[] direccion) throws Exception {
+		throw new movimientoImposibleUnidadNoMovil();
+		
+	}
+
 }
