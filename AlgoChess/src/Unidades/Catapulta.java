@@ -1,9 +1,11 @@
 package Unidades;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import Excepciones.CatapultaSoloAtacaADistancia;
+import Jugadores.Jugador;
 
 public class Catapulta extends UnidadAtacante {
 
@@ -34,7 +36,7 @@ public class Catapulta extends UnidadAtacante {
 	}
 	
 	private void atacarAUnidadesContiguas(Unidad unaUnidad) {
-		List<Unidad> unidadesContiguas = encontrarUnidadesContiguas(unaUnidad);//mismo propietaro que unaUnidad
+		List<Unidad> unidadesContiguas = encontrarUnidadesContiguas(unaUnidad);
 		for(Unidad unidadContigua : unidadesContiguas)
 		{
 			try {
@@ -48,9 +50,33 @@ public class Catapulta extends UnidadAtacante {
 	private List<Unidad> encontrarUnidadesContiguas(Unidad unaUnidad) {
 		List<Unidad> unidadesContiguas = new ArrayList<Unidad>();
 		unidadesContiguas.add(unaUnidad);
-		unaUnidad.propietario.agregarUnidadesContiguasAliadas(unaUnidad, unidadesContiguas);
+		agregarUnidadesContiguasAliadasYEnemigas(unaUnidad, unidadesContiguas, this.propietario, unaUnidad.propietario);
 		unidadesContiguas.remove(unaUnidad);
 		return unidadesContiguas;
+	}
+	
+	public void agregarUnidadesContiguasAliadasYEnemigas(Unidad unaUnidad, List<Unidad> unidadesContiguas, Jugador aliado, Jugador adversario) {//incluye sucesion de unidades contiguas
+		Iterator<Unidad> iteradorUnidadesAliadas = aliado.getUnidadesJugador().iterator();
+		Iterator<Unidad> iteradorUnidadesEnemigas = adversario.getUnidadesJugador().iterator();
+		while (iteradorUnidadesAliadas.hasNext() || iteradorUnidadesEnemigas.hasNext()) {
+			if(iteradorUnidadesAliadas.hasNext()) {
+				Unidad otraUnidad = iteradorUnidadesAliadas.next();
+				if(otraUnidad.calcularDistancia(unaUnidad)==1
+					&& !unidadesContiguas.contains(otraUnidad)) {
+					unidadesContiguas.add(otraUnidad);
+					agregarUnidadesContiguasAliadasYEnemigas(otraUnidad, unidadesContiguas, aliado, adversario);//recursividad en la busqueda
+				}				
+			}
+			if(iteradorUnidadesEnemigas.hasNext()) {
+				Unidad otraUnidad = iteradorUnidadesEnemigas.next();
+				if(otraUnidad.calcularDistancia(unaUnidad)==1
+					&& !unidadesContiguas.contains(otraUnidad)) {
+					unidadesContiguas.add(otraUnidad);
+					agregarUnidadesContiguasAliadasYEnemigas(otraUnidad, unidadesContiguas, adversario, aliado);//recursividad en la busqueda
+				}				
+				
+			}
+		}
 	}
 	
 	//Tipo de unidad

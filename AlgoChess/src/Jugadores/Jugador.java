@@ -160,6 +160,10 @@ public class Jugador {
 			}
 		}
 		
+		public List<Unidad> getUnidadesJugador() {
+			return this.unidadesJugador;
+		}
+		
 		public String jugadorPerdedor() {
 			return this.nombre;
 		}
