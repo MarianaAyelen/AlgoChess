@@ -88,6 +88,7 @@ public class EntidadesView {
 			@Override
 			public void handle(ActionEvent event) {
 				Stage sceneTablero = tableroScene.getMainStage();
+				mainStage.hide();
 				sceneTablero.show();
 					}			
 		});

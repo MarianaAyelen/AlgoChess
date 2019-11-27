@@ -107,6 +107,7 @@ public class ViewManager {
 			@Override
 			public void handle(ActionEvent event) {
 				Stage sceneEntidades = entidadesScene.getMainStage();
+				mainStage.hide();
 				sceneEntidades.show();
 			}			
 		});
