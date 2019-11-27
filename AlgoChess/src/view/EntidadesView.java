@@ -48,6 +48,8 @@ public class EntidadesView {
 	private ENTITY eleccionEntidades2;
 	private PointsLabel puntosJugador2;
 	
+	private TableroView tableroScene;
+	
 	public EntidadesView() {
 		mainPane = new AnchorPane();
 		mainScene = new Scene(mainPane, WIDTH, HEIGHT);
@@ -71,6 +73,8 @@ public class EntidadesView {
 		mainPane.getChildren().add(jugador2SubScene);
 		
 		crearEleccionSubEscena();
+		
+		tableroScene = new TableroView();
 	}
 	
 	private void crearComenzarButtons() {
@@ -83,6 +87,8 @@ public class EntidadesView {
 			
 			@Override
 			public void handle(ActionEvent event) {
+				Stage sceneTablero = tableroScene.getMainStage();
+				sceneTablero.show();
 					}			
 		});
 	
