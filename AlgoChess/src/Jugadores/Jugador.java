@@ -21,10 +21,14 @@ public class Jugador {
 		private int puntosIniciales;
 		private List<Unidad> unidadesJugador = new ArrayList<Unidad>();
 		private Tablero tablero;
+		private int cantidadDeJinetesColocados;
+		private int cantidadDeSoldadosColocados;
 		
 		public Jugador(String nombreJugador) {
 			nombre = nombreJugador;
 			puntosIniciales = 20;
+			cantidadDeJinetesColocados = 0;
+			cantidadDeSoldadosColocados = 0;
 		}
 		
 		public void turnoJugador() {
@@ -56,11 +60,46 @@ public class Jugador {
 			return tablero.hayUnidadesEnemigasEnDistanciaCercana(unaUnidad);
 		}
 		
+		public void agregarSoldadoInfanteria(int posicionX, int posicionY) {
+			SoldadoDeInfanteria unSoldadoDeInfanteria = new SoldadoDeInfanteria();
+			restarPuntos(unSoldadoDeInfanteria);
+			unSoldadoDeInfanteria.asignarPropietario(this);
+			unidadesJugador.add(unSoldadoDeInfanteria);
+			agregarUnidadAlTablero(unSoldadoDeInfanteria,posicionX, posicionY);
+			this.cantidadDeSoldadosColocados = this.cantidadDeSoldadosColocados + 1;
+		}
+		
+		public void restarCantidadDeSoldadosColocados() {
+			this.cantidadDeSoldadosColocados = this.cantidadDeSoldadosColocados - 1;
+		}
+		
+		public int obtenerCantidadDeSoldadosColocados(){
+			return cantidadDeSoldadosColocados;
+		}
+		
 		public void agregarSoldadoInfanteria() {
 			SoldadoDeInfanteria unSoldadoDeInfanteria = new SoldadoDeInfanteria();
 			restarPuntos(unSoldadoDeInfanteria);
 			unSoldadoDeInfanteria.asignarPropietario(this);
 			unidadesJugador.add(unSoldadoDeInfanteria);
+		}
+		
+		public void agregarJinete(int posicionX, int posicionY) {
+			Jinete unJinete = new Jinete();
+			restarPuntos(unJinete);
+			unJinete.asignarPropietario(this);
+			unidadesJugador.add(unJinete);
+			agregarUnidadAlTablero(unJinete,posicionX, posicionY);
+			this.cantidadDeJinetesColocados = this.cantidadDeJinetesColocados + 1;
+			
+		}
+		
+		public void restarCantidadDeJinetesColocados() {
+			this.cantidadDeJinetesColocados = this.cantidadDeJinetesColocados - 1;
+		}
+		
+		public int obtenerCantidadDeJinetesColocados() {
+			return cantidadDeJinetesColocados;
 		}
 		
 		public void agregarjinete() {
@@ -97,6 +136,11 @@ public class Jugador {
 						
 			tablero.agregarUnidad(unidadesJugador.get(posicionLista), posX, posY);
 		}
+		
+		public void agregarUnidadAlTablero( Unidad unidad, int posX, int posY) {
+			
+			this.tablero.agregarUnidad(unidad, posX, posY);
+		}
 			
 		private void restarPuntos(Unidad unaUnidad) {
 			
@@ -107,6 +151,10 @@ public class Jugador {
 				puntosIniciales = puntosIniciales - costoUnidad;
 			}
 			
+		}
+		
+		public int obtenerPuntos() {
+			return this.puntosIniciales;
 		}
 		
 		public List<SoldadoDeInfanteria> soldadosAliadosEnDistanciaCercana(SoldadoDeInfanteria unSoldado) {
@@ -185,4 +233,6 @@ public class Jugador {
 		public void agregarUnidad(Unidad unaUnidad) {
 			unidadesJugador.add(unaUnidad);
 		}
+		
+
 }

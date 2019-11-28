@@ -75,6 +75,7 @@ public class EntidadesView {
 		crearEleccionSubEscena();
 		
 		tableroScene = new TableroView();
+		
 	}
 	
 	private void crearComenzarButtons() {
@@ -149,8 +150,8 @@ public class EntidadesView {
 								entity.setCircleNotChoosen();
 							}
 							entitiesToPick.setCircleAdd();
-							entitiesToPick.setLabel(1);		// Acá, en lugar de estar harcodeado deberia haber una funcion que devuelva la cantidad de entidades
-							puntosJugador1.setPoints(17);		// Acá, en lugar de estar harcodeado deberia haber una funcion que devuelva los puntos restantes
+							entitiesToPick.setLabel(1);		// Acï¿½, en lugar de estar harcodeado deberia haber una funcion que devuelva la cantidad de entidades
+							puntosJugador1.setPoints(17);		// Acï¿½, en lugar de estar harcodeado deberia haber una funcion que devuelva los puntos restantes
 							eleccionEntidades1 = entitiesToPick.getEntity();
 
 			            } else if (event.getButton() == MouseButton.SECONDARY)
@@ -159,8 +160,8 @@ public class EntidadesView {
 								entity.setCircleNotChoosen();
 							}
 							entitiesToPick.setCircleAdd();
-							entitiesToPick.setLabel(-1);		// Acá, en lugar de estar harcodeado deberia haber una funcion que devuelva la cantidad de entidades
-							puntosJugador1.setPoints(20);		// Acá, en lugar de estar harcodeado deberia haber una funcion que devuelva los puntos restantes
+							entitiesToPick.setLabel(-1);		// Acï¿½, en lugar de estar harcodeado deberia haber una funcion que devuelva la cantidad de entidades
+							puntosJugador1.setPoints(20);		// Acï¿½, en lugar de estar harcodeado deberia haber una funcion que devuelva los puntos restantes
 							eleccionEntidades1 = entitiesToPick.getEntity();
 			            }
 				}
