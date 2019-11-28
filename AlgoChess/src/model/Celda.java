@@ -9,8 +9,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class Celda extends StackPane {
-
+	protected int posX;
+	protected int posY;
+	
 	public Celda(int x, int y) {
+		this.posX = x;
+		this.posY = y;
 		Rectangle rect = new Rectangle(45, 45, Color.CORAL);
 		rect.setStroke(Color.BLACK);
 		rect.setStrokeWidth(5);
@@ -39,6 +43,8 @@ public class Celda extends StackPane {
 	
 
 	public Celda(int x, int y, Color color, String etiqueta) {
+		this.posX = x;
+		this.posY = y;
 		Rectangle rect = new Rectangle(45, 45, color);
 		rect.setStroke(Color.BLACK);
 		rect.setStrokeWidth(5);
@@ -64,6 +70,13 @@ public class Celda extends StackPane {
 				rect.setStroke(Color.BLACK);	
 			}
 		});
+	}
+	
+	public int[] devolverPosicion() {
+		int[] posicion = new int[2];
+		posicion[0] = posX;
+		posicion[1] = posY;
+		return posicion;
 	}
 	
 }

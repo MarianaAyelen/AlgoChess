@@ -23,12 +23,16 @@ public class Jugador {
 		private Tablero tablero;
 		private int cantidadDeJinetesColocados;
 		private int cantidadDeSoldadosColocados;
+		private int cantidadDeCuranderosColocados;
+		private int cantidadDeCatapultasColocadas;
 		
 		public Jugador(String nombreJugador) {
 			nombre = nombreJugador;
 			puntosIniciales = 20;
 			cantidadDeJinetesColocados = 0;
 			cantidadDeSoldadosColocados = 0;
+			cantidadDeCuranderosColocados = 0;
+			cantidadDeCatapultasColocadas =0 ;
 		}
 		
 		public void turnoJugador() {
@@ -60,6 +64,7 @@ public class Jugador {
 			return tablero.hayUnidadesEnemigasEnDistanciaCercana(unaUnidad);
 		}
 		
+		// +++++++ Soldado +++++++
 		public void agregarSoldadoInfanteria(int posicionX, int posicionY) {
 			SoldadoDeInfanteria unSoldadoDeInfanteria = new SoldadoDeInfanteria();
 			restarPuntos(unSoldadoDeInfanteria);
@@ -84,6 +89,7 @@ public class Jugador {
 			unidadesJugador.add(unSoldadoDeInfanteria);
 		}
 		
+		// +++++++ Jinete +++++++
 		public void agregarJinete(int posicionX, int posicionY) {
 			Jinete unJinete = new Jinete();
 			restarPuntos(unJinete);
@@ -109,13 +115,30 @@ public class Jugador {
 			unidadesJugador.add(unJinete);
 		}
 		
+		// +++++++ Catapulta +++++++
 		public void agregarCatapulta() {
 			Catapulta unaCatapulta = new Catapulta();
 			restarPuntos(unaCatapulta);
 			unaCatapulta.asignarPropietario(this);
 			unidadesJugador.add(unaCatapulta);
 		}
+		public void agregarCatapulta(int posicionX, int posicionY) {
+			Catapulta unaCatapulta = new Catapulta();
+			restarPuntos(unaCatapulta);
+			unaCatapulta.asignarPropietario(this);
+			unidadesJugador.add(unaCatapulta);
+			agregarUnidadAlTablero(unaCatapulta,posicionX, posicionY);
+			this.cantidadDeCatapultasColocadas = this.cantidadDeCatapultasColocadas + 1;
+		}
 		
+		public void restarCantidadDeCatapultasColocadas() {
+			this.cantidadDeCatapultasColocadas = this.cantidadDeCatapultasColocadas - 1;
+		}
+		
+		public int obtenerCantidadDeCatapultasColocadas(){
+			return cantidadDeCatapultasColocadas;
+		}
+		// +++++++ Curandero +++++++
 		public void agregarCurandero() {
 			Curandero unCurandero = new Curandero();
 			restarPuntos(unCurandero);
@@ -123,6 +146,22 @@ public class Jugador {
 			unidadesJugador.add(unCurandero);
 		}
 		
+		public void agregarCurandero(int posicionX, int posicionY) {
+			Curandero unCurandero = new Curandero();
+			restarPuntos(unCurandero);
+			unCurandero.asignarPropietario(this);
+			unidadesJugador.add(unCurandero);
+			agregarUnidadAlTablero(unCurandero,posicionX, posicionY);
+			this.cantidadDeCuranderosColocados = this.cantidadDeCuranderosColocados + 1;
+		}
+		
+		public void restarCantidadDeCuranderosColocados() {
+			this.cantidadDeCuranderosColocados = this.cantidadDeCuranderosColocados - 1;
+		}
+		
+		public int obtenerCantidadDeCuranderosColocados(){
+			return cantidadDeCuranderosColocados;
+		}
 		
 		 public void eliminarUnidadSinVida(Unidad unaUnidad) {
 			 for (int i = 0; i < unidadesJugador.size(); i++) {
