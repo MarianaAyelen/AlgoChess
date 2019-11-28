@@ -5,6 +5,7 @@ import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -16,6 +17,7 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import model.InfoLabel;
 import model.PlayerLabel;
@@ -69,10 +71,14 @@ public class ViewManager {
 	}
 	
 	private void createSubScenes() {
-		creditsSubScene = new AlgoChessSubScene(1200,300,400,600);
+		Label labelCredits = new Label("Créditos: Alejandro, Mariana, Juan, Juan Pablo");
+		labelCredits.setFont(new Font("Serif", 20.0));
+		creditsSubScene = new AlgoChessSubScene(1200,300,400,600, labelCredits);
 		mainPane.getChildren().add(creditsSubScene);
 		
-		helpSubScene = new AlgoChessSubScene(1200,300,400,600);
+		Label labelHelp = new Label("No hay ayuda en este juego");
+		labelHelp.setFont(new Font("Serif", 20.0));
+		helpSubScene = new AlgoChessSubScene(1200,300,400,600, labelHelp);
 		mainPane.getChildren().add(helpSubScene);
 		
 		entidadesScene = new EntidadesView();
