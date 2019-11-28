@@ -2,6 +2,8 @@ package Jugadores;
 
 
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -33,9 +35,12 @@ public class Jugador {
 			cantidadDeSoldadosColocados = 0;
 			cantidadDeCuranderosColocados = 0;
 			cantidadDeCatapultasColocadas =0 ;
+
 		}
 		
 		public void turnoJugador() {
+			
+
 			Celda celdaOrigen, celdaDestino;
 			int posOrigenX, posOrigenY, posFinalX, posFinaly;
 			
@@ -53,9 +58,35 @@ public class Jugador {
 			posFinaly = celdaDestino.obtenerPosicionY();
 			
 			tablero.realizarComportamiento(posOrigenX,posOrigenY,posFinalX,posFinaly);
-
 			
 		}
+		
+		public void movimientoJugador() {
+			Celda celdaOrigen, celdaDestino;
+			int posOrigenX, posOrigenY, posFinalX, posFinaly;
+			
+			
+			System.out.println("Elegir pieza para mover este turno");			
+			//elegir celda por tablero
+			celdaOrigen = new Celda();
+			posOrigenX = celdaOrigen.obtenerPosicionX();
+			posOrigenY = celdaOrigen.obtenerPosicionY();
+
+			System.out.println("Elegir celda destino");			
+			//elegir celda por tablero
+			celdaDestino = new Celda();
+			posFinalX = celdaDestino.obtenerPosicionX();
+			posFinaly = celdaDestino.obtenerPosicionY();
+			try {
+				tablero.moverUnidad(posOrigenX, posOrigenY, posFinalX, posFinaly);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			
+			
+		}
+		
 		public void agregarTablero(Tablero tableroDelJuego) {
 			tablero = tableroDelJuego;
 		}
@@ -227,12 +258,29 @@ public class Jugador {
 		}
 		
 		public void comparUnidades() {
-			
-			
+			// union de la interfaz grafica con 
+			 /*
+			 this.agregarCatapulta();			  
+			 this.agregarCurandero();
+			 this.agregarjinete();
+			 this.agregarSoldadoInfanteria();
+			 */
 		}
 		
 		public void ubicarUnidades() {
+		/*	Celda celdaOrigen ;
+			int posX, posY;
+			Unidad unaUnidad;
 			
+			for (int i = 0; i < unidadesJugador.size(); i++) {
+				System.out.println("Elegir celda para ubicar unidad");			
+				//elegir celda por tablero
+				celdaOrigen = new Celda();
+				posX = celdaOrigen.obtenerPosicionX();
+				posY = celdaOrigen.obtenerPosicionY();
+				unaUnidad =  unidadesJugador.get(i);
+				tablero.agregarUnidad(unaUnidad, posX, posY);
+			}*/ 
 		}
 		
 		public void agregarUnidadesContiguasAliadas(Unidad unaUnidad, List<Unidad> unidadesContiguas) {//incluye sucesion de unidades contiguas

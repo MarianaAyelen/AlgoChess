@@ -3,9 +3,11 @@ package Juego;
 import Jugadores.Jugador;
 import Tablero.Tablero;
 
-public class Juego {
 
+
+public class Juego {
 	
+
 	public void CrearPartida() {
 		Tablero tablero = new Tablero(20, 20);
 		Jugador jugador1, jugador2;
@@ -16,8 +18,8 @@ public class Juego {
 		
 		Jugador[] jugadores = new Jugador[2]; 
 		
-		jugador1 = this.crearJugadores();
-		jugador2 = this.crearJugadores();
+		jugador1 = this.crearJugadores(tablero);
+		jugador2 = this.crearJugadores(tablero);
 		
 		this.compraUnidades(jugador1,jugador2);
 		this.ubicarUnidadesEnTablero(jugador1, jugador2);
@@ -49,25 +51,37 @@ public class Juego {
 		
 		Jugador[] jugadores = new Jugador[2];		
 		boolean partidaEnCurso = true;
-		
+		String tipoTurno; 
 		
 		while(partidaEnCurso) {
+			
+	
+			
+			// turno jugador 1
+
 			jugador1.turnoJugador();
 			partidaEnCurso = this.chequearUnidades(jugador1,jugador2);
 			if (!partidaEnCurso) {
 				jugadores = this.obtenerGanador(jugador1,jugador2);
 				break;
 			}
+			jugador1.movimientoJugador();
+			
+			// turno jugador 2
 			jugador2.turnoJugador();
 			partidaEnCurso = this.chequearUnidades(jugador1,jugador2);
 			if (!partidaEnCurso) {
 				jugadores = this.obtenerGanador(jugador1,jugador2);
 			}
+			
+			jugador2.movimientoJugador();
 		}
 		
 		
 		return jugadores;
 	}
+	
+	
 	
 	private Jugador[] obtenerGanador(Jugador jugador1 , Jugador jugador2 ) {
 		Jugador jugadores[] =  new Jugador[2];
@@ -102,7 +116,7 @@ public class Juego {
 	}
 	
 	
-	public Jugador crearJugadores() {
+	public Jugador crearJugadores(Tablero tableroJuego) {
 		String nombre;
 		Jugador unJugador;
 		
@@ -110,6 +124,7 @@ public class Juego {
 		// leer por teclado
 		nombre="jugador 1";
 		unJugador = new Jugador(nombre);
+		unJugador.agregarTablero(tableroJuego);
 		return unJugador;		 
 		
 	}
