@@ -41,7 +41,6 @@ public class Celda extends StackPane {
 		});
 	}
 	
-
 	public Celda(int x, int y, Color color, String etiqueta) {
 		this.posX = x;
 		this.posY = y;
@@ -70,6 +69,10 @@ public class Celda extends StackPane {
 				rect.setStroke(Color.BLACK);	
 			}
 		});
+	}
+	
+	public void seleccionarCelda() {
+		
 	}
 	
 	public int[] devolverPosicion() {
