@@ -11,7 +11,7 @@ public class Curandero extends UnidadCuradora {
 			vida = 75;
 			curacion = 15;	
 			movilidad = new unidadMovil();
-			costo = 5;
+			costo = 2;
 		}
 		
 		public void realizarComportamiento(Unidad unaUnidad) {

@@ -69,11 +69,13 @@ public class Tablero {
 	}
 	
 	public void agregarUnidad(Unidad nuevaUnidad, int pos_x, int pos_y) {
+		
 		try {
 			tablero[pos_x][pos_y].agregarUnidadEnTerritorioAliado(nuevaUnidad);			
 		}catch(Exception e) {
 			//TODO
-		}
+		}	
+		
 	}
 	
 	public void moverUnidad(int posInicialx, int posInicialy,int posFinalx, int posFinaly ) throws Exception {

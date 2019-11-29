@@ -5,6 +5,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -23,6 +25,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import model.AlgoChessButton;
 import model.AlgoChessSubScene;
 import model.Celda;
@@ -33,6 +36,7 @@ import java.util.List;
 
 import Jugadores.Jugador;
 import Tablero.Tablero;
+import Excepciones.*;
 
 public class TableroView {
 	
@@ -43,15 +47,30 @@ public class TableroView {
 	private Stage gameStage;
 	int posicionCeldaActualX;
 	int posicionCeldaActualY;
+	private String jugador1;
+	private String jugador2;
 	
+
 	
 	private static final int NUM_ROWS = 20;
 	private static final int NUM_COLUMNS = 20;
 
+	private static final String PUNTOS_INSUFICIENTES = "No posee los puntos necesarios para colocar la unidad";
+	private static final String TERRITORIO_ENEMIGO = "No puede colocar unidades en territorio enemigo";
+	private static final String CELDA_OCUPADA = "La celda esa ocupada";
+	
+	private Label etiquetaJinetesColocados;
+	
 	public TableroView() {
 		initializeStage();
 	}
-
+	
+	public TableroView(String nombreJugador1, String nombreJugador2) {
+		jugador1 = nombreJugador1;
+		jugador2 = nombreJugador2;
+		initializeStage();
+				
+	}
 	private void initializeStage() {
 		gamePane = new AnchorPane();
 		gameScene = new Scene(gamePane, WIDTH, HEIGHT);
@@ -63,8 +82,8 @@ public class TableroView {
 		
 		Tablero unTablero = new Tablero(20,20);
 		Jugador[] jugadores = new Jugador[2];
-		Jugador jugadorAliado = new Jugador("Pepe");
-		Jugador jugadorEnemigo = new Jugador("Roberto");
+		Jugador jugadorAliado = new Jugador(jugador1);
+		Jugador jugadorEnemigo = new Jugador(jugador2);
 		jugadores[0] = jugadorAliado;
 		jugadores[1] = jugadorEnemigo;
 		jugadorAliado.agregarTablero(unTablero);
@@ -74,8 +93,8 @@ public class TableroView {
 		gamePane.getChildren().add(tablero);  
 		gamePane.getChildren().add(crearBarraJugadorPosicionarPiezas(jugadorAliado,1000,10,750,250));
 		gamePane.getChildren().add(crearBarraJugadorPosicionarPiezas(jugadorEnemigo,000,10,750,250));
-		gamePane.setTopAnchor(tablero, 10.0);
-		gamePane.setLeftAnchor(tablero, 270.0);
+		gamePane.setTopAnchor(tablero, 70.0); // 
+		gamePane.setLeftAnchor(tablero, 325.0);
 		createBackground();
 	}
 	
@@ -98,6 +117,7 @@ public class TableroView {
 		Label etiquetaPuntosRestantes = etiquetaStringMasEntero("Puntos restantes: ", jugador.obtenerPuntos(), 15);
 		Label etiquetaNombreJugador = etiqueta(jugador.obtenerPropietario(), 35);
 		
+	
 		//Se agregan etiquetas
 		root.getChildren().add(etiquetaNombreJugador);
 		root.getChildren().add(etiquetaPuntosRestantes);
@@ -139,7 +159,7 @@ public class TableroView {
 	
 	private AlgoChessSubScene crearCeldasDeTablero() {
 
-		AlgoChessSubScene tablero = new AlgoChessSubScene(0,0,700,700);
+		AlgoChessSubScene tablero = new AlgoChessSubScene(0,0,600,600);
 		Node[][] celdas = new Node[NUM_ROWS][NUM_COLUMNS];
 		for (int i=0; i < NUM_COLUMNS ; i++) {
 			for (int j=0; j < NUM_ROWS ; j++) {
@@ -215,14 +235,21 @@ public class TableroView {
 			
 			@Override
 			public void handle(ActionEvent event) {
+				try {
 				jugador.agregarJinete(posicionCeldaActualX, posicionCeldaActualY);
 				agregarJineteATablero(posicionCeldaActualX,posicionCeldaActualY);
-				
+				if(jugador.obtenerPuntos()==0) {
+					crearJugadorEnPartidaSubEscenaJugador();
+				}
+				}catch(JugadorNoPuedeAgregarMasEntidades e) {
+					noPuedeColocarPieza(PUNTOS_INSUFICIENTES);
+				}
 				
 			}			
 		});
 		return botonJinete;
 	}
+	
 	
 	private AlgoChessButton botonSoldado(Jugador jugador) {
 		AlgoChessButton botonSoldado = new AlgoChessButton("Soldado");
@@ -231,9 +258,17 @@ public class TableroView {
 			
 			@Override
 			public void handle(ActionEvent event) {
-				jugador.agregarSoldadoInfanteria(posicionCeldaActualX, posicionCeldaActualY);
-				agregarSoldadoATablero(posicionCeldaActualX,posicionCeldaActualY);
+				try {
+					jugador.agregarSoldadoInfanteria(posicionCeldaActualX, posicionCeldaActualY);
+					agregarSoldadoATablero(posicionCeldaActualX,posicionCeldaActualY);
+					if(jugador.obtenerPuntos()==0) {
+						crearJugadorEnPartidaSubEscenaJugador();
+					}
 				
+					//crearBarraJugadorPosicionarPiezas(jugador,1000,10,750,250);
+				}catch(JugadorNoPuedeAgregarMasEntidades e) {
+					noPuedeColocarPieza(PUNTOS_INSUFICIENTES);
+				}
 					}			
 		});
 		return botonSoldado;
@@ -245,12 +280,19 @@ public class TableroView {
 		botonCurandero.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				jugador.agregarCurandero(posicionCeldaActualX, posicionCeldaActualY);
-				agregarCuranderoATablero(posicionCeldaActualX,posicionCeldaActualY);
-				//crearBarraJugadorPosicionarPiezas(jugador);
 				
-					}			
-		});
+				try {
+					jugador.agregarCurandero(posicionCeldaActualX, posicionCeldaActualY);
+					agregarCuranderoATablero(posicionCeldaActualX,posicionCeldaActualY);
+					//crearBarraJugadorPosicionarPiezas(jugador);
+					if(jugador.obtenerPuntos()==0) {
+						crearJugadorEnPartidaSubEscenaJugador();
+					}
+				}catch(JugadorNoPuedeAgregarMasEntidades e) {
+					noPuedeColocarPieza(PUNTOS_INSUFICIENTES);
+				}	
+			}			
+			});
 		return botonCurandero;
 	}
 	
@@ -260,13 +302,99 @@ public class TableroView {
 		botonCatapulta.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				jugador.agregarCatapulta(posicionCeldaActualX, posicionCeldaActualY);
-				agregarCatapultaATablero(posicionCeldaActualX,posicionCeldaActualY);
-				//crearBarraJugadorPosicionarPiezas(jugador);
+				try {
+					jugador.agregarCatapulta(posicionCeldaActualX, posicionCeldaActualY);
+					agregarCatapultaATablero(posicionCeldaActualX,posicionCeldaActualY);
+					//crearBarraJugadorPosicionarPiezas(jugador);
+					if(jugador.obtenerPuntos()==0) {
+						crearJugadorEnPartidaSubEscenaJugador();
+					}
+				}catch(JugadorNoPuedeAgregarMasEntidades e) {
+					noPuedeColocarPieza(PUNTOS_INSUFICIENTES);
+				}	
+			}		
 				
-					}			
+				
 		});
 		return botonCatapulta;
+	}
+	
+	//
+	private void crearJugadorEnPartidaSubEscenaJugador() {
+		
+		AlgoChessSubScene jugador1Partida = new AlgoChessSubScene(1000,10,750,250);
+		AlgoChessSubScene jugador2Partida = new AlgoChessSubScene(000,10,750,250);
+		
+		gamePane.getChildren().add(jugador1Partida); 
+		gamePane.getChildren().add(jugador2Partida);
+		
+		AlgoChessButton comportamientoBoton1  = ComportamientorButton();
+		AlgoChessButton movimientoBoton1 = movimientoButton();
+		AnchorPane root = jugador1Partida.getPane();
+		
+		
+		
+		
+		
+		root.getChildren().add(comportamientoBoton1);
+		root.getChildren().add(movimientoBoton1);
+		
+		root.setTopAnchor(comportamientoBoton1, 200.0);
+		root.setLeftAnchor(comportamientoBoton1, 10.0);
+		
+		root.setTopAnchor(movimientoBoton1, 400.0);
+		root.setLeftAnchor(movimientoBoton1, 10.0);
+		
+		AlgoChessButton comportamientoBoton2  = ComportamientorButton();
+		AlgoChessButton movimientoBoton2 = movimientoButton();
+		AnchorPane root2 = jugador2Partida.getPane();
+		
+		root2.getChildren().add(comportamientoBoton2);
+		root2.getChildren().add(movimientoBoton2);
+		root2.setTopAnchor(comportamientoBoton2, 200.0);
+		root2.setLeftAnchor(comportamientoBoton2, 0.0);
+		
+		root2.setTopAnchor(movimientoBoton2, 400.0);
+		root2.setLeftAnchor(movimientoBoton2, 10.0);
+	}
+	
+	private void subSceneComportamiento(AlgoChessSubScene jugadorPartida) {
+		
+	}
+	
+	private AlgoChessButton ComportamientorButton() {
+		AlgoChessButton botonComportamiento = new AlgoChessButton("Comportamiento");
+		botonComportamiento.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+	
+			}	
+		});
+	
+		return botonComportamiento;
+	}
+	
+	private AlgoChessButton movimientoButton() {
+		AlgoChessButton movimientoButton = new AlgoChessButton("Mover");
+		movimientoButton.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+	
+			}	
+		});
+	
+		return movimientoButton;
+	}
+	
+	private void noPuedeColocarPieza(String texto) {
+		Alert dialogoAlerta = new Alert(AlertType.INFORMATION);
+		dialogoAlerta.setTitle("Pieza invalida");
+		dialogoAlerta.setHeaderText(null);
+		dialogoAlerta.setContentText(texto);
+		dialogoAlerta.initStyle(StageStyle.UTILITY);
+		dialogoAlerta.showAndWait();
 	}
 	
 	private void agregarJineteATablero(int posicionX, int posicionY) {

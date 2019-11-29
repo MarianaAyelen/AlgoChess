@@ -1,6 +1,9 @@
 package view;
+//import java.awt.TextField;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.sun.glass.events.KeyEvent;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -8,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -19,6 +23,7 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+
 import model.InfoLabel;
 import model.PlayerLabel;
 import model.PointsLabel;
@@ -40,14 +45,23 @@ public class ViewManager {
 	
 	private AlgoChessSubScene helpSubScene;
 	private AlgoChessSubScene creditsSubScene;
-	private EntidadesView entidadesScene;
+	
+	private AlgoChessSubScene jugadoresSubScene;
+	
+	private TableroView tableroScene;
+	
 	private AlgoChessSubScene sceneToHide;
+	
+	private AlgoChessButton playButton;
 	
 	List<AlgoChessButton> menuButtons;
 	
 	List<EntityPicker> entityList;
 	PointsLabel pointsLabel;
 	PlayerLabel playerLabel;
+	
+	private String nombreJugador1;
+	private String nombreJugador2;
 	
 	public ViewManager() {
 		menuButtons = new ArrayList<>();
@@ -81,10 +95,38 @@ public class ViewManager {
 		helpSubScene = new AlgoChessSubScene(1200,300,400,600, labelHelp);
 		mainPane.getChildren().add(helpSubScene);
 		
-		entidadesScene = new EntidadesView();
+		
+		crearJugadoresSubScene();
+			
 		
 	}
 	
+	public void crearJugadoresSubScene() {
+	
+		Label labelJugadores = new Label("Ingresar nombre de los usuarios");
+		labelJugadores.setFont(new Font("Serif", 30.0));
+		jugadoresSubScene = new AlgoChessSubScene(1200,300,400,600, labelJugadores);
+		mainPane.getChildren().add(jugadoresSubScene);
+		
+		
+		PlayerLabel jugador1Label = new PlayerLabel("JUGADOR 1: ");
+		jugador1Label.setLayoutX(20);
+		jugador1Label.setLayoutY(120);
+		jugadoresSubScene.getPane().getChildren().add(jugador1Label);
+		
+		PlayerLabel jugador2Label = new PlayerLabel("JUGADOR 2: ");
+		jugador2Label.setLayoutX(20);
+		jugador2Label.setLayoutY(200);
+		jugadoresSubScene.getPane().getChildren().add(jugador2Label);
+		
+		
+		createPlayButton();
+		playButton.setLayoutX(200);
+		playButton.setLayoutY(300);
+		jugadoresSubScene.getPane().getChildren().add(playButton);
+	
+	
+	}
 		
 	public Stage getMainStage() {
 		return mainStage;
@@ -104,6 +146,36 @@ public class ViewManager {
 		createExitButton();
 	}
 	
+	private void createPlayButton() {
+		playButton = new AlgoChessButton("PLAY");
+			
+		TextField textFieldJugador1 = new TextField();
+		HBox hboxJugador1 = new HBox(textFieldJugador1);
+		hboxJugador1.setLayoutX(300);
+		hboxJugador1.setLayoutY(120);		
+		jugadoresSubScene.getPane().getChildren().add(hboxJugador1);		
+		
+		TextField textFieldJugador2 = new TextField();
+		HBox hboxJugador2 = new HBox(textFieldJugador2);
+		hboxJugador2.setLayoutX(300);
+		hboxJugador2.setLayoutY(200);		
+		jugadoresSubScene.getPane().getChildren().add(hboxJugador2);
+	
+		playButton.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				
+				nombreJugador1 = textFieldJugador1.getText();
+				nombreJugador2 = textFieldJugador2.getText();
+				tableroScene = new TableroView(nombreJugador1, nombreJugador2 );
+				Stage sceneTablero = tableroScene.getMainStage();
+				mainStage.hide();
+				sceneTablero.show();		
+				
+			}			
+		});
+	}
+	
 	private void createStartButton() {
 		AlgoChessButton startButton = new AlgoChessButton("PLAY");
 		addMenuButton(startButton);
@@ -112,9 +184,12 @@ public class ViewManager {
 			
 			@Override
 			public void handle(ActionEvent event) {
+				/*
 				Stage sceneEntidades = entidadesScene.getMainStage();
 				mainStage.hide();
 				sceneEntidades.show();
+				*/
+				showSubScene(jugadoresSubScene);
 			}			
 		});
 	}
