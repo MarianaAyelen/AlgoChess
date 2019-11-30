@@ -55,6 +55,8 @@ public class TableroView {
 	private Stage gameStage;
 	private AlgoChessSubScene barraLateralParaColocarPiezasDerecha;
 	private AlgoChessSubScene barraLateralParaColocarPiezasIzquierda;
+	private AlgoChessSubScene barraLateralParaJugarPiezasDerecha;
+	private AlgoChessSubScene barraLateralParaJugarPiezasIzquierda;
 	int posicionCeldaActualX;
 	int posicionCeldaActualY;
 	private String nombreJugador1;
@@ -206,8 +208,15 @@ public class TableroView {
 	    		System.out.println("se apreto en celda");
 	    		if (tablero.yaComenzoLaPartida()) {
 	    			System.out.println("entro");
+	    			System.out.println(tablero.mostrarInformacionDeLaPieza(x+1,y-1));
+	    			System.out.println(tablero.mostrarInformacionDeLaPieza(x-1,y+1));
 	    			System.out.println(tablero.mostrarInformacionDeLaPieza(x,y));
-	    			actualizarEtiquetaDeEstring("TipoDePieza: ",tablero.mostrarInformacionDeLaPieza(x,y), informacionDePieza);
+	    			System.out.println(tablero.mostrarInformacionDeLaPieza(x+1,y+1));
+	    			System.out.println(tablero.mostrarInformacionDeLaPieza(x+2,y+2));
+	    			System.out.println(tablero.mostrarInformacionDeLaPieza(x-2,y-2));
+	    			System.out.println(tablero.mostrarInformacionDeLaPieza(x-1,y-1));
+	    			
+	    			actualizarEtiquetaDeEstring("TipoePieza: ",tablero.mostrarInformacionDeLaPieza(x,y), informacionDePieza);
 	    		}
 	    }
 	};
@@ -258,6 +267,7 @@ public class TableroView {
 				try {
 					jugador.agregarSoldado(posicionCeldaActualX, posicionCeldaActualY);
 					agregarSoldadoATablero(posicionCeldaActualX,posicionCeldaActualY);
+					
 					actualizarEtiquetaDeEntero("Soldados colocados: ",jugador.obtenerCantidadDeSoldadosColocados(), etiquetaSoldadosColocados );
 					actualizarPuntos(jugador.obtenerPuntos(),etiquetaPuntosRestantes);
 					if(jugador.obtenerPuntos()==0) {
@@ -330,6 +340,7 @@ public class TableroView {
 	}
 	
 	//
+	
 	public void crearJugadorEnPartidaSubEscenaJugador() {
 		
 		AlgoChessSubScene jugador1Partida = new AlgoChessSubScene(posicionXBarraLateralDerecha,posicionYBarraLateralDerecha,largoBarraLateral,anchoBarraLateral);
@@ -368,6 +379,48 @@ public class TableroView {
 		
 		root2.setTopAnchor(movimientoBoton2, 400.0);
 		root2.setLeftAnchor(movimientoBoton2, 10.0);
+	}
+	
+
+	public void crearJugadorEnPartidaSubEscenaJugador(ControladorJugador jugador[]) {
+		
+		barraLateralParaJugarPiezasIzquierda = new AlgoChessSubScene(posicionXBarraLateralIzquierda,posicionYBarraLateralIzquierda,largoBarraLateral,anchoBarraLateral);
+		AnchorPane rootBarraLateralParaJugarPiezasIzquierda = barraLateralParaJugarPiezasIzquierda.getPane();
+		crearBarraLateralEnPartida(jugador[0], rootBarraLateralParaJugarPiezasIzquierda);
+		gamePane.getChildren().add(barraLateralParaJugarPiezasIzquierda);
+		
+		barraLateralParaJugarPiezasDerecha = new AlgoChessSubScene(posicionXBarraLateralDerecha,posicionYBarraLateralDerecha,largoBarraLateral,anchoBarraLateral);
+		AnchorPane rootBarraLateralParaJugarPiezasDerecha = barraLateralParaJugarPiezasDerecha.getPane();
+		crearBarraLateralEnPartida(jugador[1], rootBarraLateralParaJugarPiezasDerecha);
+		gamePane.getChildren().add(barraLateralParaJugarPiezasDerecha);
+		
+		
+		
+	}
+	
+public void crearBarraLateralEnPartida(ControladorJugador jugador,  AnchorPane root) {
+		
+		AlgoChessButton comportamientoBoton1  = ComportamientoButton();
+		AlgoChessButton movimientoBoton1 = movimientoButton();
+		
+		informacionDePieza = etiquetaStringMasString("TipoDePieza","", 15);
+		
+		Label etiquetaNombreJugador = etiqueta(jugador.obtenerNombre(), 35);
+		
+		root.getChildren().add(etiquetaNombreJugador);
+		root.getChildren().add(this.informacionDePieza);
+		root.getChildren().add(comportamientoBoton1);
+		root.getChildren().add(movimientoBoton1);
+		
+		root.setTopAnchor(etiquetaNombreJugador, 100.0);
+		root.setLeftAnchor(etiquetaNombreJugador, 10.0);
+		root.setTopAnchor(this.informacionDePieza, 100.0);
+		root.setLeftAnchor(this.informacionDePieza, 10.0);
+		root.setTopAnchor(comportamientoBoton1, 200.0);
+		root.setLeftAnchor(comportamientoBoton1, 10.0);
+		root.setTopAnchor(movimientoBoton1, 400.0);
+		root.setLeftAnchor(movimientoBoton1, 10.0);
+		
 	}
 	
 	private void subSceneComportamiento(AlgoChessSubScene jugadorPartida) {

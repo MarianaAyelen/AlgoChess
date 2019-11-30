@@ -11,6 +11,8 @@ public class TableroControlador {
 	private int cantidadDeJugadoresQueColocaronPiezas;
 	private TableroView tableroVista; 
 	private Tablero tablero;
+	ControladorJugador jugador1;
+	ControladorJugador jugador2;
 	
 	public void TableroControlador() {
 		cantidadDeJugadoresQueColocaronPiezas = 0;
@@ -19,8 +21,8 @@ public class TableroControlador {
 	
 	public void jugar(String nombreJugador1, String nombreJugador2) {
 		tablero = new Tablero(20,20);
-		ControladorJugador jugador1 = new ControladorJugador(nombreJugador1);
-		ControladorJugador jugador2 = new ControladorJugador(nombreJugador2);
+		jugador1 = new ControladorJugador(nombreJugador1);
+		jugador2 = new ControladorJugador(nombreJugador2);
 		jugador1.agregarTablero(tablero);
 		jugador2.agregarTablero(tablero);
 		colocarPiezas(jugador1, jugador2);
@@ -45,7 +47,11 @@ public class TableroControlador {
 
 	public void comenzarLaPartida() {
 		tableroVista.eliminarBarraParaDeColocacionDePiezas();
-		tableroVista.crearJugadorEnPartidaSubEscenaJugador();
+		ControladorJugador[] jugadores = new ControladorJugador[2];
+		jugadores[0] = jugador1;
+		jugadores[1] = jugador2;
+		tableroVista.crearJugadorEnPartidaSubEscenaJugador(jugadores);
+		
 		
 	}
 	

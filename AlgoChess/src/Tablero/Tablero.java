@@ -160,7 +160,7 @@ public class Tablero {
 	
 	public String devolverElTipoDePieza(int x, int y) {
 		Unidad unidad = tablero[x][y].obtenerEntidad();
-		String tipo = null ;
+		String tipo = "pepe" ;
 		if(unidad instanceof Jinete) {
 			tipo = "Jinete";
 		}
