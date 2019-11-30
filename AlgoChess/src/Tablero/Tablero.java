@@ -28,40 +28,40 @@ public class Tablero {
 	}
 	
 	private void generarBordeSuperior() {
-		for (int j = 1; j < cantidadColumnas+1; j++ ) {
+		for (int j = 0; j < cantidadColumnas+1; j++ ) {
 			tablero[0][j] = new Celda(0, j, false);;
 		}
 	}
 	
 	private void generarBordeInferior() {
-		for (int j = 1; j < cantidadColumnas+1; j++ ) {
-			tablero[cantidadFilas-1][j] = new Celda(cantidadFilas-1, j, false);
+		for (int j = 0; j < cantidadColumnas+1; j++ ) {
+			tablero[cantidadFilas+1][j] = new Celda(cantidadFilas+1, j, false);
 		}
 	}
 	
 	private void generarBordeIzquierdo() {
-		for (int i = 0; i < cantidadFilas; i++ ) {
+		for (int i = 0; i < cantidadFilas+1; i++ ) {
 			tablero[i][0] = new Celda(i, 0, false);
 		}
 	}
 	
 	private void generarBordeDerecho() {
-		for (int i = 0; i < cantidadFilas; i++ ) {
-			tablero[i][cantidadColumnas-1] = new Celda(i, cantidadColumnas-1, false);
+		for (int i = 0; i < cantidadFilas+1; i++ ) {
+			tablero[i][cantidadColumnas+1] = new Celda(i, cantidadColumnas+1, false);
 		}
 	}
 	
 	private void generarCentro() {
-		for (int i=1; i<cantidadFilas-1; i++) {
-			for (int j=1; j<cantidadColumnas-1; j++) {
+		for (int i=1; i<cantidadFilas+1; i++) {
+			for (int j=1; j<cantidadColumnas+1; j++) {
 				tablero[i][j] = new Celda(i, j, true);
 			}	
 		}
 	}
 	
 	public void generarTerritorios(Jugador[] vtrJugadores) {
-		for (int i=1; 2*i<cantidadFilas-1; i++) {
-			for (int j=1; j<(cantidadColumnas-1); j++) {
+		for (int i=1; 2*i<cantidadFilas+1; i++) {
+			for (int j=1; j<(cantidadColumnas+1); j++) {
 				tablero[i][j].asignarPropietario(vtrJugadores[0]);
 				tablero[i+(cantidadFilas/2)][j].asignarPropietario(vtrJugadores[1]);
 			}	
@@ -154,7 +154,7 @@ public class Tablero {
 		return tablero[pos_x][pos_y].obtenerEntidad();
 	}
 	
-	private Celda obtenerCelda(int pos_x, int pos_y) {
+	public Celda obtenerCelda(int pos_x, int pos_y) {
 		return tablero[pos_x][pos_y];
 	}
 	
@@ -179,6 +179,12 @@ public class Tablero {
 		}
 		
 		return tipo;
+	}
+	
+	public int devolverVidaDePieza(int x, int y) {
+		Unidad unidad = this.obtenerUnidad(x,y);
+		return unidad.obtenerVida();
+		
 	}
 	
 }

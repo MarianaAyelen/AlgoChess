@@ -1,6 +1,7 @@
 package controller;
 
 import Jugadores.Jugador;
+import Tablero.Celda;
 import Tablero.Tablero;
 import javafx.stage.Stage;
 import view.TableroView;
@@ -67,9 +68,15 @@ public class TableroControlador {
 		return colocacionDePiezasOk;
 	}
 	
-	public String mostrarInformacionDeLaPieza(int x, int y) {
-		String tipoDePieza = tablero.devolverElTipoDePieza(x-1, y-1);
+	public String mostrarTipoDePieza(int x, int y) {
+		
+		String tipoDePieza = tablero.devolverElTipoDePieza(x, y);
 		return tipoDePieza;
+	}
+	
+	public int mostrarVida(int x, int y) {
+		
+		return  tablero.devolverVidaDePieza(x, y);
 	}
 	
 }

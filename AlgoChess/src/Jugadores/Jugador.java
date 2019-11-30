@@ -127,6 +127,9 @@ public class Jugador {
 			unJinete.asignarPropietario(this);
 			unidadesJugador.add(unJinete);
 			agregarUnidadAlTablero(unJinete,posicionX, posicionY);
+			System.out.println("Metodo de jugador");
+			System.out.println(posicionX);
+			System.out.println(posicionY);
 			this.cantidadDeJinetesColocados = this.cantidadDeJinetesColocados + 1;
 			
 		}
