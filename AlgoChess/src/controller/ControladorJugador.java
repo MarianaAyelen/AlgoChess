@@ -54,4 +54,7 @@ public class ControladorJugador {
 		jugador.agregarCurandero(x,y);
 	}
 	
+	public Jugador devolverJugador() {
+		return jugador;
+	}
 }

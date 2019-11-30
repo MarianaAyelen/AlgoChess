@@ -25,7 +25,15 @@ public class TableroControlador {
 		jugador2 = new ControladorJugador(nombreJugador2);
 		jugador1.agregarTablero(tablero);
 		jugador2.agregarTablero(tablero);
+		tablero.generarTerritorios(devolverJugadores());
 		colocarPiezas(jugador1, jugador2);
+	}
+	
+	private Jugador[] devolverJugadores() {
+		Jugador[] jugadores = new Jugador[2];
+		jugadores[0] = jugador1.devolverJugador();
+		jugadores[1] = jugador2.devolverJugador();
+		return jugadores;
 	}
 	
 	public void colocarPiezas(ControladorJugador jugador1, ControladorJugador jugador2) {
@@ -60,7 +68,7 @@ public class TableroControlador {
 	}
 	
 	public String mostrarInformacionDeLaPieza(int x, int y) {
-		String tipoDePieza = tablero.devolverElTipoDePieza(x, y);
+		String tipoDePieza = tablero.devolverElTipoDePieza(x-1, y-1);
 		return tipoDePieza;
 	}
 	

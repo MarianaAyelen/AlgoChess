@@ -205,18 +205,10 @@ public class TableroView {
 	    		int y = ((Celda) celda).devolverPosicion()[1];
 	    		posicionCeldaActualX = x;
 	    		posicionCeldaActualY = y;
-	    		System.out.println("se apreto en celda");
+	    		
 	    		if (tablero.yaComenzoLaPartida()) {
-	    			System.out.println("entro");
-	    			System.out.println(tablero.mostrarInformacionDeLaPieza(x+1,y-1));
-	    			System.out.println(tablero.mostrarInformacionDeLaPieza(x-1,y+1));
-	    			System.out.println(tablero.mostrarInformacionDeLaPieza(x,y));
-	    			System.out.println(tablero.mostrarInformacionDeLaPieza(x+1,y+1));
-	    			System.out.println(tablero.mostrarInformacionDeLaPieza(x+2,y+2));
-	    			System.out.println(tablero.mostrarInformacionDeLaPieza(x-2,y-2));
-	    			System.out.println(tablero.mostrarInformacionDeLaPieza(x-1,y-1));
 	    			
-	    			actualizarEtiquetaDeEstring("TipoePieza: ",tablero.mostrarInformacionDeLaPieza(x,y), informacionDePieza);
+	    			actualizarEtiquetaDeEstring("Tipo de pieza: ",tablero.mostrarInformacionDeLaPieza(x,y), informacionDePieza);
 	    		}
 	    }
 	};
@@ -240,7 +232,7 @@ public class TableroView {
 		AlgoChessButton botonJinete = new AlgoChessButton("Jinete");
 		botonJinete.setOnAction(event-> {
 				try {
-					jugador.agregarJinete(posicionCeldaActualX, posicionCeldaActualY);
+					jugador.agregarJinete(posicionCeldaActualX-1, posicionCeldaActualY-1);
 					agregarJineteATablero(posicionCeldaActualX,posicionCeldaActualY);
 					actualizarEtiquetaDeEntero("Jinetes colocados: ",jugador.obtenerCantidadDeJinetesColocados(), etiquetaJinetesColocados );
 					actualizarPuntos(jugador.obtenerPuntos(),etiquetaPuntosRestantes);
@@ -393,8 +385,6 @@ public class TableroView {
 		AnchorPane rootBarraLateralParaJugarPiezasDerecha = barraLateralParaJugarPiezasDerecha.getPane();
 		crearBarraLateralEnPartida(jugador[1], rootBarraLateralParaJugarPiezasDerecha);
 		gamePane.getChildren().add(barraLateralParaJugarPiezasDerecha);
-		
-		
 		
 	}
 	
