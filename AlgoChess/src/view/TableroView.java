@@ -115,7 +115,7 @@ public class TableroView {
 		etiquetaPuntos.setText("Puntos restantes: " + strPuntos);
 	}
 	
-	private void actualizarPuntos(int puntos, Label etiquetaPuntos, String textoAdelante) {
+	private void actualizarEtiquetaDeEntero(String textoAdelante, int puntos, Label etiquetaPuntos) {
 		String strPuntos = Integer.toString(puntos);
 		etiquetaPuntos.setText(textoAdelante + strPuntos);
 	}
@@ -129,10 +129,10 @@ public class TableroView {
 		Label etiquetaPuntosRestantes = etiquetaStringMasEntero("Puntos restantes: ", jugador.obtenerPuntos(), 15);
 		Label etiquetaNombreJugador = etiqueta(jugador.obtenerPropietario(), 35);
 		
-		AlgoChessButton botonJinete = botonJinete(jugador, etiquetaPuntosRestantes);
-		AlgoChessButton botonSoldado = botonSoldado(jugador, etiquetaPuntosRestantes);
-		AlgoChessButton botonCurandero = botonCurandero(jugador, etiquetaPuntosRestantes);
-		AlgoChessButton botonCatapulta = botonCatapulta(jugador, etiquetaPuntosRestantes);
+		AlgoChessButton botonJinete = botonJinete(jugador, etiquetaPuntosRestantes, etiquetaJinetesColocados);
+		AlgoChessButton botonSoldado = botonSoldado(jugador, etiquetaPuntosRestantes, etiquetaSoldadosColocados);
+		AlgoChessButton botonCurandero = botonCurandero(jugador, etiquetaPuntosRestantes, etiquetaCuranderosColocados);
+		AlgoChessButton botonCatapulta = botonCatapulta(jugador, etiquetaPuntosRestantes, etiquetaCatapultasColocadas);
 		
 		//Se agregan etiquetas
 		root.getChildren().add(etiquetaNombreJugador);
@@ -213,14 +213,14 @@ public class TableroView {
 	
 	//+++++++++++ Metodos Botones +++++++++++
 	
-	private AlgoChessButton botonJinete(Jugador jugador, Label etiquetaPuntosRestantes) {
+	private AlgoChessButton botonJinete(Jugador jugador, Label etiquetaPuntosRestantes, Label etiquetaJinetesColocados) {
 		
 		AlgoChessButton botonJinete = new AlgoChessButton("Jinete");
 		botonJinete.setOnAction(event-> {
 				try {
 					jugador.agregarJinete(posicionCeldaActualX, posicionCeldaActualY);
 					agregarJineteATablero(posicionCeldaActualX,posicionCeldaActualY);
-					
+					actualizarEtiquetaDeEntero("Jinetes colocados: ",jugador.obtenerCantidadDeJinetesColocados(), etiquetaJinetesColocados );
 					actualizarPuntos(jugador.obtenerPuntos(),etiquetaPuntosRestantes);
 					if(jugador.obtenerPuntos()==0) {
 						crearJugadorEnPartidaSubEscenaJugador();
@@ -234,7 +234,7 @@ public class TableroView {
 	}
 	
 	
-	private AlgoChessButton botonSoldado(Jugador jugador, Label etiquetaPuntosRestantes) {
+	private AlgoChessButton botonSoldado(Jugador jugador, Label etiquetaPuntosRestantes, Label etiquetaSoldadosColocados) {
 		AlgoChessButton botonSoldado = new AlgoChessButton("Soldado");
 		
 		botonSoldado.setOnAction(new EventHandler<ActionEvent>() {
@@ -244,6 +244,7 @@ public class TableroView {
 				try {
 					jugador.agregarSoldadoInfanteria(posicionCeldaActualX, posicionCeldaActualY);
 					agregarSoldadoATablero(posicionCeldaActualX,posicionCeldaActualY);
+					actualizarEtiquetaDeEntero("Soldados colocados: ",jugador.obtenerCantidadDeSoldadosColocados(), etiquetaSoldadosColocados );
 					actualizarPuntos(jugador.obtenerPuntos(),etiquetaPuntosRestantes);
 					if(jugador.obtenerPuntos()==0) {
 						crearJugadorEnPartidaSubEscenaJugador();
@@ -257,7 +258,7 @@ public class TableroView {
 		return botonSoldado;
 	}
 	
-	private AlgoChessButton botonCurandero(Jugador jugador, Label etiquetaPuntosRestantes) {
+	private AlgoChessButton botonCurandero(Jugador jugador, Label etiquetaPuntosRestantes, Label etiquetaCuranderosColocados) {
 		AlgoChessButton botonCurandero = new AlgoChessButton("Curandero");
 		
 		botonCurandero.setOnAction(new EventHandler<ActionEvent>() {
@@ -267,6 +268,7 @@ public class TableroView {
 				try {
 					jugador.agregarCurandero(posicionCeldaActualX, posicionCeldaActualY);
 					agregarCuranderoATablero(posicionCeldaActualX,posicionCeldaActualY);
+					actualizarEtiquetaDeEntero("Curandero colocados: ",jugador.obtenerCantidadDeCuranderosColocados(), etiquetaCuranderosColocados );
 					actualizarPuntos(jugador.obtenerPuntos(),etiquetaPuntosRestantes);
 
 					if(jugador.obtenerPuntos()==0) {
@@ -280,7 +282,7 @@ public class TableroView {
 		return botonCurandero;
 	}
 	
-	private AlgoChessButton botonCatapulta(Jugador jugador, Label etiquetaPuntosRestantes) {
+	private AlgoChessButton botonCatapulta(Jugador jugador, Label etiquetaPuntosRestantes, Label etiquetaCatapultasColocados) {
 		AlgoChessButton botonCatapulta = new AlgoChessButton("Catapulta");
 		
 		botonCatapulta.setOnAction(new EventHandler<ActionEvent>() {
@@ -289,6 +291,7 @@ public class TableroView {
 				try {
 					jugador.agregarCatapulta(posicionCeldaActualX, posicionCeldaActualY);
 					agregarCatapultaATablero(posicionCeldaActualX,posicionCeldaActualY);
+					actualizarEtiquetaDeEntero("Catapultas colocadas: ",jugador.obtenerCantidadDeCatapultasColocadas(), etiquetaCatapultasColocados );
 					actualizarPuntos(jugador.obtenerPuntos(),etiquetaPuntosRestantes);
 					if(jugador.obtenerPuntos()==0) {
 						crearJugadorEnPartidaSubEscenaJugador();
