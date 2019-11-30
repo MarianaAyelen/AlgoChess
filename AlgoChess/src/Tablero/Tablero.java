@@ -158,6 +158,11 @@ public class Tablero {
 		return tablero[pos_x][pos_y];
 	}
 	
+	public boolean celdaVacia(int pos_x, int pos_y) {
+		return tablero[pos_x][pos_y].estaVacia();
+	}
+	
+	
 	public String devolverElTipoDePieza(int x, int y) {
 		Unidad unidad = this.obtenerUnidad(x,y);
 		String tipo = "Vacio" ;

@@ -234,14 +234,17 @@ public class TableroView {
 		AlgoChessButton botonJinete = new AlgoChessButton("Jinete");
 		botonJinete.setOnAction(event-> {
 				try {
-					jugador.agregarJinete(posicionCeldaActualX+1, posicionCeldaActualY+1);
-					agregarJineteATablero(posicionCeldaActualX,posicionCeldaActualY);
-					actualizarEtiquetaDeEntero("Jinetes colocados: ",jugador.obtenerCantidadDeJinetesColocados(), etiquetaJinetesColocados );
-					actualizarPuntos(jugador.obtenerPuntos(),etiquetaPuntosRestantes);
-					if(jugador.obtenerPuntos()==0) {
-						//crearJugadorEnPartidaSubEscenaJugador();
-						tablero.verificarColocacionDePiezas();
+					if(tablero.celdaVacia(posicionCeldaActualX+1, posicionCeldaActualY+1)) {
+						jugador.agregarJinete(posicionCeldaActualX+1, posicionCeldaActualY+1);
+						agregarJineteATablero(posicionCeldaActualX,posicionCeldaActualY);
+						actualizarEtiquetaDeEntero("Jinetes colocados: ",jugador.obtenerCantidadDeJinetesColocados(), etiquetaJinetesColocados );
+						actualizarPuntos(jugador.obtenerPuntos(),etiquetaPuntosRestantes);
+						if(jugador.obtenerPuntos()==0) {
+							//crearJugadorEnPartidaSubEscenaJugador();
+							tablero.verificarColocacionDePiezas();
+						}
 					}
+					
 					
 				}catch(JugadorNoPuedeAgregarMasEntidades e) {
 					noPuedeColocarPieza(PUNTOS_INSUFICIENTES);
@@ -259,15 +262,18 @@ public class TableroView {
 			@Override
 			public void handle(ActionEvent event) {
 				try {
-					jugador.agregarSoldado(posicionCeldaActualX+1, posicionCeldaActualY+1);
-					agregarSoldadoATablero(posicionCeldaActualX,posicionCeldaActualY);
-					
-					actualizarEtiquetaDeEntero("Soldados colocados: ",jugador.obtenerCantidadDeSoldadosColocados(), etiquetaSoldadosColocados );
-					actualizarPuntos(jugador.obtenerPuntos(),etiquetaPuntosRestantes);
-					if(jugador.obtenerPuntos()==0) {
-						//crearJugadorEnPartidaSubEscenaJugador();
-						tablero.verificarColocacionDePiezas();
+					if(tablero.celdaVacia(posicionCeldaActualX+1, posicionCeldaActualY+1)) {
+						jugador.agregarSoldado(posicionCeldaActualX+1, posicionCeldaActualY+1);
+						agregarSoldadoATablero(posicionCeldaActualX,posicionCeldaActualY);
+						
+						actualizarEtiquetaDeEntero("Soldados colocados: ",jugador.obtenerCantidadDeSoldadosColocados(), etiquetaSoldadosColocados );
+						actualizarPuntos(jugador.obtenerPuntos(),etiquetaPuntosRestantes);
+						if(jugador.obtenerPuntos()==0) {
+							//crearJugadorEnPartidaSubEscenaJugador();
+							tablero.verificarColocacionDePiezas();
+						}
 					}
+					
 				
 				}catch(JugadorNoPuedeAgregarMasEntidades e) {
 					noPuedeColocarPieza(PUNTOS_INSUFICIENTES);
@@ -285,15 +291,18 @@ public class TableroView {
 			public void handle(ActionEvent event) {
 				
 				try {
-					jugador.agregarCurandero(posicionCeldaActualX+1, posicionCeldaActualY+1);
-					agregarCuranderoATablero(posicionCeldaActualX,posicionCeldaActualY);
-					actualizarEtiquetaDeEntero("Curandero colocados: ",jugador.obtenerCantidadDeCuranderosColocados(), etiquetaCuranderosColocados );
-					actualizarPuntos(jugador.obtenerPuntos(),etiquetaPuntosRestantes);
+					if(tablero.celdaVacia(posicionCeldaActualX+1, posicionCeldaActualY+1)) {
+						jugador.agregarCurandero(posicionCeldaActualX+1, posicionCeldaActualY+1);
+						agregarCuranderoATablero(posicionCeldaActualX,posicionCeldaActualY);
+						actualizarEtiquetaDeEntero("Curandero colocados: ",jugador.obtenerCantidadDeCuranderosColocados(), etiquetaCuranderosColocados );
+						actualizarPuntos(jugador.obtenerPuntos(),etiquetaPuntosRestantes);
 
-					if(jugador.obtenerPuntos()==0) {
-						//crearJugadorEnPartidaSubEscenaJugador();
-						tablero.verificarColocacionDePiezas();
+						if(jugador.obtenerPuntos()==0) {
+							//crearJugadorEnPartidaSubEscenaJugador();
+							tablero.verificarColocacionDePiezas();
+						}
 					}
+					
 				}catch(JugadorNoPuedeAgregarMasEntidades e) {
 					noPuedeColocarPieza(PUNTOS_INSUFICIENTES);
 				}	
@@ -309,14 +318,17 @@ public class TableroView {
 			@Override
 			public void handle(ActionEvent event) {
 				try {
-					jugador.agregarCatapulta(posicionCeldaActualX+1, posicionCeldaActualY+1);
-					agregarCatapultaATablero(posicionCeldaActualX,posicionCeldaActualY);
-					actualizarEtiquetaDeEntero("Catapultas colocadas: ",jugador.obtenerCantidadDeCatapultasColocadas(), etiquetaCatapultasColocados );
-					actualizarPuntos(jugador.obtenerPuntos(),etiquetaPuntosRestantes);
-					if(jugador.obtenerPuntos()==0) {
-						//crearJugadorEnPartidaSubEscenaJugador();
-						tablero.verificarColocacionDePiezas();
+					if(tablero.celdaVacia(posicionCeldaActualX+1, posicionCeldaActualY+1)) {
+						jugador.agregarCatapulta(posicionCeldaActualX+1, posicionCeldaActualY+1);
+						agregarCatapultaATablero(posicionCeldaActualX,posicionCeldaActualY);
+						actualizarEtiquetaDeEntero("Catapultas colocadas: ",jugador.obtenerCantidadDeCatapultasColocadas(), etiquetaCatapultasColocados );
+						actualizarPuntos(jugador.obtenerPuntos(),etiquetaPuntosRestantes);
+						if(jugador.obtenerPuntos()==0) {
+							//crearJugadorEnPartidaSubEscenaJugador();
+							tablero.verificarColocacionDePiezas();
+						}
 					}
+					
 				}catch(JugadorNoPuedeAgregarMasEntidades e) {
 					noPuedeColocarPieza(PUNTOS_INSUFICIENTES);
 				}	

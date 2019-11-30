@@ -79,4 +79,8 @@ public class TableroControlador {
 		return  tablero.devolverVidaDePieza(x, y);
 	}
 	
+	public boolean celdaVacia(int x, int y) {
+		return tablero.celdaVacia(x, y);
+	}
+	
 }
