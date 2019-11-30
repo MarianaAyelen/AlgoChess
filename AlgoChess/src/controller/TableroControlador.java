@@ -83,4 +83,13 @@ public class TableroControlador {
 		return tablero.celdaVacia(x, y);
 	}
 	
+	public boolean celdaPerteneceAJugador(int x, int y, ControladorJugador controladorJugador) {
+		boolean celdaPerteneceAJugador = false;
+		if(tablero.obtenerPropietario(x, y) == controladorJugador.devolverJugador()) {
+			celdaPerteneceAJugador = true;
+		}
+		
+		return celdaPerteneceAJugador;
+	}
+	
 }

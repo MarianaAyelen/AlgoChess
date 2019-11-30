@@ -234,7 +234,7 @@ public class TableroView {
 		AlgoChessButton botonJinete = new AlgoChessButton("Jinete");
 		botonJinete.setOnAction(event-> {
 				try {
-					if(tablero.celdaVacia(posicionCeldaActualX+1, posicionCeldaActualY+1)) {
+					if(tablero.celdaVacia(posicionCeldaActualX+1, posicionCeldaActualY+1) && tablero.celdaPerteneceAJugador(posicionCeldaActualX+1, posicionCeldaActualY+1, jugador)) {
 						jugador.agregarJinete(posicionCeldaActualX+1, posicionCeldaActualY+1);
 						agregarJineteATablero(posicionCeldaActualX,posicionCeldaActualY);
 						actualizarEtiquetaDeEntero("Jinetes colocados: ",jugador.obtenerCantidadDeJinetesColocados(), etiquetaJinetesColocados );
@@ -262,7 +262,7 @@ public class TableroView {
 			@Override
 			public void handle(ActionEvent event) {
 				try {
-					if(tablero.celdaVacia(posicionCeldaActualX+1, posicionCeldaActualY+1)) {
+					if(tablero.celdaVacia(posicionCeldaActualX+1, posicionCeldaActualY+1) && tablero.celdaPerteneceAJugador(posicionCeldaActualX+1, posicionCeldaActualY+1, jugador)) {
 						jugador.agregarSoldado(posicionCeldaActualX+1, posicionCeldaActualY+1);
 						agregarSoldadoATablero(posicionCeldaActualX,posicionCeldaActualY);
 						
@@ -291,7 +291,7 @@ public class TableroView {
 			public void handle(ActionEvent event) {
 				
 				try {
-					if(tablero.celdaVacia(posicionCeldaActualX+1, posicionCeldaActualY+1)) {
+					if(tablero.celdaVacia(posicionCeldaActualX+1, posicionCeldaActualY+1) && tablero.celdaPerteneceAJugador(posicionCeldaActualX+1, posicionCeldaActualY+1, jugador)) {
 						jugador.agregarCurandero(posicionCeldaActualX+1, posicionCeldaActualY+1);
 						agregarCuranderoATablero(posicionCeldaActualX,posicionCeldaActualY);
 						actualizarEtiquetaDeEntero("Curandero colocados: ",jugador.obtenerCantidadDeCuranderosColocados(), etiquetaCuranderosColocados );
@@ -318,7 +318,7 @@ public class TableroView {
 			@Override
 			public void handle(ActionEvent event) {
 				try {
-					if(tablero.celdaVacia(posicionCeldaActualX+1, posicionCeldaActualY+1)) {
+					if(tablero.celdaVacia(posicionCeldaActualX+1, posicionCeldaActualY+1) && tablero.celdaPerteneceAJugador(posicionCeldaActualX+1, posicionCeldaActualY+1, jugador)) {
 						jugador.agregarCatapulta(posicionCeldaActualX+1, posicionCeldaActualY+1);
 						agregarCatapultaATablero(posicionCeldaActualX,posicionCeldaActualY);
 						actualizarEtiquetaDeEntero("Catapultas colocadas: ",jugador.obtenerCantidadDeCatapultasColocadas(), etiquetaCatapultasColocados );
@@ -346,7 +346,7 @@ public class TableroView {
 	}
 	
 	//
-	
+	/*
 	public void crearJugadorEnPartidaSubEscenaJugador() {
 		
 		AlgoChessSubScene jugador1Partida = new AlgoChessSubScene(posicionXBarraLateralDerecha,posicionYBarraLateralDerecha,largoBarraLateral,anchoBarraLateral);
@@ -385,7 +385,7 @@ public class TableroView {
 		
 		root2.setTopAnchor(movimientoBoton2, 400.0);
 		root2.setLeftAnchor(movimientoBoton2, 10.0);
-	}
+	}*/
 	
 
 	public void crearJugadorEnPartidaSubEscenaJugador(ControladorJugador jugador[]) {

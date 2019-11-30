@@ -161,6 +161,9 @@ public class Tablero {
 	public boolean celdaVacia(int pos_x, int pos_y) {
 		return tablero[pos_x][pos_y].estaVacia();
 	}
+	public Jugador obtenerPropietario(int pos_x, int pos_y) {
+		return tablero[pos_x][pos_y].obtenerPropietario();
+	}
 	
 	
 	public String devolverElTipoDePieza(int x, int y) {
@@ -191,5 +194,8 @@ public class Tablero {
 		return unidad.obtenerVida();
 		
 	}
+	
+	
+	
 	
 }
