@@ -133,6 +133,11 @@ public class TableroView {
 	
 	private void crearBarraJugadorPosicionarPiezas(ControladorJugador jugador, AnchorPane root) {
 		
+		Label etiquetaCostoJinetes = etiqueta("Costo de jinetes: 3", 15);
+		Label etiquetaCostoSoldados = etiqueta("Costo de soldados: 1", 15);
+		Label etiquetaCostoCuranderos = etiqueta("Costo de curanderos: 2", 15);
+		Label etiquetaCostoCatapultas = etiqueta("Costo de catapultas: 5", 15);
+		
 		Label etiquetaJinetesColocados = etiquetaStringMasEntero("Jinetes colocados: ", jugador.obtenerCantidadDeJinetesColocados(), 15);
 		Label etiquetaSoldadosColocados = etiquetaStringMasEntero("Soldados colocados: ", jugador.obtenerCantidadDeSoldadosColocados(), 15);
 		Label etiquetaCuranderosColocados = etiquetaStringMasEntero("Curanderos colocados: ", jugador.obtenerCantidadDeCuranderosColocados(), 15);
@@ -149,12 +154,16 @@ public class TableroView {
 		root.getChildren().add(etiquetaNombreJugador);
 		root.getChildren().add(etiquetaPuntosRestantes);
 		root.getChildren().add(botonJinete);
+		root.getChildren().add(etiquetaCostoJinetes);
 		root.getChildren().add(etiquetaJinetesColocados);
 		root.getChildren().add(botonSoldado);
+		root.getChildren().add(etiquetaCostoSoldados);
 		root.getChildren().add(etiquetaSoldadosColocados);
 		root.getChildren().add(botonCurandero);
+		root.getChildren().add(etiquetaCostoCuranderos);
 		root.getChildren().add(etiquetaCuranderosColocados);
 		root.getChildren().add(botonCatapulta);
+		root.getChildren().add(etiquetaCostoCatapultas);
 		root.getChildren().add(etiquetaCatapultasColocadas);
 	    
 		//posiciones
@@ -162,21 +171,29 @@ public class TableroView {
 		root.setLeftAnchor(etiquetaNombreJugador, 10.0);
 		root.setTopAnchor(etiquetaPuntosRestantes, 200.0);
 		root.setLeftAnchor(etiquetaPuntosRestantes, 10.0);
-		root.setTopAnchor(botonJinete, 300.0);
+		root.setTopAnchor(botonJinete, 280.0);
 		root.setLeftAnchor(botonJinete, 10.0);
-		root.setTopAnchor(etiquetaJinetesColocados, 350.0);
+		AnchorPane.setTopAnchor(etiquetaCostoJinetes, 330.0);
+		AnchorPane.setLeftAnchor(etiquetaCostoJinetes, 10.0);
+		root.setTopAnchor(etiquetaJinetesColocados, 348.0);
 		root.setLeftAnchor(etiquetaJinetesColocados, 10.0);
-		root.setTopAnchor(botonSoldado, 400.0);
+		root.setTopAnchor(botonSoldado, 380.0);
 		root.setLeftAnchor(botonSoldado, 10.0);
-		root.setTopAnchor(etiquetaSoldadosColocados, 450.0);
+		AnchorPane.setTopAnchor(etiquetaCostoSoldados, 430.0);
+		AnchorPane.setLeftAnchor(etiquetaCostoSoldados, 10.0);
+		root.setTopAnchor(etiquetaSoldadosColocados, 448.0);
 		root.setLeftAnchor(etiquetaSoldadosColocados, 10.0);
-		root.setTopAnchor(botonCurandero, 500.0);
+		root.setTopAnchor(botonCurandero, 480.0);
 		root.setLeftAnchor(botonCurandero, 10.0);
-		root.setTopAnchor(etiquetaCuranderosColocados, 550.0);
+		AnchorPane.setTopAnchor(etiquetaCostoCuranderos, 530.0);
+		AnchorPane.setLeftAnchor(etiquetaCostoCuranderos, 10.0);
+		root.setTopAnchor(etiquetaCuranderosColocados, 548.0);
 		root.setLeftAnchor(etiquetaCuranderosColocados, 10.0);
-		root.setTopAnchor(botonCatapulta, 600.0);
+		root.setTopAnchor(botonCatapulta, 580.0);
 		root.setLeftAnchor(botonCatapulta, 10.0);
-		root.setTopAnchor(etiquetaCatapultasColocadas, 650.0);
+		AnchorPane.setTopAnchor(etiquetaCostoCatapultas, 630.0);
+		AnchorPane.setLeftAnchor(etiquetaCostoCatapultas, 10.0);
+		root.setTopAnchor(etiquetaCatapultasColocadas, 648.0);
 		root.setLeftAnchor(etiquetaCatapultasColocadas, 10.0);
 		
 	}
