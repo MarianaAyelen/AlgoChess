@@ -158,5 +158,24 @@ public class Tablero {
 		return tablero[pos_x][pos_y];
 	}
 	
+	public String devolverElTipoDePieza(int x, int y) {
+		Unidad unidad = tablero[x][y].obtenerEntidad();
+		String tipo = null ;
+		if(unidad instanceof Jinete) {
+			tipo = "Jinete";
+		}
+		
+		if(unidad instanceof SoldadoDeInfanteria) {
+			tipo = "Soldado De Infanteria";
+		}
+		
+		if(unidad instanceof Catapulta) {
+			tipo = "Catapulta";
+		}
+		if(unidad instanceof Curandero) {
+			tipo = "Curandero";
+		}
+		return tipo;
+	}
 	
 }

@@ -32,6 +32,7 @@ import model.EntityPicker;
 import model.AlgoChessButton;
 import model.AlgoChessSubScene;
 import view.*;
+import controller.TableroControlador;
 
 public class ViewManager {
 	private static final int WIDTH = 1200;
@@ -167,11 +168,12 @@ public class ViewManager {
 				
 				nombreJugador1 = textFieldJugador1.getText();
 				nombreJugador2 = textFieldJugador2.getText();
-				tableroScene = new TableroView(nombreJugador1, nombreJugador2 );
-				Stage sceneTablero = tableroScene.getMainStage();
-				mainStage.hide();
-				sceneTablero.show();		
-				
+				//tableroScene = new TableroView(nombreJugador1, nombreJugador2 );
+				//Stage sceneTablero = tableroScene.getMainStage();
+				//mainStage.hide();
+				//sceneTablero.show();
+				TableroControlador tableroControlador = new TableroControlador(); 
+				tableroControlador.jugar(nombreJugador1, nombreJugador2 );
 			}			
 		});
 	}

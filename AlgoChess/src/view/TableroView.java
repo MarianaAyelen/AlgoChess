@@ -36,6 +36,8 @@ import java.util.List;
 
 import Jugadores.Jugador;
 import Tablero.Tablero;
+import controller.ControladorJugador;
+import controller.TableroControlador;
 import Excepciones.*;
 
 public class TableroView {
@@ -51,10 +53,14 @@ public class TableroView {
 	private AnchorPane gamePane;
 	private Scene gameScene;
 	private Stage gameStage;
+	private AlgoChessSubScene barraLateralParaColocarPiezasDerecha;
+	private AlgoChessSubScene barraLateralParaColocarPiezasIzquierda;
 	int posicionCeldaActualX;
 	int posicionCeldaActualY;
-	private String jugador1;
-	private String jugador2;
+	private String nombreJugador1;
+	private String nombreJugador2;
+	private TableroControlador tablero;
+	private Label informacionDePieza;
 	
 	private static final int NUM_ROWS = 20;
 	private static final int NUM_COLUMNS = 20;
@@ -65,6 +71,7 @@ public class TableroView {
 	
 	private Label etiquetaJinetesColocados;
 	
+	/*
 	public TableroView() {
 		initializeStage();
 	}
@@ -74,33 +81,35 @@ public class TableroView {
 		jugador2 = nombreJugador2;
 		initializeStage();
 				
+	}*/
+	
+	public TableroView(ControladorJugador jugador1, ControladorJugador jugador2, TableroControlador controladorTablero) {
+		nombreJugador1 = jugador1.obtenerNombre();
+		nombreJugador2 = jugador2.obtenerNombre();
+		tablero = controladorTablero;
+		initializeStage(jugador1, jugador2);
+				
 	}
-	private void initializeStage() {
+	
+	
+	private void initializeStage(ControladorJugador jugador1,ControladorJugador jugador2) {
 		gamePane = new AnchorPane();
 		gameScene = new Scene(gamePane, WIDTH, HEIGHT);
 		gameStage = new Stage();
 		gameStage.setScene(gameScene);
 		
-		Tablero unTablero = new Tablero(20,20);
-		Jugador[] jugadores = new Jugador[2];
-		Jugador jugadorAliado = new Jugador(jugador1);
-		Jugador jugadorEnemigo = new Jugador(jugador2);
-		jugadores[0] = jugadorAliado;
-		jugadores[1] = jugadorEnemigo;
-		jugadorAliado.agregarTablero(unTablero);
-		jugadorEnemigo.agregarTablero(unTablero);
 		
 		AlgoChessSubScene tablero = crearCeldasDeTablero();
 		gamePane.getChildren().add(tablero);  
 		
-		AlgoChessSubScene barraLateralParaColocarPiezasIzquierda = new AlgoChessSubScene(posicionXBarraLateralIzquierda,posicionYBarraLateralIzquierda,largoBarraLateral,anchoBarraLateral);
+		barraLateralParaColocarPiezasIzquierda = new AlgoChessSubScene(posicionXBarraLateralIzquierda,posicionYBarraLateralIzquierda,largoBarraLateral,anchoBarraLateral);
 		AnchorPane rootBarraLateralParaColocarPiezasIzquierda = barraLateralParaColocarPiezasIzquierda.getPane();
-		crearBarraJugadorPosicionarPiezas(jugadorAliado, rootBarraLateralParaColocarPiezasIzquierda);
+		crearBarraJugadorPosicionarPiezas(jugador1, rootBarraLateralParaColocarPiezasIzquierda);
 		gamePane.getChildren().add(barraLateralParaColocarPiezasIzquierda);
 		
-		AlgoChessSubScene barraLateralParaColocarPiezasDerecha = new AlgoChessSubScene(posicionXBarraLateralDerecha,posicionYBarraLateralDerecha,largoBarraLateral,anchoBarraLateral);
+		barraLateralParaColocarPiezasDerecha = new AlgoChessSubScene(posicionXBarraLateralDerecha,posicionYBarraLateralDerecha,largoBarraLateral,anchoBarraLateral);
 		AnchorPane rootBarraLateralParaColocarPiezasDerecha = barraLateralParaColocarPiezasDerecha.getPane();
-		crearBarraJugadorPosicionarPiezas(jugadorEnemigo, rootBarraLateralParaColocarPiezasDerecha);
+		crearBarraJugadorPosicionarPiezas(jugador2, rootBarraLateralParaColocarPiezasDerecha);
 		gamePane.getChildren().add(barraLateralParaColocarPiezasDerecha);
 		
 		gamePane.setTopAnchor(tablero, 70.0); // 
@@ -120,14 +129,14 @@ public class TableroView {
 		etiquetaPuntos.setText(textoAdelante + strPuntos);
 	}
 	
-	private void crearBarraJugadorPosicionarPiezas(Jugador jugador, AnchorPane root) {
+	private void crearBarraJugadorPosicionarPiezas(ControladorJugador jugador, AnchorPane root) {
 		
 		Label etiquetaJinetesColocados = etiquetaStringMasEntero("Jinetes colocados: ", jugador.obtenerCantidadDeJinetesColocados(), 15);
 		Label etiquetaSoldadosColocados = etiquetaStringMasEntero("Soldados colocados: ", jugador.obtenerCantidadDeSoldadosColocados(), 15);
 		Label etiquetaCuranderosColocados = etiquetaStringMasEntero("Curanderos colocados: ", jugador.obtenerCantidadDeCuranderosColocados(), 15);
 		Label etiquetaCatapultasColocadas = etiquetaStringMasEntero("Catapultas colocados: ", jugador.obtenerCantidadDeSoldadosColocados(), 15);
 		Label etiquetaPuntosRestantes = etiquetaStringMasEntero("Puntos restantes: ", jugador.obtenerPuntos(), 15);
-		Label etiquetaNombreJugador = etiqueta(jugador.obtenerPropietario(), 35);
+		Label etiquetaNombreJugador = etiqueta(jugador.obtenerNombre(), 35);
 		
 		AlgoChessButton botonJinete = botonJinete(jugador, etiquetaPuntosRestantes, etiquetaJinetesColocados);
 		AlgoChessButton botonSoldado = botonSoldado(jugador, etiquetaPuntosRestantes, etiquetaSoldadosColocados);
@@ -168,7 +177,6 @@ public class TableroView {
 		root.setTopAnchor(etiquetaCatapultasColocadas, 650.0);
 		root.setLeftAnchor(etiquetaCatapultasColocadas, 10.0);
 		
-	    
 	}
 	
 	// +++++++++++ Metodos de ViewTablero +++++++++++
@@ -195,7 +203,12 @@ public class TableroView {
 	    		int y = ((Celda) celda).devolverPosicion()[1];
 	    		posicionCeldaActualX = x;
 	    		posicionCeldaActualY = y;
-	    		
+	    		System.out.println("se apreto en celda");
+	    		if (tablero.yaComenzoLaPartida()) {
+	    			System.out.println("entro");
+	    			System.out.println(tablero.mostrarInformacionDeLaPieza(x,y));
+	    			actualizarEtiquetaDeEstring("TipoDePieza: ",tablero.mostrarInformacionDeLaPieza(x,y), informacionDePieza);
+	    		}
 	    }
 	};
 	
@@ -213,7 +226,7 @@ public class TableroView {
 	
 	//+++++++++++ Metodos Botones +++++++++++
 	
-	private AlgoChessButton botonJinete(Jugador jugador, Label etiquetaPuntosRestantes, Label etiquetaJinetesColocados) {
+	private AlgoChessButton botonJinete(ControladorJugador jugador, Label etiquetaPuntosRestantes, Label etiquetaJinetesColocados) {
 		
 		AlgoChessButton botonJinete = new AlgoChessButton("Jinete");
 		botonJinete.setOnAction(event-> {
@@ -223,7 +236,8 @@ public class TableroView {
 					actualizarEtiquetaDeEntero("Jinetes colocados: ",jugador.obtenerCantidadDeJinetesColocados(), etiquetaJinetesColocados );
 					actualizarPuntos(jugador.obtenerPuntos(),etiquetaPuntosRestantes);
 					if(jugador.obtenerPuntos()==0) {
-						crearJugadorEnPartidaSubEscenaJugador();
+						//crearJugadorEnPartidaSubEscenaJugador();
+						tablero.verificarColocacionDePiezas();
 					}
 					
 				}catch(JugadorNoPuedeAgregarMasEntidades e) {
@@ -234,7 +248,7 @@ public class TableroView {
 	}
 	
 	
-	private AlgoChessButton botonSoldado(Jugador jugador, Label etiquetaPuntosRestantes, Label etiquetaSoldadosColocados) {
+	private AlgoChessButton botonSoldado(ControladorJugador jugador, Label etiquetaPuntosRestantes, Label etiquetaSoldadosColocados) {
 		AlgoChessButton botonSoldado = new AlgoChessButton("Soldado");
 		
 		botonSoldado.setOnAction(new EventHandler<ActionEvent>() {
@@ -242,12 +256,13 @@ public class TableroView {
 			@Override
 			public void handle(ActionEvent event) {
 				try {
-					jugador.agregarSoldadoInfanteria(posicionCeldaActualX, posicionCeldaActualY);
+					jugador.agregarSoldado(posicionCeldaActualX, posicionCeldaActualY);
 					agregarSoldadoATablero(posicionCeldaActualX,posicionCeldaActualY);
 					actualizarEtiquetaDeEntero("Soldados colocados: ",jugador.obtenerCantidadDeSoldadosColocados(), etiquetaSoldadosColocados );
 					actualizarPuntos(jugador.obtenerPuntos(),etiquetaPuntosRestantes);
 					if(jugador.obtenerPuntos()==0) {
-						crearJugadorEnPartidaSubEscenaJugador();
+						//crearJugadorEnPartidaSubEscenaJugador();
+						tablero.verificarColocacionDePiezas();
 					}
 				
 				}catch(JugadorNoPuedeAgregarMasEntidades e) {
@@ -258,7 +273,7 @@ public class TableroView {
 		return botonSoldado;
 	}
 	
-	private AlgoChessButton botonCurandero(Jugador jugador, Label etiquetaPuntosRestantes, Label etiquetaCuranderosColocados) {
+	private AlgoChessButton botonCurandero(ControladorJugador jugador, Label etiquetaPuntosRestantes, Label etiquetaCuranderosColocados) {
 		AlgoChessButton botonCurandero = new AlgoChessButton("Curandero");
 		
 		botonCurandero.setOnAction(new EventHandler<ActionEvent>() {
@@ -272,7 +287,8 @@ public class TableroView {
 					actualizarPuntos(jugador.obtenerPuntos(),etiquetaPuntosRestantes);
 
 					if(jugador.obtenerPuntos()==0) {
-						crearJugadorEnPartidaSubEscenaJugador();
+						//crearJugadorEnPartidaSubEscenaJugador();
+						tablero.verificarColocacionDePiezas();
 					}
 				}catch(JugadorNoPuedeAgregarMasEntidades e) {
 					noPuedeColocarPieza(PUNTOS_INSUFICIENTES);
@@ -282,7 +298,7 @@ public class TableroView {
 		return botonCurandero;
 	}
 	
-	private AlgoChessButton botonCatapulta(Jugador jugador, Label etiquetaPuntosRestantes, Label etiquetaCatapultasColocados) {
+	private AlgoChessButton botonCatapulta(ControladorJugador jugador, Label etiquetaPuntosRestantes, Label etiquetaCatapultasColocados) {
 		AlgoChessButton botonCatapulta = new AlgoChessButton("Catapulta");
 		
 		botonCatapulta.setOnAction(new EventHandler<ActionEvent>() {
@@ -294,7 +310,8 @@ public class TableroView {
 					actualizarEtiquetaDeEntero("Catapultas colocadas: ",jugador.obtenerCantidadDeCatapultasColocadas(), etiquetaCatapultasColocados );
 					actualizarPuntos(jugador.obtenerPuntos(),etiquetaPuntosRestantes);
 					if(jugador.obtenerPuntos()==0) {
-						crearJugadorEnPartidaSubEscenaJugador();
+						//crearJugadorEnPartidaSubEscenaJugador();
+						tablero.verificarColocacionDePiezas();
 					}
 				}catch(JugadorNoPuedeAgregarMasEntidades e) {
 					noPuedeColocarPieza(PUNTOS_INSUFICIENTES);
@@ -306,18 +323,29 @@ public class TableroView {
 		return botonCatapulta;
 	}
 	
-	//
-	private void crearJugadorEnPartidaSubEscenaJugador() {
+	public void eliminarBarraParaDeColocacionDePiezas() {
 		
-		AlgoChessSubScene jugador1Partida = new AlgoChessSubScene(1000,10,750,250);
-		AlgoChessSubScene jugador2Partida = new AlgoChessSubScene(000,10,750,250);
+		gamePane.getChildren().remove(barraLateralParaColocarPiezasDerecha);
+		gamePane.getChildren().remove(barraLateralParaColocarPiezasIzquierda);
+	}
+	
+	//
+	public void crearJugadorEnPartidaSubEscenaJugador() {
+		
+		AlgoChessSubScene jugador1Partida = new AlgoChessSubScene(posicionXBarraLateralDerecha,posicionYBarraLateralDerecha,largoBarraLateral,anchoBarraLateral);
+		AlgoChessSubScene jugador2Partida = new AlgoChessSubScene(posicionXBarraLateralIzquierda,posicionYBarraLateralIzquierda,largoBarraLateral,anchoBarraLateral);
 		
 		gamePane.getChildren().add(jugador1Partida); 
 		gamePane.getChildren().add(jugador2Partida);
 		
-		AlgoChessButton comportamientoBoton1  = ComportamientorButton();
+		AlgoChessButton comportamientoBoton1  = ComportamientoButton();
 		AlgoChessButton movimientoBoton1 = movimientoButton();
 		AnchorPane root = jugador1Partida.getPane();
+		
+		this.informacionDePieza = etiquetaStringMasString("TipoDePieza","", 15);
+		root.getChildren().add(this.informacionDePieza);
+	    root.setTopAnchor(this.informacionDePieza, 100.0);
+		root.setLeftAnchor(this.informacionDePieza, 10.0);
 		
 		
 		root.getChildren().add(comportamientoBoton1);
@@ -329,7 +357,7 @@ public class TableroView {
 		root.setTopAnchor(movimientoBoton1, 400.0);
 		root.setLeftAnchor(movimientoBoton1, 10.0);
 		
-		AlgoChessButton comportamientoBoton2  = ComportamientorButton();
+		AlgoChessButton comportamientoBoton2  = ComportamientoButton();
 		AlgoChessButton movimientoBoton2 = movimientoButton();
 		AnchorPane root2 = jugador2Partida.getPane();
 		
@@ -346,7 +374,7 @@ public class TableroView {
 		
 	}
 	
-	private AlgoChessButton ComportamientorButton() {
+	private AlgoChessButton ComportamientoButton() {
 		AlgoChessButton botonComportamiento = new AlgoChessButton("Comportamiento");
 		botonComportamiento.setOnAction(new EventHandler<ActionEvent>() {
 			
@@ -386,6 +414,7 @@ public class TableroView {
 		Node[][] celdas = new Node[NUM_ROWS][NUM_COLUMNS];
 		celdas[posicionX][posicionY] = new Celda(posicionCeldaActualX,posicionCeldaActualY, Color.BEIGE, "J");
 		gamePane.getChildren().add(celdas[posicionCeldaActualX][posicionCeldaActualY]);
+		celdas[posicionCeldaActualX][posicionCeldaActualY].addEventHandler(MouseEvent.MOUSE_CLICKED, handlerMostrarPosicionCelda);
 	}
 	
 	private void agregarSoldadoATablero(int posicionX, int posicionY) {
@@ -409,26 +438,17 @@ public class TableroView {
 		gamePane.getChildren().add(celdas[posicionX][posicionY]);
 	}
 	
-	private void agregarEtiquetaAGamePane(String etiqueta, double posicionX, double posicionY, double tamanioLetra) {
-		Label label = new Label(etiqueta);
-		label.setFont(new Font("Serif", tamanioLetra));
-		gamePane.setTopAnchor(label, (double) posicionY);
-		gamePane.setLeftAnchor(label, (double) posicionX);
-		gamePane.getChildren().add(label);
-	}
-	
-	private void agregarEtiquetaAGamePane(String etiqueta, int cantidad, double posicionX, double posicionY, double tamanioLetra) {
-		String strCantidad = Integer.toString(cantidad);
-		Label label = new Label(etiqueta + strCantidad);
-		label.setFont(new Font("Serif", tamanioLetra));
-		gamePane.setTopAnchor(label, (double) posicionY);
-		gamePane.setLeftAnchor(label, (double) posicionX);
-		gamePane.getChildren().add(label);
-	}
 	
 	private Label etiquetaStringMasEntero(String etiqueta, int cantidad, double tamanioLetra) {
 		String strCantidad = Integer.toString(cantidad);
 		Label label = new Label(etiqueta + strCantidad);
+		label.setFont(new Font("Serif", tamanioLetra));
+		return label;
+	}
+	
+	private Label etiquetaStringMasString(String etiqueta, String str, double tamanioLetra) {
+		
+		Label label = new Label(etiqueta + str);
 		label.setFont(new Font("Serif", tamanioLetra));
 		return label;
 	}
@@ -437,6 +457,11 @@ public class TableroView {
 		Label label = new Label(etiqueta);
 		label.setFont(new Font("Serif", tamanioLetra));
 		return label;
+	}
+	
+	private void actualizarEtiquetaDeEstring(String textoAdelante, String str, Label etiqueta) {
+		
+		etiqueta.setText(textoAdelante + str);
 	}
 	
 }

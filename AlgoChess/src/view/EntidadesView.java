@@ -74,7 +74,7 @@ public class EntidadesView {
 		
 		crearEleccionSubEscena();
 		
-		tableroScene = new TableroView();
+		//tableroScene = new TableroView();
 		
 	}
 	
