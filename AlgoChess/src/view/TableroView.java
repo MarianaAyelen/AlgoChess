@@ -473,7 +473,7 @@ public void crearBarraLateralEnPartida(ControladorJugador jugador,  AnchorPane r
 
 			@Override
 			public void handle(ActionEvent event) {
-				
+				tablero.realizarComportamiento(posicionCeldaAnteriorX +1 , posicionCeldaAnteriorY+1, posicionCeldaActualX +1 , posicionCeldaActualY +1 );
 				}	
 		});
 	
@@ -487,7 +487,7 @@ public void crearBarraLateralEnPartida(ControladorJugador jugador,  AnchorPane r
 			@Override
 			public void handle(ActionEvent event) {
 				
-				tablero.mover(posicionCeldaAnteriorX, posicionCeldaAnteriorY, posicionCeldaActualX, posicionCeldaActualY);
+				tablero.mover(posicionCeldaAnteriorX+1, posicionCeldaAnteriorY+1, posicionCeldaActualX+1, posicionCeldaActualY+1);
 				
 				moverEnTablero(posicionCeldaAnteriorX, posicionCeldaAnteriorY, posicionCeldaActualX, posicionCeldaActualY);
 			

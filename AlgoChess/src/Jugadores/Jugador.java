@@ -118,6 +118,7 @@ public class Jugador {
 			restarPuntos(unSoldadoDeInfanteria);
 			unSoldadoDeInfanteria.asignarPropietario(this);
 			unidadesJugador.add(unSoldadoDeInfanteria);
+			
 		}
 		
 		// +++++++ Jinete +++++++

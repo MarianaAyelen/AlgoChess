@@ -11,11 +11,12 @@ import javafx.scene.shape.Rectangle;
 public class Celda extends StackPane {
 	protected int posX;
 	protected int posY;
+	protected Rectangle rect;
 	
 	public Celda(int x, int y) {
 		this.posX = x;
 		this.posY = y;
-		Rectangle rect = new Rectangle(28,28, Color.CORAL);
+		rect = new Rectangle(28,28, Color.CORAL);
 		rect.setStroke(Color.BLACK);
 		rect.setStrokeWidth(2);
 		setAlignment(Pos.CENTER);
@@ -41,6 +42,7 @@ public class Celda extends StackPane {
 			}
 		});
 	}
+	
 	
 	public Celda(int x, int y, Color color, String etiqueta) {
 		this.posX = x;
@@ -70,6 +72,8 @@ public class Celda extends StackPane {
 				rect.setStroke(Color.BLACK);	
 			}
 		});
+		
+		
 	}
 	
 	public void seleccionarCelda() {
