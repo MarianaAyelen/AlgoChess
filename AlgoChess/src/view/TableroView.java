@@ -499,31 +499,41 @@ public void crearBarraLateralEnPartida(ControladorJugador jugador,  AnchorPane r
 	}
 	
 	private void moverEnTablero(int posOrigenX,int posOrigenY,int posFinalX,int posFinalY) {
-		int tipoUnidad; Unidad unaUnidad;
-		unaUnidad = tablero.devolverUnidad(posOrigenX, posOrigenY);
+		String tipoUnidad; Unidad unaUnidad; boolean celdaVacia;
 		
-	//	tipoUnidad = unaUnidad.tipoDeUnidad();
-	
-		desocuparCeldaTablero(posOrigenX, posOrigenY);
-		/*
+		unaUnidad = tablero.devolverUnidad(posOrigenX+1, posOrigenY+1);
+		tipoUnidad = tablero.mostrarTipoDePieza(posicionCeldaAnteriorX+1, posicionCeldaAnteriorY+1);
+		celdaVacia = tablero.celdaVacia(posicionCeldaAnteriorX+1, posicionCeldaAnteriorY+1);
 		
-		switch (tipoUnidad) {
-		case 0: agregarCatapultaATablero(posFinalX, posFinalY);	
-			break;
-		case 1: agregarCuranderoATablero(posFinalX, posFinalY);
-			break;
-		case 2: agregarJineteATablero(posFinalX, posFinalY);
-			break;
-		case 3: agregarSoldadoATablero(posFinalX, posFinalY);
-			break;
+		if(!celdaVacia) {
+			
+			agregarCatapultaATablero(posicionCeldaActualX, posicionCeldaActualY);
+				
+			
+			if(tipoUnidad=="Catapulta") {
+				agregarCatapultaATablero(posicionCeldaActualX, posicionCeldaActualY);
+			}
+			
+			if(tipoUnidad=="Curandero") {
+				agregarCuranderoATablero(posicionCeldaActualX, posicionCeldaActualY);
+			}
+			
+			if(tipoUnidad=="Jinete") {
+				agregarJineteATablero(posicionCeldaActualX, posicionCeldaActualY);
+			}
+			if(tipoUnidad=="Soldado De Infanteria") {
+				agregarSoldadoATablero(posicionCeldaActualX, posicionCeldaActualY);
+			}
+			desocuparCeldaTablero(posOrigenX, posOrigenY);
+				
 		}
-	*/
+		
 	}
 	
 	private void desocuparCeldaTablero(int posX, int posY) {
 		
 		Node[][] celdas = new Node[NUM_ROWS][NUM_COLUMNS];
-		celdas[posX][posY] = new Celda(posX,posX);
+		celdas[posX][posY] = new Celda(posicionCeldaAnteriorX,posicionCeldaAnteriorY, Color.CORAL, "");
 		gamePane.getChildren().add(celdas[posX][posY]);
 		celdas[posX][posX].addEventHandler(MouseEvent.MOUSE_CLICKED, handlerMostrarPosicionCelda);
 	}
