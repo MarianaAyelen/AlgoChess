@@ -167,17 +167,18 @@ public class Tablero {
 	
 	
 	public String devolverElTipoDePieza(int x, int y) {
-		Unidad unidad = this.obtenerUnidad(x,y);
+		Celda celda = this.obtenerCelda(x, y);
+		Unidad unidad = celda.obtenerEntidad();
 		String tipo = "Vacio" ;
+		
 		if( unidad != null) {
+			if(unidad instanceof SoldadoDeInfanteria) {
+				
+				tipo = "Soldado De Infanteria";
+			}
 			if(unidad instanceof Jinete) {
 				tipo = "Jinete";
 			}
-			
-			if(unidad instanceof SoldadoDeInfanteria) {
-				tipo = "Soldado De Infanteria";
-			}
-			
 			if(unidad instanceof Catapulta) {
 				tipo = "Catapulta";
 			}

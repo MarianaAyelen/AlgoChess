@@ -65,8 +65,12 @@ public class TableroView {
 	int posicionCeldaAnteriorY;
 	private String nombreJugador1;
 	private String nombreJugador2;
+	ControladorJugador jugador1;
+	ControladorJugador jugador2;
 	private TableroControlador tablero;
-	private Label informacionDePieza;
+	//private Label informacionDePieza;
+	private Label informacionDePiezaJugador1;
+	private Label informacionDePiezaJugador2;
 	
 	private static final int NUM_ROWS = 20;
 	private static final int NUM_COLUMNS = 20;
@@ -89,16 +93,18 @@ public class TableroView {
 				
 	}*/
 	
-	public TableroView(ControladorJugador jugador1, ControladorJugador jugador2, TableroControlador controladorTablero) {
-		nombreJugador1 = jugador1.obtenerNombre();
-		nombreJugador2 = jugador2.obtenerNombre();
+	public TableroView(ControladorJugador controladorJugador1, ControladorJugador controladorJugador2, TableroControlador controladorTablero) {
+		//nombreJugador1 = jugador1.obtenerNombre();
+		//nombreJugador2 = jugador2.obtenerNombre();
+		jugador1 = controladorJugador1;
+		jugador2 = controladorJugador2;
 		tablero = controladorTablero;
-		initializeStage(jugador1, jugador2);
+		initializeStage();
 				
 	}
 	
 	
-	private void initializeStage(ControladorJugador jugador1,ControladorJugador jugador2) {
+	private void initializeStage() {
 		gamePane = new AnchorPane();
 		gameScene = new Scene(gamePane, WIDTH, HEIGHT);
 		gameStage = new Stage();
@@ -232,8 +238,13 @@ public class TableroView {
 	    		if (tablero.yaComenzoLaPartida()) {
 	    			int vida = tablero.mostrarVida(x+1, y+1);
 	    			String strVida = Integer.toString(vida); 
-	    			actualizarEtiquetaDeEstring("Informacion de la pieza:\n", "Tipo de pieza: " + tablero.mostrarTipoDePieza(x+1,y+1) + "\n" + "Vida: " + strVida, informacionDePieza);
+	    			//actualizarEtiquetaDeEstring("Informacion de la pieza:\n", "Tipo de pieza: " + tablero.mostrarTipoDePieza(x+1,y+1) + "\n" + "Vida: " + strVida, informacionDePiezaJugador1);
 	    			
+	    			if(tablero.perteneceAlJugador(x+1, y+1, jugador1)) {
+	    				actualizarEtiquetaDeEstring("Informacion de la pieza:\n", "Tipo de pieza: " + tablero.mostrarTipoDePieza(x+1,y+1) + "\n" + "Vida: " + strVida, informacionDePiezaJugador1);
+	    			}else {
+	    				actualizarEtiquetaDeEstring("Informacion de la pieza:\n", "Tipo de pieza: " + tablero.mostrarTipoDePieza(x+1,y+1) + "\n" + "Vida: " + strVida, informacionDePiezaJugador2);
+	    			}
 	    		}
 	    }
 	};
@@ -415,35 +426,35 @@ public class TableroView {
 		
 		barraLateralParaJugarPiezasIzquierda = new AlgoChessSubScene(posicionXBarraLateralIzquierda,posicionYBarraLateralIzquierda,largoBarraLateral,anchoBarraLateral);
 		AnchorPane rootBarraLateralParaJugarPiezasIzquierda = barraLateralParaJugarPiezasIzquierda.getPane();
-		crearBarraLateralEnPartida(jugador[0], rootBarraLateralParaJugarPiezasIzquierda);
+		informacionDePiezaJugador1 = new Label("Jugador 1"); 
+		crearBarraLateralEnPartida(jugador[0], rootBarraLateralParaJugarPiezasIzquierda, informacionDePiezaJugador1);
 		gamePane.getChildren().add(barraLateralParaJugarPiezasIzquierda);
+		
 		
 		barraLateralParaJugarPiezasDerecha = new AlgoChessSubScene(posicionXBarraLateralDerecha,posicionYBarraLateralDerecha,largoBarraLateral,anchoBarraLateral);
 		AnchorPane rootBarraLateralParaJugarPiezasDerecha = barraLateralParaJugarPiezasDerecha.getPane();
-		crearBarraLateralEnPartida(jugador[1], rootBarraLateralParaJugarPiezasDerecha);
+		informacionDePiezaJugador2 = new Label("Jugador 2");
+		crearBarraLateralEnPartida(jugador[1], rootBarraLateralParaJugarPiezasDerecha, informacionDePiezaJugador2);
 		gamePane.getChildren().add(barraLateralParaJugarPiezasDerecha);
 		
 	}
 	
-public void crearBarraLateralEnPartida(ControladorJugador jugador,  AnchorPane root) {
+public void crearBarraLateralEnPartida(ControladorJugador jugador,  AnchorPane root, Label informacionDePieza) {
 		
 		AlgoChessButton comportamientoBoton1  = ComportamientoButton();
 		AlgoChessButton movimientoBoton1 = movimientoButton();
 		
-		informacionDePieza = etiquetaStringMasString("","", 15);
-		
-		
 		Label etiquetaNombreJugador = etiqueta(jugador.obtenerNombre(), 35);
 		
 		root.getChildren().add(etiquetaNombreJugador);
-		root.getChildren().add(this.informacionDePieza);
+		root.getChildren().add(informacionDePieza);
 		root.getChildren().add(comportamientoBoton1);
 		root.getChildren().add(movimientoBoton1);
 		
 		root.setTopAnchor(etiquetaNombreJugador, 100.0);
 		root.setLeftAnchor(etiquetaNombreJugador, 10.0);
-		root.setTopAnchor(this.informacionDePieza, 100.0);
-		root.setLeftAnchor(this.informacionDePieza, 20.0);
+		root.setTopAnchor(informacionDePieza, 100.0);
+		root.setLeftAnchor(informacionDePieza, 20.0);
 		root.setTopAnchor(comportamientoBoton1, 200.0);
 		root.setLeftAnchor(comportamientoBoton1, 10.0);
 		root.setTopAnchor(movimientoBoton1, 400.0);
@@ -538,6 +549,7 @@ public void crearBarraLateralEnPartida(ControladorJugador jugador,  AnchorPane r
 		Node[][] celdas = new Node[NUM_ROWS][NUM_COLUMNS];
 		celdas[posicionX][posicionY] = new Celda(posicionX,posicionY, Color.BEIGE, "S");
 		gamePane.getChildren().add(celdas[posicionX][posicionY]);
+		celdas[posicionCeldaActualX][posicionCeldaActualY].addEventHandler(MouseEvent.MOUSE_CLICKED, handlerMostrarPosicionCelda);
 	}
 	
 	private void agregarCatapultaATablero(int posicionX, int posicionY) {
@@ -545,6 +557,7 @@ public void crearBarraLateralEnPartida(ControladorJugador jugador,  AnchorPane r
 		Node[][] celdas = new Node[NUM_ROWS][NUM_COLUMNS];
 		celdas[posicionX][posicionY] = new Celda(posicionX,posicionY, Color.BEIGE, "Ca");
 		gamePane.getChildren().add(celdas[posicionX][posicionY]);
+		celdas[posicionCeldaActualX][posicionCeldaActualY].addEventHandler(MouseEvent.MOUSE_CLICKED, handlerMostrarPosicionCelda);
 	}
 	
 	private void agregarCuranderoATablero(int posicionX, int posicionY) {
@@ -552,6 +565,7 @@ public void crearBarraLateralEnPartida(ControladorJugador jugador,  AnchorPane r
 		Node[][] celdas = new Node[NUM_ROWS][NUM_COLUMNS];
 		celdas[posicionX][posicionY] = new Celda(posicionX,posicionY, Color.BEIGE, "Cu");
 		gamePane.getChildren().add(celdas[posicionX][posicionY]);
+		celdas[posicionCeldaActualX][posicionCeldaActualY].addEventHandler(MouseEvent.MOUSE_CLICKED, handlerMostrarPosicionCelda);
 	}
 	
 	

@@ -165,4 +165,5 @@ public class Unidad {
 	public int obtenerVida() {
 		return this.vida;
 	}
+	
 }

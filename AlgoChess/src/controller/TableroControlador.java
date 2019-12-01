@@ -69,6 +69,14 @@ public class TableroControlador {
 		return colocacionDePiezasOk;
 	}
 	
+	public boolean perteneceAlJugador(int x, int y, ControladorJugador controladorJugador) {
+		boolean  perteneceAlJugador= false;
+		if (tablero.obtenerPropietario(x, y) == controladorJugador.devolverJugador()) {
+			perteneceAlJugador = true;
+		 }
+		return perteneceAlJugador;
+	}
+	
 	public String mostrarTipoDePieza(int x, int y) {
 		
 		String tipoDePieza = tablero.devolverElTipoDePieza(x, y);
