@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class SoldadoDeInfanteria extends UnidadAtacante {
-		
+
 		public SoldadoDeInfanteria() {
 			
 			vidaMax = 100;

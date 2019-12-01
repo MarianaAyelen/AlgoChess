@@ -32,10 +32,12 @@ import model.Celda;
 import model.EntityPicker;
 
 import java.awt.BorderLayout;
+import java.nio.file.WatchEvent;
 import java.util.List;
 
 import Jugadores.Jugador;
 import Tablero.Tablero;
+import Unidades.Unidad;
 import controller.ControladorJugador;
 import controller.TableroControlador;
 import Excepciones.*;
@@ -59,6 +61,8 @@ public class TableroView {
 	private AlgoChessSubScene barraLateralParaJugarPiezasIzquierda;
 	int posicionCeldaActualX;
 	int posicionCeldaActualY;
+	int posicionCeldaAnteriorX;
+	int posicionCeldaAnteriorY;
 	private String nombreJugador1;
 	private String nombreJugador2;
 	private TableroControlador tablero;
@@ -220,6 +224,8 @@ public class TableroView {
 	    		Object celda = event.getSource();
 	    		int x = ((Celda) celda).devolverPosicion()[0];
 	    		int y = ((Celda) celda).devolverPosicion()[1];
+	    		posicionCeldaAnteriorX = posicionCeldaActualX;
+	    		posicionCeldaAnteriorY = posicionCeldaActualY;
 	    		posicionCeldaActualX = x;
 	    		posicionCeldaActualY = y;
 	    		
@@ -451,30 +457,65 @@ public void crearBarraLateralEnPartida(ControladorJugador jugador,  AnchorPane r
 	
 	private AlgoChessButton ComportamientoButton() {
 		AlgoChessButton botonComportamiento = new AlgoChessButton("Comportamiento");
+
 		botonComportamiento.setOnAction(new EventHandler<ActionEvent>() {
-			
+
 			@Override
 			public void handle(ActionEvent event) {
-	
-			}	
+				
+				}	
 		});
 	
 		return botonComportamiento;
 	}
 	
 	private AlgoChessButton movimientoButton() {
-		AlgoChessButton movimientoButton = new AlgoChessButton("Mover");
+		
+		AlgoChessButton movimientoButton = new AlgoChessButton("Mover");		
 		movimientoButton.setOnAction(new EventHandler<ActionEvent>() {
-			
 			@Override
 			public void handle(ActionEvent event) {
-	
+				
+				tablero.mover(posicionCeldaAnteriorX, posicionCeldaAnteriorY, posicionCeldaActualX, posicionCeldaActualY);
+				
+				moverEnTablero(posicionCeldaAnteriorX, posicionCeldaAnteriorY, posicionCeldaActualX, posicionCeldaActualY);
+			
+
 			}	
 		});
 	
 		return movimientoButton;
 	}
 	
+	private void moverEnTablero(int posOrigenX,int posOrigenY,int posFinalX,int posFinalY) {
+		int tipoUnidad; Unidad unaUnidad;
+		unaUnidad = tablero.devolverUnidad(posOrigenX, posOrigenY);
+		
+	//	tipoUnidad = unaUnidad.tipoDeUnidad();
+	
+		desocuparCeldaTablero(posOrigenX, posOrigenY);
+		/*
+		
+		switch (tipoUnidad) {
+		case 0: agregarCatapultaATablero(posFinalX, posFinalY);	
+			break;
+		case 1: agregarCuranderoATablero(posFinalX, posFinalY);
+			break;
+		case 2: agregarJineteATablero(posFinalX, posFinalY);
+			break;
+		case 3: agregarSoldadoATablero(posFinalX, posFinalY);
+			break;
+		}
+	*/
+	}
+	
+	private void desocuparCeldaTablero(int posX, int posY) {
+		
+		Node[][] celdas = new Node[NUM_ROWS][NUM_COLUMNS];
+		celdas[posX][posY] = new Celda(posX,posX);
+		gamePane.getChildren().add(celdas[posX][posY]);
+		celdas[posX][posX].addEventHandler(MouseEvent.MOUSE_CLICKED, handlerMostrarPosicionCelda);
+	}
 	private void noPuedeColocarPieza(String texto) {
 		Alert dialogoAlerta = new Alert(AlertType.INFORMATION);
 		dialogoAlerta.setTitle("Pieza invalida");

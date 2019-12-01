@@ -3,7 +3,7 @@ package Unidades;
 import Tablero.Tablero;
 
 public class Jinete extends UnidadAtacante {
-	
+
 	public Jinete() {
 	
 		vidaMax = 100;

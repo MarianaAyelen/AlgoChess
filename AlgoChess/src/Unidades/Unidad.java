@@ -25,6 +25,7 @@ public class Unidad {
 		return (int) (Math.sqrt(deltaX*deltaX + deltaY*deltaY)  ) ;
 	}
 	
+	
 	public void asignarCelda(Celda unaCelda) {
 		celdaActual = unaCelda;
 		if(unaCelda.estaVacia())

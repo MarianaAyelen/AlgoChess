@@ -9,6 +9,7 @@ import Jugadores.Jugador;
 
 public class Catapulta extends UnidadAtacante {
 
+
 	public Catapulta() {
 		
 
@@ -18,6 +19,7 @@ public class Catapulta extends UnidadAtacante {
 		danioCuerpoAcuerpo = 0;
 		danioADistancia = 20;
 		movilidad = new unidadNoMovil();
+
 	}
 	
 	public void realizarComportamiento(Unidad unaUnidad) {

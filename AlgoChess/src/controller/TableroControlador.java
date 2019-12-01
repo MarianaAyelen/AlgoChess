@@ -3,6 +3,7 @@ package controller;
 import Jugadores.Jugador;
 import Tablero.Celda;
 import Tablero.Tablero;
+import Unidades.Unidad;
 import javafx.stage.Stage;
 import view.TableroView;
 
@@ -83,6 +84,23 @@ public class TableroControlador {
 		return tablero.celdaVacia(x, y);
 	}
 	
+	public void realizarComportamiento(int posOrigenX, int posOrigenY, int posFinalX, int posFinalY) {
+		
+		tablero.realizarComportamiento(posOrigenX, posOrigenY, posFinalX, posFinalY);
+	}
+
+	public void mover(int posOrigenX, int posOrigenY, int posFinalX, int posFinalY) {
+		
+		try {
+			tablero.moverUnidad(posOrigenX, posOrigenY, posFinalX, posFinalY);
+		}catch(Exception e) {
+			//TODO
+		}	
+	}
+	
+	public Unidad devolverUnidad(int posX, int posY) {
+		return tablero.obtenerUnidad(posX, posY);
+	}
 	public boolean celdaPerteneceAJugador(int x, int y, ControladorJugador controladorJugador) {
 		boolean celdaPerteneceAJugador = false;
 		if(tablero.obtenerPropietario(x, y) == controladorJugador.devolverJugador()) {
@@ -92,4 +110,6 @@ public class TableroControlador {
 		return celdaPerteneceAJugador;
 	}
 	
+	
 }
+
