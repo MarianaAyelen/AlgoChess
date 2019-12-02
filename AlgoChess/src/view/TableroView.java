@@ -264,8 +264,8 @@ public class TableroView {
 	};
 	
 	private void actualizarInfoDeCeldas() {
-		int x = posicionCeldaActualX;
-		int y = posicionCeldaActualY;
+		int x = posicionCeldaAnteriorX;
+		int y = posicionCeldaAnteriorY;
 		if (tablero.yaComenzoLaPartida()) {
 			int vida = tablero.mostrarVida(x+1, y+1);
 			int vidaMax = tablero.mostrarVidaMax(x+1, y+1);
@@ -279,8 +279,8 @@ public class TableroView {
 				actualizarEtiquetaDeEstring("Informacion de la pieza:\n", "Tipo de pieza: " + tablero.mostrarTipoDePieza(x+1,y+1) + "\n" + "Vida: " + strVida + "/" + strVidaMax, informacionDePiezaJugador2);
 			}
 		}
-		x = posicionCeldaAnteriorX;
-		y = posicionCeldaAnteriorY;
+		x = posicionCeldaActualX;
+		y = posicionCeldaActualY;
 		if (tablero.yaComenzoLaPartida()) {
 			int vida = tablero.mostrarVida(x+1, y+1);
 			int vidaMax = tablero.mostrarVidaMax(x+1, y+1);
