@@ -196,7 +196,11 @@ public class Tablero {
 		
 	}
 	
-	
+	public int devolverVidaMaxDePieza(int x, int y) {
+		Unidad unidad = this.obtenerUnidad(x,y);
+		return unidad.obtenerVidaMax();
+		
+	}
 	
 	
 }

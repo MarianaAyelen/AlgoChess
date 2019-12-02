@@ -166,4 +166,8 @@ public class Unidad {
 		return this.vida;
 	}
 	
+	public int obtenerVidaMax() {
+		return this.vidaMax;
+	}
+	
 }

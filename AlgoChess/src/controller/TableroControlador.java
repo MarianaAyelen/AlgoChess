@@ -107,6 +107,10 @@ public class TableroControlador {
 		return  tablero.devolverVidaDePieza(x, y);
 	}
 	
+	public int mostrarVidaMax(int x, int y) {
+		return  tablero.devolverVidaMaxDePieza(x, y);		
+	}
+	
 	public boolean celdaVacia(int x, int y) {
 		return tablero.celdaVacia(x, y);
 	}

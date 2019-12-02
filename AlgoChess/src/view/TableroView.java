@@ -249,18 +249,53 @@ public class TableroView {
 	    		
 	    		if (tablero.yaComenzoLaPartida()) {
 	    			int vida = tablero.mostrarVida(x+1, y+1);
+	    			int vidaMax = tablero.mostrarVidaMax(x+1, y+1);
 	    			String strVida = Integer.toString(vida); 
+	    			String strVidaMax = Integer.toString(vidaMax);
 	    			//actualizarEtiquetaDeEstring("Informacion de la pieza:\n", "Tipo de pieza: " + tablero.mostrarTipoDePieza(x+1,y+1) + "\n" + "Vida: " + strVida, informacionDePiezaJugador1);
 	    			
-	    			if(tablero.perteneceAlJugador(x+1, y+1, jugador1)) {
-	    				actualizarEtiquetaDeEstring("Informacion de la pieza:\n", "Tipo de pieza: " + tablero.mostrarTipoDePieza(x+1,y+1) + "\n" + "Vida: " + strVida, informacionDePiezaJugador1);
+	    			if(tablero.unidadPerteneceAlJugador(x+1, y+1, jugador1)) {
+	    				actualizarEtiquetaDeEstring("Informacion de la pieza:\n", "Tipo de pieza: " + tablero.mostrarTipoDePieza(x+1,y+1) + "\n" + "Vida: " + strVida + "/" + strVidaMax, informacionDePiezaJugador1);
 	    			}else {
-	    				actualizarEtiquetaDeEstring("Informacion de la pieza:\n", "Tipo de pieza: " + tablero.mostrarTipoDePieza(x+1,y+1) + "\n" + "Vida: " + strVida, informacionDePiezaJugador2);
+	    				actualizarEtiquetaDeEstring("Informacion de la pieza:\n", "Tipo de pieza: " + tablero.mostrarTipoDePieza(x+1,y+1) + "\n" + "Vida: " + strVida + "/" + strVidaMax, informacionDePiezaJugador2);
 	    			}
 	    		}
 	    }
 	};
 	
+	private void actualizarInfoDeCeldas() {
+		int x = posicionCeldaActualX;
+		int y = posicionCeldaActualY;
+		if (tablero.yaComenzoLaPartida()) {
+			int vida = tablero.mostrarVida(x+1, y+1);
+			int vidaMax = tablero.mostrarVidaMax(x+1, y+1);
+			String strVida = Integer.toString(vida); 
+			String strVidaMax = Integer.toString(vidaMax);
+			//actualizarEtiquetaDeEstring("Informacion de la pieza:\n", "Tipo de pieza: " + tablero.mostrarTipoDePieza(x+1,y+1) + "\n" + "Vida: " + strVida, informacionDePiezaJugador1);
+			
+			if(tablero.unidadPerteneceAlJugador(x+1, y+1, jugador1)) {
+				actualizarEtiquetaDeEstring("Informacion de la pieza:\n", "Tipo de pieza: " + tablero.mostrarTipoDePieza(x+1,y+1) + "\n" + "Vida: " + strVida + "/" + strVidaMax, informacionDePiezaJugador1);
+			}else {
+				actualizarEtiquetaDeEstring("Informacion de la pieza:\n", "Tipo de pieza: " + tablero.mostrarTipoDePieza(x+1,y+1) + "\n" + "Vida: " + strVida + "/" + strVidaMax, informacionDePiezaJugador2);
+			}
+		}
+		x = posicionCeldaAnteriorX;
+		y = posicionCeldaAnteriorY;
+		if (tablero.yaComenzoLaPartida()) {
+			int vida = tablero.mostrarVida(x+1, y+1);
+			int vidaMax = tablero.mostrarVidaMax(x+1, y+1);
+			String strVida = Integer.toString(vida); 
+			String strVidaMax = Integer.toString(vidaMax);
+			//actualizarEtiquetaDeEstring("Informacion de la pieza:\n", "Tipo de pieza: " + tablero.mostrarTipoDePieza(x+1,y+1) + "\n" + "Vida: " + strVida, informacionDePiezaJugador1);
+			
+			if(tablero.unidadPerteneceAlJugador(x+1, y+1, jugador1)) {
+				actualizarEtiquetaDeEstring("Informacion de la pieza:\n", "Tipo de pieza: " + tablero.mostrarTipoDePieza(x+1,y+1) + "\n" + "Vida: " + strVida + "/" + strVidaMax, informacionDePiezaJugador1);
+			}else {
+				actualizarEtiquetaDeEstring("Informacion de la pieza:\n", "Tipo de pieza: " + tablero.mostrarTipoDePieza(x+1,y+1) + "\n" + "Vida: " + strVida + "/" + strVidaMax, informacionDePiezaJugador2);
+			}
+		}
+		
+	}
 	
 	
 	public Stage getMainStage() {
@@ -508,13 +543,16 @@ public void crearBarraLateralEnPartida(ControladorJugador jugador,  AnchorPane r
 			@Override
 			public void handle(ActionEvent event) {
 				if (jugador.getTurno() && jugador.getcomportamientoPosible()
-				&& tablero.unidadPerteneceAlJugador(posicionCeldaAnteriorX+1,posicionCeldaAnteriorY+1,jugador)) {
+				&& tablero.unidadPerteneceAlJugador(posicionCeldaAnteriorX+1,posicionCeldaAnteriorY+1,jugador)
+				&& !tablero.celdaVacia(posicionCeldaActualX +1, posicionCeldaActualY +1)) {
 					try {
 						tablero.realizarComportamiento(posicionCeldaAnteriorX +1 , posicionCeldaAnteriorY+1, posicionCeldaActualX +1 , posicionCeldaActualY +1 );
 						jugador.setComportamientoPosible(false);
-						chequearGanador();			
+						mostrarNotificacion("Comportamiento realizado");
+						actualizarInfoDeCeldas();							
+						chequearGanador();
 					}catch(Exception e) {
-						noPuedeMoverPieza("Ataque invalido: "+e.toString());
+						mostrarNotificacion("Ataque invalido: "+e.toString());//TODO
 					}
 				}
 			}	
@@ -532,7 +570,7 @@ public void crearBarraLateralEnPartida(ControladorJugador jugador,  AnchorPane r
 	}
 	
 	private void finDelJuego(ControladorJugador jugador) {
-		noPuedeMoverPieza("El ganador es "+ jugador.obtenerNombre());
+		mostrarNotificacion("El ganador es "+ jugador.obtenerNombre());
 	}
 	private AlgoChessButton movimientoButton(ControladorJugador jugador) {
 		
@@ -581,6 +619,15 @@ public void crearBarraLateralEnPartida(ControladorJugador jugador,  AnchorPane r
 		dialogoAlerta.setContentText(texto);
 		dialogoAlerta.initStyle(StageStyle.UTILITY);
 		dialogoAlerta.showAndWait();
+	}
+	
+	private void mostrarNotificacion(String texto) {
+		Alert dialogoAlerta = new Alert(AlertType.INFORMATION);
+		dialogoAlerta.setTitle("Notificacion");
+		dialogoAlerta.setHeaderText(null);
+		dialogoAlerta.setContentText(texto);
+		dialogoAlerta.initStyle(StageStyle.UTILITY);
+		dialogoAlerta.showAndWait();		
 	}
 	
 	private void moverEnTablero(ControladorJugador jugador, int posOrigenX,int posOrigenY,int posFinalX,int posFinalY) {
