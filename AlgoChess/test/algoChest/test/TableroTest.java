@@ -257,7 +257,12 @@ class TableroTest {
 			
 		unTablero.agregarUnidad(unJinete, pos_2, pos_1);
 		unTablero.agregarUnidad(unSoldadoDeInfanteria, pos_3, pos_1); 
-		unTablero.realizarComportamiento(pos_2, pos_1, pos_3, pos_1);
+		
+		try {
+			unTablero.realizarComportamiento(pos_2, pos_1, pos_3, pos_1);
+		}catch (Exception e) {
+			System.out.println("No se puede realizar el ataque");
+		}
 		
 		assertEquals(unSoldadoDeInfanteria.vidaDeLaUnidad(), 95);
 	
@@ -327,7 +332,11 @@ class TableroTest {
 			
 		unTablero.agregarUnidad(unJinete, pos_2, pos_1);
 		unTablero.agregarUnidad(unSoldadoDeInfanteria, pos_3, pos_1); 
-		unTablero.realizarComportamiento(pos_2, pos_1, pos_3, pos_1);
+		try {
+			unTablero.realizarComportamiento(pos_2, pos_1, pos_3, pos_1);
+		}catch (Exception e) {
+			System.out.println("No se puede realizar el ataque");
+		}
 		
 		assertEquals(unSoldadoDeInfanteria.vidaDeLaUnidad(), 100);
 	

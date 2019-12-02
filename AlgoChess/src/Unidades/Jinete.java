@@ -1,6 +1,7 @@
 package Unidades;
 
 import Tablero.Tablero;
+import Excepciones.*;
 
 public class Jinete extends UnidadAtacante {
 
@@ -22,19 +23,35 @@ public class Jinete extends UnidadAtacante {
 */	
 	public void realizarComportamiento(Unidad unaUnidad) {
 		chequearAtaqueAUnidadEnemiga(unaUnidad);
-		if((this.haySoldadoDeInfanteriaAliadoEnDistanciaCercana(unaUnidad) || !this.hayUnidadesEnemigasCercanas()) && this.estaADistanciaMedia(unaUnidad)) {
-			try {
-				unaUnidad.restarVida(danioADistancia);
-			}catch (unidadSeQuedaSinVida e1) {
-				unaUnidad.unidadSinVida();
-			} 
-		}
-		if(this.estaADistanciaCercana(unaUnidad)) {
-			try {
-				unaUnidad.restarVida(danioCuerpoAcuerpo);
-			}catch (unidadSeQuedaSinVida e1) {
-				unaUnidad.unidadSinVida();
-			} 	
+		if(this.haySoldadoDeInfanteriaAliadoEnDistanciaCercana(unaUnidad) || !this.hayUnidadesEnemigasCercanas()) {
+			//ataque solo a media distancia
+			if(this.estaADistanciaMedia(unaUnidad)) {
+				try {
+					unaUnidad.restarVida(danioADistancia);
+				}catch (unidadSeQuedaSinVida e1) {
+					unaUnidad.unidadSinVida();
+				}
+			} else {
+				//tirar excepcion: soloPuedeAtacarADistanciaMedia
+				throw new JineteSoloPuedeAtacarADistanciaMedia();
+			}
+		}else if(this.hayUnidadesEnemigasCercanas()) {
+			if(this.haySoldadoDeInfanteriaAliadoEnDistanciaCercana(unaUnidad)){
+				//tirar excepcion: noPuedeAtacarConSoldadosAliadosCerca
+				throw new JineteNoPuedeAtacarConSoldadosAliadosCerca();
+			}else {
+				//ataque solo a corta distancia
+				if(this.estaADistanciaCercana(unaUnidad)) {
+					try {
+						unaUnidad.restarVida(danioCuerpoAcuerpo);
+					}catch (unidadSeQuedaSinVida e1) {
+						unaUnidad.unidadSinVida();
+					}
+				}else {
+					//tirar excepcion: soloPuedeAtacarADistanciaCorta
+					throw new JineteSoloPuedeAtacarADistanciaCorta();
+				}
+			}
 		}
 	}
 	
