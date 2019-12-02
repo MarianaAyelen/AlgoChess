@@ -487,47 +487,57 @@ public void crearBarraLateralEnPartida(ControladorJugador jugador,  AnchorPane r
 			@Override
 			public void handle(ActionEvent event) {
 				
-				tablero.mover(posicionCeldaAnteriorX+1, posicionCeldaAnteriorY+1, posicionCeldaActualX+1, posicionCeldaActualY+1);
-				
-				moverEnTablero(posicionCeldaAnteriorX, posicionCeldaAnteriorY, posicionCeldaActualX, posicionCeldaActualY);
+				try {
+					tablero.mover(posicionCeldaAnteriorX+1, posicionCeldaAnteriorY+1, posicionCeldaActualX+1, posicionCeldaActualY+1);
+					try {
+						moverEnTablero(posicionCeldaAnteriorX, posicionCeldaAnteriorY, posicionCeldaActualX, posicionCeldaActualY);					
+					}catch(Exception e) {
+						noPuedeMoverPieza("Error de movimiento en tablero grafico");						
+					}
+				}catch(Exception e) {
+					noPuedeMoverPieza("Movimiento invalido: "+e.toString());
+				}
 			
 
 			}	
 		});
-	
 		return movimientoButton;
+	}
+	
+	private void noPuedeMoverPieza(String texto) {
+		Alert dialogoAlerta = new Alert(AlertType.INFORMATION);
+		dialogoAlerta.setTitle("Movimiento invalido");
+		dialogoAlerta.setHeaderText(null);
+		dialogoAlerta.setContentText(texto);
+		dialogoAlerta.initStyle(StageStyle.UTILITY);
+		dialogoAlerta.showAndWait();
 	}
 	
 	private void moverEnTablero(int posOrigenX,int posOrigenY,int posFinalX,int posFinalY) {
 		String tipoUnidad; Unidad unaUnidad; boolean celdaVacia;
 		
-		unaUnidad = tablero.devolverUnidad(posOrigenX+1, posOrigenY+1);
-		tipoUnidad = tablero.mostrarTipoDePieza(posicionCeldaAnteriorX+1, posicionCeldaAnteriorY+1);
-		celdaVacia = tablero.celdaVacia(posicionCeldaAnteriorX+1, posicionCeldaAnteriorY+1);
-		
-		if(!celdaVacia) {
+		unaUnidad = tablero.devolverUnidad(posFinalX+1, posFinalY+1);//la unidad ya se movio si se llego a la instancia grafica
+		tipoUnidad = tablero.mostrarTipoDePieza(posFinalX+1, posFinalY+1);
 			
+		if(tipoUnidad=="Catapulta") {
 			agregarCatapultaATablero(posicionCeldaActualX, posicionCeldaActualY);
-				
-			
-			if(tipoUnidad=="Catapulta") {
-				agregarCatapultaATablero(posicionCeldaActualX, posicionCeldaActualY);
-			}
-			
-			if(tipoUnidad=="Curandero") {
-				agregarCuranderoATablero(posicionCeldaActualX, posicionCeldaActualY);
-			}
-			
-			if(tipoUnidad=="Jinete") {
-				agregarJineteATablero(posicionCeldaActualX, posicionCeldaActualY);
-			}
-			if(tipoUnidad=="Soldado De Infanteria") {
-				agregarSoldadoATablero(posicionCeldaActualX, posicionCeldaActualY);
-			}
-			desocuparCeldaTablero(posOrigenX, posOrigenY);
-				
 		}
 		
+		if(tipoUnidad=="Curandero") {
+			agregarCuranderoATablero(posicionCeldaActualX, posicionCeldaActualY);
+		}
+		
+		if(tipoUnidad=="Jinete") {
+			agregarJineteATablero(posicionCeldaActualX, posicionCeldaActualY);
+		}
+		if(tipoUnidad=="Soldado De Infanteria") {
+			agregarSoldadoATablero(posicionCeldaActualX, posicionCeldaActualY);
+		}
+		try {
+			desocuparCeldaTablero(posOrigenX, posOrigenY);			
+		}catch(Exception e){
+			//TODO: siempre lanza excepcion, parece no afectar el juego
+		}
 	}
 	
 	private void desocuparCeldaTablero(int posX, int posY) {

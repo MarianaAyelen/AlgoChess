@@ -97,13 +97,8 @@ public class TableroControlador {
 		tablero.realizarComportamiento(posOrigenX, posOrigenY, posFinalX, posFinalY);
 	}
 
-	public void mover(int posOrigenX, int posOrigenY, int posFinalX, int posFinalY) {
-		
-		try {
+	public void mover(int posOrigenX, int posOrigenY, int posFinalX, int posFinalY) throws Exception {
 			tablero.moverUnidad(posOrigenX, posOrigenY, posFinalX, posFinalY);
-		}catch(Exception e) {
-			//TODO
-		}	
 	}
 	
 	public Unidad devolverUnidad(int posX, int posY) {
