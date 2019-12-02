@@ -507,7 +507,8 @@ public void crearBarraLateralEnPartida(ControladorJugador jugador,  AnchorPane r
 
 			@Override
 			public void handle(ActionEvent event) {
-				if (jugador.getTurno() && jugador.getcomportamientoPosible()) {
+				if (jugador.getTurno() && jugador.getcomportamientoPosible()
+				&& tablero.unidadPerteneceAlJugador(posicionCeldaAnteriorX+1,posicionCeldaAnteriorY+1,jugador)) {
 					try {
 						tablero.realizarComportamiento(posicionCeldaAnteriorX +1 , posicionCeldaAnteriorY+1, posicionCeldaActualX +1 , posicionCeldaActualY +1 );
 						jugador.setComportamientoPosible(false);
