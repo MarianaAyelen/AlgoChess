@@ -83,6 +83,18 @@ public class TableroControlador {
 		 }
 		return perteneceAlJugador;
 	}
+
+	public boolean unidadPerteneceAlJugador(int x, int y, ControladorJugador controladorJugador) {
+		boolean  perteneceAlJugador= false;
+		if(tablero.obtenerUnidad(x,y)==null) {
+			return false;
+		}
+		if (tablero.obtenerUnidad(x, y).obtenerPropietario() == controladorJugador.devolverJugador()) {
+			perteneceAlJugador = true;
+		 }
+		return perteneceAlJugador;
+	}
+
 	
 	public String mostrarTipoDePieza(int x, int y) {
 		

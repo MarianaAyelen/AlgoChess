@@ -539,7 +539,7 @@ public void crearBarraLateralEnPartida(ControladorJugador jugador,  AnchorPane r
 		movimientoButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				if(jugador.getTurno()) {
+				if(jugador.getTurno() && tablero.unidadPerteneceAlJugador(posicionCeldaAnteriorX+1,posicionCeldaAnteriorY+1,jugador)) {
 					try {
 						tablero.mover(posicionCeldaAnteriorX+1, posicionCeldaAnteriorY+1, posicionCeldaActualX+1, posicionCeldaActualY+1);
 						try {
