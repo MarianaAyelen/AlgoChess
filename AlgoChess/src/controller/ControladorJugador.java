@@ -1,15 +1,42 @@
 package controller;
 
+
+
 import Jugadores.Jugador;
 import Tablero.Tablero;
+import javafx.scene.paint.Color;
 
 public class ControladorJugador {
 	private Jugador jugador;
+	private boolean turnoJugador = false;
+	private boolean comportamientoPosible = false;
+	private Color color ;
+	
 	
 	public ControladorJugador(String nombre) {
 		jugador = new Jugador(nombre);
 	}
+	public void setColor(Color colorJugador) {
+		color = colorJugador;
+	}
 	
+	public Color getColor() {
+		return color;
+	}
+	public void setComportamientoPosible(boolean movimientoPosible) {
+		comportamientoPosible = movimientoPosible;
+	}
+	public boolean getcomportamientoPosible() {
+		return comportamientoPosible;
+	}
+	
+	public void setTurno(boolean turno) {
+		turnoJugador =  turno;
+	}
+	
+	public boolean getTurno() {
+		return turnoJugador;
+	}
 	public String obtenerNombre() {
 		return jugador.obtenerPropietario();
 	}
@@ -54,6 +81,9 @@ public class ControladorJugador {
 		jugador.agregarCurandero(x,y);
 	}
 	
+	public int obtenerCantidadDeUnidades() {
+		return jugador.cantidadDeUnidades();
+	}
 	public Jugador devolverJugador() {
 		return jugador;
 	}

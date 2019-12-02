@@ -4,6 +4,7 @@ import Jugadores.Jugador;
 import Tablero.Celda;
 import Tablero.Tablero;
 import Unidades.Unidad;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import view.TableroView;
 
@@ -27,6 +28,8 @@ public class TableroControlador {
 		jugador2 = new ControladorJugador(nombreJugador2);
 		jugador1.agregarTablero(tablero);
 		jugador2.agregarTablero(tablero);
+		jugador1.setColor(Color.FUCHSIA);
+		jugador2.setColor(Color.BLUE);
 		tablero.generarTerritorios(devolverJugadores());
 		colocarPiezas(jugador1, jugador2);
 	}
@@ -58,13 +61,26 @@ public class TableroControlador {
 	public void comenzarLaPartida() {
 		tableroVista.eliminarBarraParaDeColocacionDePiezas();
 		ControladorJugador[] jugadores = new ControladorJugador[2];
+
 		jugadores[0] = jugador1;
 		jugadores[1] = jugador2;
 		tableroVista.crearJugadorEnPartidaSubEscenaJugador(jugadores);
-		
-		
+	
+		jugador1.setTurno(true);
 	}
 	
+	
+	private boolean chequearGanador() {
+		
+		boolean hayGanador =false;
+		int cantidadUnidadesJuagador1, cantidadUnidadesJugador2;
+		cantidadUnidadesJuagador1 = jugador1.obtenerCantidadDeUnidades();
+		cantidadUnidadesJugador2 = jugador2.obtenerCantidadDeUnidades();
+		if (cantidadUnidadesJuagador1 == 0 | cantidadUnidadesJugador2 == 0) {
+			hayGanador = true;
+		}
+		return hayGanador ;
+	}
 	public boolean yaComenzoLaPartida() {
 		return colocacionDePiezasOk;
 	}

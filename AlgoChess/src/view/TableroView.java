@@ -270,7 +270,7 @@ public class TableroView {
 				try {
 					if(tablero.celdaVacia(posicionCeldaActualX+1, posicionCeldaActualY+1) && tablero.celdaPerteneceAJugador(posicionCeldaActualX+1, posicionCeldaActualY+1, jugador)) {
 						jugador.agregarJinete(posicionCeldaActualX+1, posicionCeldaActualY+1);
-						agregarJineteATablero(posicionCeldaActualX,posicionCeldaActualY);
+						agregarJineteATablero(jugador,posicionCeldaActualX,posicionCeldaActualY);
 						actualizarEtiquetaDeEntero("Jinetes colocados: ",jugador.obtenerCantidadDeJinetesColocados(), etiquetaJinetesColocados );
 						actualizarPuntos(jugador.obtenerPuntos(),etiquetaPuntosRestantes);
 						if(jugador.obtenerPuntos()==0) {
@@ -298,7 +298,7 @@ public class TableroView {
 				try {
 					if(tablero.celdaVacia(posicionCeldaActualX+1, posicionCeldaActualY+1) && tablero.celdaPerteneceAJugador(posicionCeldaActualX+1, posicionCeldaActualY+1, jugador)) {
 						jugador.agregarSoldado(posicionCeldaActualX+1, posicionCeldaActualY+1);
-						agregarSoldadoATablero(posicionCeldaActualX,posicionCeldaActualY);
+						agregarSoldadoATablero(jugador,posicionCeldaActualX,posicionCeldaActualY);
 						
 						actualizarEtiquetaDeEntero("Soldados colocados: ",jugador.obtenerCantidadDeSoldadosColocados(), etiquetaSoldadosColocados );
 						actualizarPuntos(jugador.obtenerPuntos(),etiquetaPuntosRestantes);
@@ -327,7 +327,7 @@ public class TableroView {
 				try {
 					if(tablero.celdaVacia(posicionCeldaActualX+1, posicionCeldaActualY+1) && tablero.celdaPerteneceAJugador(posicionCeldaActualX+1, posicionCeldaActualY+1, jugador)) {
 						jugador.agregarCurandero(posicionCeldaActualX+1, posicionCeldaActualY+1);
-						agregarCuranderoATablero(posicionCeldaActualX,posicionCeldaActualY);
+						agregarCuranderoATablero(jugador,posicionCeldaActualX,posicionCeldaActualY);
 						actualizarEtiquetaDeEntero("Curandero colocados: ",jugador.obtenerCantidadDeCuranderosColocados(), etiquetaCuranderosColocados );
 						actualizarPuntos(jugador.obtenerPuntos(),etiquetaPuntosRestantes);
 
@@ -354,7 +354,7 @@ public class TableroView {
 				try {
 					if(tablero.celdaVacia(posicionCeldaActualX+1, posicionCeldaActualY+1) && tablero.celdaPerteneceAJugador(posicionCeldaActualX+1, posicionCeldaActualY+1, jugador)) {
 						jugador.agregarCatapulta(posicionCeldaActualX+1, posicionCeldaActualY+1);
-						agregarCatapultaATablero(posicionCeldaActualX,posicionCeldaActualY);
+						agregarCatapultaATablero(jugador,posicionCeldaActualX,posicionCeldaActualY);
 						actualizarEtiquetaDeEntero("Catapultas colocadas: ",jugador.obtenerCantidadDeCatapultasColocadas(), etiquetaCatapultasColocados );
 						actualizarPuntos(jugador.obtenerPuntos(),etiquetaPuntosRestantes);
 						if(jugador.obtenerPuntos()==0) {
@@ -441,8 +441,8 @@ public class TableroView {
 	
 public void crearBarraLateralEnPartida(ControladorJugador jugador,  AnchorPane root, Label informacionDePieza) {
 		
-		AlgoChessButton comportamientoBoton1  = ComportamientoButton();
-		AlgoChessButton movimientoBoton1 = movimientoButton();
+		AlgoChessButton comportamientoBoton1  = ComportamientoButton(jugador);
+		AlgoChessButton movimientoBoton1 = movimientoButton(jugador);
 		
 		Label etiquetaNombreJugador = etiqueta(jugador.obtenerNombre(), 35);
 		
@@ -466,42 +466,60 @@ public void crearBarraLateralEnPartida(ControladorJugador jugador,  AnchorPane r
 		
 	}
 	
-	private AlgoChessButton ComportamientoButton() {
+	private AlgoChessButton ComportamientoButton(ControladorJugador jugador) {
 		AlgoChessButton botonComportamiento = new AlgoChessButton("Comportamiento");
 
 		botonComportamiento.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
-				tablero.realizarComportamiento(posicionCeldaAnteriorX +1 , posicionCeldaAnteriorY+1, posicionCeldaActualX +1 , posicionCeldaActualY +1 );
-				}	
+				if (jugador.getTurno() && jugador.getcomportamientoPosible()) {
+					tablero.realizarComportamiento(posicionCeldaAnteriorX +1 , posicionCeldaAnteriorY+1, posicionCeldaActualX +1 , posicionCeldaActualY +1 );
+					jugador.setComportamientoPosible(false);
+				}
+			}	
 		});
 	
 		return botonComportamiento;
 	}
 	
-	private AlgoChessButton movimientoButton() {
+	private AlgoChessButton movimientoButton(ControladorJugador jugador) {
 		
 		AlgoChessButton movimientoButton = new AlgoChessButton("Mover");		
 		movimientoButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				
-				try {
-					tablero.mover(posicionCeldaAnteriorX+1, posicionCeldaAnteriorY+1, posicionCeldaActualX+1, posicionCeldaActualY+1);
+				if(jugador.getTurno()) {
 					try {
-						moverEnTablero(posicionCeldaAnteriorX, posicionCeldaAnteriorY, posicionCeldaActualX, posicionCeldaActualY);					
+						tablero.mover(posicionCeldaAnteriorX+1, posicionCeldaAnteriorY+1, posicionCeldaActualX+1, posicionCeldaActualY+1);
+						try {
+							moverEnTablero(jugador, posicionCeldaAnteriorX, posicionCeldaAnteriorY, posicionCeldaActualX, posicionCeldaActualY);					
+							cambiarTurno(jugador);
+						}catch(Exception e) {
+							noPuedeMoverPieza("Error de movimiento en tablero grafico");						
+						}
 					}catch(Exception e) {
-						noPuedeMoverPieza("Error de movimiento en tablero grafico");						
+						noPuedeMoverPieza("Movimiento invalido: "+e.toString());
 					}
-				}catch(Exception e) {
-					noPuedeMoverPieza("Movimiento invalido: "+e.toString());
 				}
-			
-
 			}	
 		});
+		
 		return movimientoButton;
+	}
+	
+	private void cambiarTurno(ControladorJugador unJugador) {
+	
+		if(unJugador == jugador1) {
+			jugador1.setTurno(false);
+			jugador2.setTurno(true);
+			jugador2.setComportamientoPosible(true);
+		}else {
+			jugador1.setTurno(true);
+			jugador1.setComportamientoPosible(true);
+			jugador2.setTurno(false);
+			
+		}
 	}
 	
 	private void noPuedeMoverPieza(String texto) {
@@ -513,25 +531,25 @@ public void crearBarraLateralEnPartida(ControladorJugador jugador,  AnchorPane r
 		dialogoAlerta.showAndWait();
 	}
 	
-	private void moverEnTablero(int posOrigenX,int posOrigenY,int posFinalX,int posFinalY) {
+	private void moverEnTablero(ControladorJugador jugador, int posOrigenX,int posOrigenY,int posFinalX,int posFinalY) {
 		String tipoUnidad; Unidad unaUnidad; boolean celdaVacia;
 		
 		unaUnidad = tablero.devolverUnidad(posFinalX+1, posFinalY+1);//la unidad ya se movio si se llego a la instancia grafica
 		tipoUnidad = tablero.mostrarTipoDePieza(posFinalX+1, posFinalY+1);
 			
 		if(tipoUnidad=="Catapulta") {
-			agregarCatapultaATablero(posicionCeldaActualX, posicionCeldaActualY);
+			agregarCatapultaATablero(jugador, posicionCeldaActualX, posicionCeldaActualY);
 		}
 		
 		if(tipoUnidad=="Curandero") {
-			agregarCuranderoATablero(posicionCeldaActualX, posicionCeldaActualY);
+			agregarCuranderoATablero(jugador,posicionCeldaActualX, posicionCeldaActualY);
 		}
 		
 		if(tipoUnidad=="Jinete") {
-			agregarJineteATablero(posicionCeldaActualX, posicionCeldaActualY);
+			agregarJineteATablero(jugador,posicionCeldaActualX, posicionCeldaActualY);
 		}
 		if(tipoUnidad=="Soldado De Infanteria") {
-			agregarSoldadoATablero(posicionCeldaActualX, posicionCeldaActualY);
+			agregarSoldadoATablero(jugador,posicionCeldaActualX, posicionCeldaActualY);
 		}
 		try {
 			desocuparCeldaTablero(posOrigenX, posOrigenY);			
@@ -556,34 +574,34 @@ public void crearBarraLateralEnPartida(ControladorJugador jugador,  AnchorPane r
 		dialogoAlerta.showAndWait();
 	}
 	
-	private void agregarJineteATablero(int posicionX, int posicionY) {
+	private void agregarJineteATablero(ControladorJugador jugador, int posicionX, int posicionY) {
 		
 		Node[][] celdas = new Node[NUM_ROWS][NUM_COLUMNS];
-		celdas[posicionX][posicionY] = new Celda(posicionCeldaActualX,posicionCeldaActualY, Color.BEIGE, "J");
+		celdas[posicionX][posicionY] = new Celda(posicionCeldaActualX,posicionCeldaActualY, jugador.getColor(), "J");
 		gamePane.getChildren().add(celdas[posicionCeldaActualX][posicionCeldaActualY]);
 		celdas[posicionCeldaActualX][posicionCeldaActualY].addEventHandler(MouseEvent.MOUSE_CLICKED, handlerMostrarPosicionCelda);
 	}
 	
-	private void agregarSoldadoATablero(int posicionX, int posicionY) {
+	private void agregarSoldadoATablero(ControladorJugador jugador, int posicionX, int posicionY) {
 		
 		Node[][] celdas = new Node[NUM_ROWS][NUM_COLUMNS];
-		celdas[posicionX][posicionY] = new Celda(posicionX,posicionY, Color.BEIGE, "S");
+		celdas[posicionX][posicionY] = new Celda(posicionX,posicionY, jugador.getColor(), "S");
 		gamePane.getChildren().add(celdas[posicionX][posicionY]);
 		celdas[posicionCeldaActualX][posicionCeldaActualY].addEventHandler(MouseEvent.MOUSE_CLICKED, handlerMostrarPosicionCelda);
 	}
 	
-	private void agregarCatapultaATablero(int posicionX, int posicionY) {
+	private void agregarCatapultaATablero(ControladorJugador jugador, int posicionX, int posicionY) {
 		
 		Node[][] celdas = new Node[NUM_ROWS][NUM_COLUMNS];
-		celdas[posicionX][posicionY] = new Celda(posicionX,posicionY, Color.BEIGE, "Ca");
+		celdas[posicionX][posicionY] = new Celda(posicionX,posicionY, jugador.getColor(), "Ca");
 		gamePane.getChildren().add(celdas[posicionX][posicionY]);
 		celdas[posicionCeldaActualX][posicionCeldaActualY].addEventHandler(MouseEvent.MOUSE_CLICKED, handlerMostrarPosicionCelda);
 	}
 	
-	private void agregarCuranderoATablero(int posicionX, int posicionY) {
+	private void agregarCuranderoATablero(ControladorJugador jugador, int posicionX, int posicionY) {
 		
 		Node[][] celdas = new Node[NUM_ROWS][NUM_COLUMNS];
-		celdas[posicionX][posicionY] = new Celda(posicionX,posicionY, Color.BEIGE, "Cu");
+		celdas[posicionX][posicionY] = new Celda(posicionX,posicionY,jugador.getColor(), "Cu");
 		gamePane.getChildren().add(celdas[posicionX][posicionY]);
 		celdas[posicionCeldaActualX][posicionCeldaActualY].addEventHandler(MouseEvent.MOUSE_CLICKED, handlerMostrarPosicionCelda);
 	}
