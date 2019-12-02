@@ -67,20 +67,11 @@ public class TableroControlador {
 		tableroVista.crearJugadorEnPartidaSubEscenaJugador(jugadores);
 	
 		jugador1.setTurno(true);
+		jugador1.setComportamientoPosible(true);
 	}
 	
 	
-	private boolean chequearGanador() {
-		
-		boolean hayGanador =false;
-		int cantidadUnidadesJuagador1, cantidadUnidadesJugador2;
-		cantidadUnidadesJuagador1 = jugador1.obtenerCantidadDeUnidades();
-		cantidadUnidadesJugador2 = jugador2.obtenerCantidadDeUnidades();
-		if (cantidadUnidadesJuagador1 == 0 | cantidadUnidadesJugador2 == 0) {
-			hayGanador = true;
-		}
-		return hayGanador ;
-	}
+	
 	public boolean yaComenzoLaPartida() {
 		return colocacionDePiezasOk;
 	}

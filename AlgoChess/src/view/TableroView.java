@@ -71,6 +71,7 @@ public class TableroView {
 	//private Label informacionDePieza;
 	private Label informacionDePiezaJugador1;
 	private Label informacionDePiezaJugador2;
+	private Label turnoJugador;
 	
 	private static final int NUM_ROWS = 20;
 	private static final int NUM_COLUMNS = 20;
@@ -129,8 +130,19 @@ public class TableroView {
 		createBackground();
 	}
 	
+	private void actualizarTurno(ControladorJugador jugador) {
+	
+			if(jugador == jugador1) {
+				turnoJugador.setText(jugador2.obtenerNombre() + " es su turno");
+			}else {
+				turnoJugador.setText(jugador1.obtenerNombre() + " es su turno");
+			}
+			
+	}
+	
 	// +++++++++++ Metodos de ViewBarraLateral +++++++++++
 
+	
 	private void actualizarPuntos(int puntos, Label etiquetaPuntos) {
 		String strPuntos = Integer.toString(puntos);
 		etiquetaPuntos.setText("Puntos restantes: " + strPuntos);
@@ -424,12 +436,16 @@ public class TableroView {
 
 	public void crearJugadorEnPartidaSubEscenaJugador(ControladorJugador jugador[]) {
 		
+		turnoJugador = etiquetaStringMasString(jugador1.obtenerNombre()," es su turno", 35);
+		
 		barraLateralParaJugarPiezasIzquierda = new AlgoChessSubScene(posicionXBarraLateralIzquierda,posicionYBarraLateralIzquierda,largoBarraLateral,anchoBarraLateral);
 		AnchorPane rootBarraLateralParaJugarPiezasIzquierda = barraLateralParaJugarPiezasIzquierda.getPane();
 		informacionDePiezaJugador1 = new Label("Jugador 1"); 
 		crearBarraLateralEnPartida(jugador[0], rootBarraLateralParaJugarPiezasIzquierda, informacionDePiezaJugador1);
 		gamePane.getChildren().add(barraLateralParaJugarPiezasIzquierda);
-		
+		gamePane.getChildren().add(turnoJugador);
+		gamePane.setTopAnchor(turnoJugador, 0.0);
+		gamePane.setLeftAnchor(turnoJugador, 550.0);
 		
 		barraLateralParaJugarPiezasDerecha = new AlgoChessSubScene(posicionXBarraLateralDerecha,posicionYBarraLateralDerecha,largoBarraLateral,anchoBarraLateral);
 		AnchorPane rootBarraLateralParaJugarPiezasDerecha = barraLateralParaJugarPiezasDerecha.getPane();
@@ -443,6 +459,7 @@ public void crearBarraLateralEnPartida(ControladorJugador jugador,  AnchorPane r
 		
 		AlgoChessButton comportamientoBoton1  = ComportamientoButton(jugador);
 		AlgoChessButton movimientoBoton1 = movimientoButton(jugador);
+		AlgoChessButton botonPausar = pasarButton(jugador); 
 		
 		Label etiquetaNombreJugador = etiqueta(jugador.obtenerNombre(), 35);
 		
@@ -450,8 +467,9 @@ public void crearBarraLateralEnPartida(ControladorJugador jugador,  AnchorPane r
 		root.getChildren().add(informacionDePieza);
 		root.getChildren().add(comportamientoBoton1);
 		root.getChildren().add(movimientoBoton1);
+		root.getChildren().add(botonPausar);
 		
-		root.setTopAnchor(etiquetaNombreJugador, 100.0);
+		root.setTopAnchor(etiquetaNombreJugador, 10.0);
 		root.setLeftAnchor(etiquetaNombreJugador, 10.0);
 		root.setTopAnchor(informacionDePieza, 100.0);
 		root.setLeftAnchor(informacionDePieza, 20.0);
@@ -459,12 +477,28 @@ public void crearBarraLateralEnPartida(ControladorJugador jugador,  AnchorPane r
 		root.setLeftAnchor(comportamientoBoton1, 10.0);
 		root.setTopAnchor(movimientoBoton1, 400.0);
 		root.setLeftAnchor(movimientoBoton1, 10.0);
+		root.setTopAnchor(botonPausar, 600.0);
+		root.setLeftAnchor(botonPausar, 10.0);
 		
 	}
 	
-	private void subSceneComportamiento(AlgoChessSubScene jugadorPartida) {
-		
+	private AlgoChessButton pasarButton(ControladorJugador jugador) {
+		AlgoChessButton botonPausar = new AlgoChessButton("Pasar turno");
+
+		botonPausar.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				if (jugador.getTurno()) {
+					cambiarTurno(jugador);
+				}	
+			}	
+				
+		});
+	
+		return botonPausar;
 	}
+	
 	
 	private AlgoChessButton ComportamientoButton(ControladorJugador jugador) {
 		AlgoChessButton botonComportamiento = new AlgoChessButton("Comportamiento");
@@ -474,15 +508,31 @@ public void crearBarraLateralEnPartida(ControladorJugador jugador,  AnchorPane r
 			@Override
 			public void handle(ActionEvent event) {
 				if (jugador.getTurno() && jugador.getcomportamientoPosible()) {
-					tablero.realizarComportamiento(posicionCeldaAnteriorX +1 , posicionCeldaAnteriorY+1, posicionCeldaActualX +1 , posicionCeldaActualY +1 );
-					jugador.setComportamientoPosible(false);
+					try {
+						tablero.realizarComportamiento(posicionCeldaAnteriorX +1 , posicionCeldaAnteriorY+1, posicionCeldaActualX +1 , posicionCeldaActualY +1 );
+						jugador.setComportamientoPosible(false);
+						chequearGanador();			
+					}catch(Exception e) {
+						noPuedeMoverPieza("Ataque invalido: "+e.toString());
+					}
 				}
 			}	
 		});
 	
 		return botonComportamiento;
 	}
+	private void chequearGanador() {
+		if(jugador1.obtenerCantidadDeUnidades()==0) {
+			finDelJuego(jugador2);
+		}
+		if(jugador2.obtenerCantidadDeUnidades()==0) {
+			finDelJuego(jugador1);
+		}
+	}
 	
+	private void finDelJuego(ControladorJugador jugador) {
+		noPuedeMoverPieza("El ganador es "+ jugador.obtenerNombre());
+	}
 	private AlgoChessButton movimientoButton(ControladorJugador jugador) {
 		
 		AlgoChessButton movimientoButton = new AlgoChessButton("Mover");		
@@ -520,6 +570,7 @@ public void crearBarraLateralEnPartida(ControladorJugador jugador,  AnchorPane r
 			jugador2.setTurno(false);
 			
 		}
+		actualizarTurno(unJugador);
 	}
 	
 	private void noPuedeMoverPieza(String texto) {
