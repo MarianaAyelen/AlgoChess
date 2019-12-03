@@ -28,8 +28,8 @@ public class TableroControlador {
 		jugador2 = new ControladorJugador(nombreJugador2);
 		jugador1.agregarTablero(tablero);
 		jugador2.agregarTablero(tablero);
-		jugador1.setColor(Color.FUCHSIA);
-		jugador2.setColor(Color.BLUE);
+		jugador1.setColor(Color.PERU.darker().darker());
+		jugador2.setColor(Color.OLIVE.darker());
 		tablero.generarTerritorios(devolverJugadores());
 		colocarPiezas(jugador1, jugador2);
 	}

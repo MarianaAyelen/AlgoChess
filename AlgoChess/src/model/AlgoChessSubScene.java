@@ -18,6 +18,9 @@ public class AlgoChessSubScene extends SubScene {
 
 	private final static String FONT_PATH = "src/model/resources/kenvector_future.ttf";
 	private final static String BACKGROUND_IMAGE = "model/resources/yellow_panel.png";
+	public final static String IMG_PAPIRO = "model/resources/papiro.png";
+	public final static String IMG_PERGAMINO = "model/resources/pergamino.png";
+	public final static String IMG_TEXTURA = "model/resources/texture.jpg";
 	
 	private boolean isHidden; 
 	
@@ -27,6 +30,24 @@ public class AlgoChessSubScene extends SubScene {
 		prefWidth(largo);
 		prefHeight(ancho);
 		BackgroundImage image = new BackgroundImage(new Image(BACKGROUND_IMAGE, largo, ancho, false, true), 
+				BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, null);
+		AnchorPane root2 = (AnchorPane) this.getRoot();
+		root2.setTopAnchor(label, 50.0);
+		root2.setLeftAnchor(label, 50.0);
+		root2.setBackground(new Background(image));
+		
+		isHidden = true;
+		
+		setLayoutX(posX);
+		setLayoutY(posY);
+	}
+	
+public AlgoChessSubScene(int posX, int posY, int ancho, int largo, Label label, String imagen) {
+		
+		super(new AnchorPane(label), largo, ancho);
+		prefWidth(largo);
+		prefHeight(ancho);
+		BackgroundImage image = new BackgroundImage(new Image(imagen, largo, ancho, false, true), 
 				BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, null);
 		AnchorPane root2 = (AnchorPane) this.getRoot();
 		root2.setTopAnchor(label, 50.0);
@@ -75,7 +96,27 @@ public AlgoChessSubScene(int posX, int posY, int ancho, int largo) {
 		setLayoutX(posX);
 		setLayoutY(posY);
 	}
+
+public AlgoChessSubScene(int posX, int posY, int ancho, int largo, String imagen) {
 	
+	super(new AnchorPane(), largo, ancho);
+	
+	prefWidth(largo);
+	prefHeight(ancho);
+	
+	BackgroundImage image = new BackgroundImage(new Image(imagen, largo, ancho, false, true), 
+			BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, null);
+	
+	AnchorPane root2 = (AnchorPane) this.getRoot();
+	
+	root2.setBackground(new Background(image));
+	
+	isHidden = true;
+	
+	setLayoutX(posX);
+	setLayoutY(posY);
+}
+
 	public void moveSubScene() {
 		TranslateTransition transition = new TranslateTransition();
 		transition.setDuration(Duration.seconds(0.3));

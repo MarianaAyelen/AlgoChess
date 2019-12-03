@@ -16,7 +16,13 @@ public class Celda extends StackPane {
 	public Celda(int x, int y) {
 		this.posX = x;
 		this.posY = y;
-		rect = new Rectangle(28,28, Color.CORAL);
+		Color color = null;
+		if ((x+y)%2==1) {
+			color = Color.BISQUE.darker();
+		}else {
+			color = Color.BISQUE;
+		}
+		rect = new Rectangle(29,29, color);
 		rect.setStroke(Color.BLACK);
 		rect.setStrokeWidth(2);
 		setAlignment(Pos.CENTER);
@@ -47,7 +53,8 @@ public class Celda extends StackPane {
 	public Celda(int x, int y, Color color, String etiqueta) {
 		this.posX = x;
 		this.posY = y;
-		Rectangle rect = new Rectangle(28,28, color);
+		
+		Rectangle rect = new Rectangle(29,29, color);
 		rect.setStroke(Color.BLACK);
 		rect.setStrokeWidth(3);
 		setAlignment(Pos.CENTER);
@@ -56,6 +63,7 @@ public class Celda extends StackPane {
 		setTranslateY(30 * y + 70);
 		getChildren().addAll(rect);
 		Label label = new Label(etiqueta);
+		label.setTextFill(Color.WHITESMOKE);
 		getChildren().add(label);
 		setOnMouseEntered(new EventHandler<MouseEvent>() {
 

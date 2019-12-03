@@ -88,12 +88,12 @@ public class ViewManager {
 	private void createSubScenes() {
 		Label labelCredits = new Label("Créditos: Alejandro, Mariana, Juan, Juan Pablo");
 		labelCredits.setFont(new Font("Serif", 20.0));
-		creditsSubScene = new AlgoChessSubScene(1200,300,400,600, labelCredits);
+		creditsSubScene = new AlgoChessSubScene(1200,300,400,600, labelCredits,AlgoChessSubScene.IMG_PAPIRO);
 		mainPane.getChildren().add(creditsSubScene);
 		
 		Label labelHelp = new Label("No hay ayuda en este juego");
 		labelHelp.setFont(new Font("Serif", 20.0));
-		helpSubScene = new AlgoChessSubScene(1200,300,400,600, labelHelp);
+		helpSubScene = new AlgoChessSubScene(1200,300,400,600, labelHelp,AlgoChessSubScene.IMG_PAPIRO);
 		mainPane.getChildren().add(helpSubScene);
 		
 		
@@ -104,20 +104,20 @@ public class ViewManager {
 	
 	public void crearJugadoresSubScene() {
 	
-		Label labelJugadores = new Label("Ingresar nombre de los usuarios");
+		Label labelJugadores = new Label("Ingresar nombre de los jugadores");
 		labelJugadores.setFont(new Font("Serif", 30.0));
-		jugadoresSubScene = new AlgoChessSubScene(1200,300,400,600, labelJugadores);
+		jugadoresSubScene = new AlgoChessSubScene(1200,300,400,600, labelJugadores, AlgoChessSubScene.IMG_PAPIRO);
 		mainPane.getChildren().add(jugadoresSubScene);
 		
 		
 		PlayerLabel jugador1Label = new PlayerLabel("JUGADOR 1: ");
-		jugador1Label.setLayoutX(20);
-		jugador1Label.setLayoutY(120);
+		jugador1Label.setLayoutX(70);
+		jugador1Label.setLayoutY(130);
 		jugadoresSubScene.getPane().getChildren().add(jugador1Label);
 		
 		PlayerLabel jugador2Label = new PlayerLabel("JUGADOR 2: ");
-		jugador2Label.setLayoutX(20);
-		jugador2Label.setLayoutY(200);
+		jugador2Label.setLayoutX(70);
+		jugador2Label.setLayoutY(220);
 		jugadoresSubScene.getPane().getChildren().add(jugador2Label);
 		
 		
@@ -153,13 +153,13 @@ public class ViewManager {
 		TextField textFieldJugador1 = new TextField();
 		HBox hboxJugador1 = new HBox(textFieldJugador1);
 		hboxJugador1.setLayoutX(300);
-		hboxJugador1.setLayoutY(120);		
+		hboxJugador1.setLayoutY(140);		
 		jugadoresSubScene.getPane().getChildren().add(hboxJugador1);		
 		
 		TextField textFieldJugador2 = new TextField();
 		HBox hboxJugador2 = new HBox(textFieldJugador2);
 		hboxJugador2.setLayoutX(300);
-		hboxJugador2.setLayoutY(200);		
+		hboxJugador2.setLayoutY(230);		
 		jugadoresSubScene.getPane().getChildren().add(hboxJugador2);
 	
 		playButton.setOnAction(new EventHandler<ActionEvent>() {

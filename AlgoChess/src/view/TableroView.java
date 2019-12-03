@@ -9,6 +9,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
@@ -71,6 +72,8 @@ public class TableroView {
 	//private Label informacionDePieza;
 	private Label informacionDePiezaJugador1;
 	private Label informacionDePiezaJugador2;
+	private ProgressBar pb1 = new ProgressBar();
+	private ProgressBar pb2 = new ProgressBar();
 	private Label turnoJugador;
 	
 	private static final int NUM_ROWS = 20;
@@ -79,7 +82,7 @@ public class TableroView {
 	private static final String PUNTOS_INSUFICIENTES = "No posee los puntos necesarios para colocar la unidad";
 	private static final String TERRITORIO_ENEMIGO = "No puede colocar unidades en territorio enemigo";
 	private static final String CELDA_OCUPADA = "La celda esa ocupada";
-	
+	public static final String IMG_MADERA = "/view/resources/madera.jpg";
 	private Label etiquetaJinetesColocados;
 	
 	/*
@@ -115,12 +118,12 @@ public class TableroView {
 		AlgoChessSubScene tablero = crearCeldasDeTablero();
 		gamePane.getChildren().add(tablero);  
 		
-		barraLateralParaColocarPiezasIzquierda = new AlgoChessSubScene(posicionXBarraLateralIzquierda,posicionYBarraLateralIzquierda,largoBarraLateral,anchoBarraLateral);
+		barraLateralParaColocarPiezasIzquierda = new AlgoChessSubScene(posicionXBarraLateralIzquierda,posicionYBarraLateralIzquierda,largoBarraLateral,anchoBarraLateral, AlgoChessSubScene.IMG_TEXTURA);
 		AnchorPane rootBarraLateralParaColocarPiezasIzquierda = barraLateralParaColocarPiezasIzquierda.getPane();
 		crearBarraJugadorPosicionarPiezas(jugador1, rootBarraLateralParaColocarPiezasIzquierda);
 		gamePane.getChildren().add(barraLateralParaColocarPiezasIzquierda);
 		
-		barraLateralParaColocarPiezasDerecha = new AlgoChessSubScene(posicionXBarraLateralDerecha,posicionYBarraLateralDerecha,largoBarraLateral,anchoBarraLateral);
+		barraLateralParaColocarPiezasDerecha = new AlgoChessSubScene(posicionXBarraLateralDerecha,posicionYBarraLateralDerecha,largoBarraLateral,anchoBarraLateral, AlgoChessSubScene.IMG_TEXTURA);
 		AnchorPane rootBarraLateralParaColocarPiezasDerecha = barraLateralParaColocarPiezasDerecha.getPane();
 		crearBarraJugadorPosicionarPiezas(jugador2, rootBarraLateralParaColocarPiezasDerecha);
 		gamePane.getChildren().add(barraLateralParaColocarPiezasDerecha);
@@ -256,8 +259,10 @@ public class TableroView {
 	    			
 	    			if(tablero.unidadPerteneceAlJugador(x+1, y+1, jugador1)) {
 	    				actualizarEtiquetaDeEstring("Informacion de la pieza:\n", "Tipo de pieza: " + tablero.mostrarTipoDePieza(x+1,y+1) + "\n" + "Vida: " + strVida + "/" + strVidaMax, informacionDePiezaJugador1);
+	    				actualizarBarraDeVida(pb1, vida, vidaMax);
 	    			}else {
 	    				actualizarEtiquetaDeEstring("Informacion de la pieza:\n", "Tipo de pieza: " + tablero.mostrarTipoDePieza(x+1,y+1) + "\n" + "Vida: " + strVida + "/" + strVidaMax, informacionDePiezaJugador2);
+	    				actualizarBarraDeVida(pb2, vida, vidaMax);
 	    			}
 	    		}
 	    }
@@ -275,8 +280,10 @@ public class TableroView {
 			
 			if(tablero.unidadPerteneceAlJugador(x+1, y+1, jugador1)) {
 				actualizarEtiquetaDeEstring("Informacion de la pieza:\n", "Tipo de pieza: " + tablero.mostrarTipoDePieza(x+1,y+1) + "\n" + "Vida: " + strVida + "/" + strVidaMax, informacionDePiezaJugador1);
+				actualizarBarraDeVida(pb1, vida, vidaMax);
 			}else {
 				actualizarEtiquetaDeEstring("Informacion de la pieza:\n", "Tipo de pieza: " + tablero.mostrarTipoDePieza(x+1,y+1) + "\n" + "Vida: " + strVida + "/" + strVidaMax, informacionDePiezaJugador2);
+				actualizarBarraDeVida(pb2, vida, vidaMax);
 			}
 		}
 		x = posicionCeldaActualX;
@@ -290,8 +297,10 @@ public class TableroView {
 			
 			if(tablero.unidadPerteneceAlJugador(x+1, y+1, jugador1)) {
 				actualizarEtiquetaDeEstring("Informacion de la pieza:\n", "Tipo de pieza: " + tablero.mostrarTipoDePieza(x+1,y+1) + "\n" + "Vida: " + strVida + "/" + strVidaMax, informacionDePiezaJugador1);
+				actualizarBarraDeVida(pb1, vida, vidaMax);
 			}else {
 				actualizarEtiquetaDeEstring("Informacion de la pieza:\n", "Tipo de pieza: " + tablero.mostrarTipoDePieza(x+1,y+1) + "\n" + "Vida: " + strVida + "/" + strVidaMax, informacionDePiezaJugador2);
+				actualizarBarraDeVida(pb2, vida, vidaMax);
 			}
 		}
 		
@@ -303,7 +312,7 @@ public class TableroView {
 	}
 	
 	private void createBackground() {
-		Image backgroundImage = new Image("/view/resources/purple.png", 256, 256, false, true);
+		Image backgroundImage = new Image(IMG_MADERA, 256, 256, false, true);
 		BackgroundImage background = new BackgroundImage(backgroundImage, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, null );
 		gamePane.setBackground(new Background(background));
 	}
@@ -468,29 +477,43 @@ public class TableroView {
 		root2.setLeftAnchor(movimientoBoton2, 10.0);
 	}*/
 	
+	private void actualizarBarraDeVida(ProgressBar pb, int vidaActual, int vidaTotal) {
+		double value = vidaActual/vidaTotal;
+		if(value>0.7) {
+			pb.setStyle("-fx-accent: green;");
+		}
+		if(value<0.7 && value>0.4) {
+			pb.setStyle("-fx-accent: yellow;");
+		}
+		if(value<0.4) {
+			pb.setStyle("-fx-accent: red;");
+		}
+			 
+		pb.setProgress(value);
+	}
 
 	public void crearJugadorEnPartidaSubEscenaJugador(ControladorJugador jugador[]) {
 		
 		turnoJugador = etiquetaStringMasString(jugador1.obtenerNombre()," es su turno", 35);
 		
-		barraLateralParaJugarPiezasIzquierda = new AlgoChessSubScene(posicionXBarraLateralIzquierda,posicionYBarraLateralIzquierda,largoBarraLateral,anchoBarraLateral);
+		barraLateralParaJugarPiezasIzquierda = new AlgoChessSubScene(posicionXBarraLateralIzquierda,posicionYBarraLateralIzquierda,largoBarraLateral,anchoBarraLateral,AlgoChessSubScene.IMG_TEXTURA);
 		AnchorPane rootBarraLateralParaJugarPiezasIzquierda = barraLateralParaJugarPiezasIzquierda.getPane();
 		informacionDePiezaJugador1 = new Label("Jugador 1"); 
-		crearBarraLateralEnPartida(jugador[0], rootBarraLateralParaJugarPiezasIzquierda, informacionDePiezaJugador1);
+		crearBarraLateralEnPartida(jugador[0], rootBarraLateralParaJugarPiezasIzquierda, informacionDePiezaJugador1, pb1);
 		gamePane.getChildren().add(barraLateralParaJugarPiezasIzquierda);
 		gamePane.getChildren().add(turnoJugador);
 		gamePane.setTopAnchor(turnoJugador, 0.0);
 		gamePane.setLeftAnchor(turnoJugador, 550.0);
 		
-		barraLateralParaJugarPiezasDerecha = new AlgoChessSubScene(posicionXBarraLateralDerecha,posicionYBarraLateralDerecha,largoBarraLateral,anchoBarraLateral);
+		barraLateralParaJugarPiezasDerecha = new AlgoChessSubScene(posicionXBarraLateralDerecha,posicionYBarraLateralDerecha,largoBarraLateral,anchoBarraLateral, AlgoChessSubScene.IMG_TEXTURA);
 		AnchorPane rootBarraLateralParaJugarPiezasDerecha = barraLateralParaJugarPiezasDerecha.getPane();
 		informacionDePiezaJugador2 = new Label("Jugador 2");
-		crearBarraLateralEnPartida(jugador[1], rootBarraLateralParaJugarPiezasDerecha, informacionDePiezaJugador2);
+		crearBarraLateralEnPartida(jugador[1], rootBarraLateralParaJugarPiezasDerecha, informacionDePiezaJugador2, pb2);
 		gamePane.getChildren().add(barraLateralParaJugarPiezasDerecha);
 		
 	}
 	
-public void crearBarraLateralEnPartida(ControladorJugador jugador,  AnchorPane root, Label informacionDePieza) {
+public void crearBarraLateralEnPartida(ControladorJugador jugador,  AnchorPane root, Label informacionDePieza, ProgressBar pb) {
 		
 		AlgoChessButton comportamientoBoton1  = ComportamientoButton(jugador);
 		AlgoChessButton movimientoBoton1 = movimientoButton(jugador);
@@ -500,14 +523,18 @@ public void crearBarraLateralEnPartida(ControladorJugador jugador,  AnchorPane r
 		
 		root.getChildren().add(etiquetaNombreJugador);
 		root.getChildren().add(informacionDePieza);
+		root.getChildren().add(pb);
 		root.getChildren().add(comportamientoBoton1);
 		root.getChildren().add(movimientoBoton1);
 		root.getChildren().add(botonPausar);
 		
+		
 		root.setTopAnchor(etiquetaNombreJugador, 10.0);
 		root.setLeftAnchor(etiquetaNombreJugador, 10.0);
-		root.setTopAnchor(informacionDePieza, 100.0);
+		root.setTopAnchor(informacionDePieza, 70.0);
 		root.setLeftAnchor(informacionDePieza, 20.0);
+		root.setTopAnchor(pb, 140.0);
+		root.setLeftAnchor(pb, 20.0);
 		root.setTopAnchor(comportamientoBoton1, 200.0);
 		root.setLeftAnchor(comportamientoBoton1, 10.0);
 		root.setTopAnchor(movimientoBoton1, 400.0);
