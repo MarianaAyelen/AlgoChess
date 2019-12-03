@@ -6,6 +6,7 @@ import Tablero.Tablero;
 import Unidades.Unidad;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import view.EntidadesView;
 import view.TableroView;
 
 public class TableroControlador {
@@ -16,6 +17,14 @@ public class TableroControlador {
 	private Tablero tablero;
 	ControladorJugador jugador1;
 	ControladorJugador jugador2;
+	public static String IMG_SOLDADO_NEGRO = "/view/resources/entityChooser/soldado_negro.png";
+	public static String IMG_SOLDADO_BLANCO = "/view/resources/entityChooser/soldado_blanco.png";
+	public static String IMG_CATAPULTA_NEGRO = "/view/resources/entityChooser/catapulta_negra.png";
+	public static String IMG_CATAPULTA_BLANCO = "/view/resources/entityChooser/catapulta_blanca.png";
+	public static String IMG_JINETE_NEGRO = "/view/resources/entityChooser/jinete_negro.png";
+	public static String IMG_JINETE_BLANCO = "/view/resources/entityChooser/jinete_blanco.png";
+	public static String IMG_CURADOR_NEGRO = "/view/resources/entityChooser/curador_negro.png";
+	public static String IMG_CURADOR_BLANCO = "/view/resources/entityChooser/curador_blanco.png";
 	
 	public void TableroControlador() {
 		cantidadDeJugadoresQueColocaronPiezas = 0;
@@ -30,6 +39,15 @@ public class TableroControlador {
 		jugador2.agregarTablero(tablero);
 		jugador1.setColor(Color.PERU.darker().darker());
 		jugador2.setColor(Color.OLIVE.darker());
+		jugador1.seleccionarImagenSoldado(IMG_SOLDADO_BLANCO);
+		jugador2.seleccionarImagenSoldado(IMG_SOLDADO_NEGRO);
+		jugador1.seleccionarImagenCatapulta(IMG_CATAPULTA_BLANCO);
+		jugador2.seleccionarImagenCatapulta(IMG_CATAPULTA_NEGRO);
+		jugador1.seleccionarImagenCurador(IMG_CURADOR_BLANCO);
+		jugador2.seleccionarImagenCurador(IMG_CURADOR_NEGRO);
+		jugador1.seleccionarImagenJinete(IMG_JINETE_BLANCO);
+		jugador2.seleccionarImagenJinete(IMG_JINETE_NEGRO);
+		
 		tablero.generarTerritorios(devolverJugadores());
 		colocarPiezas(jugador1, jugador2);
 	}

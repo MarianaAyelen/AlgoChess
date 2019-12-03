@@ -4,13 +4,18 @@ package controller;
 
 import Jugadores.Jugador;
 import Tablero.Tablero;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
 public class ControladorJugador {
 	private Jugador jugador;
 	private boolean turnoJugador = false;
 	private boolean comportamientoPosible = false;
-	private Color color ;
+	private Color color;
+	private String imagenSoldado;
+	private String imagenCatapulta;
+	private String imagenJinete;
+	private String imagenCurador;
 	
 	
 	public ControladorJugador(String nombre) {
@@ -86,5 +91,41 @@ public class ControladorJugador {
 	}
 	public Jugador devolverJugador() {
 		return jugador;
+	}
+	
+	public void seleccionarImagenSoldado(String imagen) {
+		
+		imagenSoldado = imagen;
+	}
+	
+	public String obtenerImagenSoldado() {
+		return imagenSoldado;
+	}
+	
+	public void seleccionarImagenCatapulta(String imagen) {
+		
+		imagenCatapulta = imagen;
+	}
+	
+	public String obtenerImagenCatapulta() {
+		return imagenCatapulta;
+	}
+	
+	public void seleccionarImagenJinete(String imagen) {
+		
+		imagenJinete = imagen;
+	}
+	
+	public String obtenerImagenJinete() {
+		return imagenJinete;
+	}
+	
+	public void seleccionarImagenCurador(String imagen) {
+		
+		imagenCurador = imagen;
+	}
+	
+	public String obtenerImagenCurador() {
+		return imagenCurador;
 	}
 }

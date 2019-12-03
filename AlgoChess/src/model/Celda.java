@@ -1,9 +1,18 @@
 package model;
 
+import java.io.FileInputStream;
+
+import controller.ControladorJugador;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -15,23 +24,26 @@ public class Celda extends StackPane {
 	private Color colorOriginal;
 	private Label etiqueta = new Label("");
 	
+	private ImageView imagen;
+	 
+	
 	public Celda(int x, int y) {
 		this.posX = x;
 		this.posY = y;
 		
 		if ((x+y)%2==1) {
-			colorOriginal = Color.BISQUE.darker();
+			colorOriginal = Color.BISQUE.darker().darker();
 		}else {
-			colorOriginal = Color.BISQUE;
+			colorOriginal = Color.BISQUE.darker();
 		}
 		
-		rect = new Rectangle(29,29, colorOriginal);
+		rect = new Rectangle(36,36, colorOriginal);
 		rect.setStroke(Color.BLACK);
 		rect.setStrokeWidth(2);
 		setAlignment(Pos.CENTER);
 		//getChildren().add(etiqueta);
-		setTranslateX((30 * x));
-		setTranslateY(30 * y);
+		setTranslateX((37 * x));
+		setTranslateY(37 * y);
 		getChildren().addAll(rect);
 		
 		setOnMouseEntered(new EventHandler<MouseEvent>() {
@@ -57,17 +69,24 @@ public class Celda extends StackPane {
 		this.posX = x;
 		this.posY = y;
 		
-		Rectangle rect = new Rectangle(29,29, color);
+		
+		//imagenSoldado = new ImageView();
+		
+		
+		
+		Rectangle rect = new Rectangle(36,36, color);
 		rect.setStroke(Color.BLACK);
 		rect.setStrokeWidth(3);
 		setAlignment(Pos.CENTER);
 		
-		setTranslateX(30 * x + 325);
-		setTranslateY(30 * y + 70);
+		setTranslateX(37 * x + 325);
+		setTranslateY(37 * y + 70);
 		getChildren().addAll(rect);
 		Label label = new Label(etiqueta);
 		label.setTextFill(Color.WHITESMOKE);
 		getChildren().add(label);
+		
+		
 		setOnMouseEntered(new EventHandler<MouseEvent>() {
 
 			@Override
@@ -93,6 +112,38 @@ public class Celda extends StackPane {
 	
 	public void despintarCelda() {
 		rect.setFill(colorOriginal);
+	}
+	
+	public void agregarImagenSoldado(ControladorJugador jugador) {
+		Image nuevaImagen = new Image(jugador.obtenerImagenSoldado(), 30, 33, false, true);
+		imagen = new ImageView(nuevaImagen);
+		
+		this.getChildren().add(imagen);
+	}
+	
+	public void agregarImagenCatapulta(ControladorJugador jugador) {
+		Image nuevaImagen = new Image(jugador.obtenerImagenCatapulta(), 33, 33, false, true);
+		imagen = new ImageView(nuevaImagen);
+		
+		this.getChildren().add(imagen);
+	}
+	
+	public void agregarImagenJinete(ControladorJugador jugador) {
+		Image nuevaImagen = new Image(jugador.obtenerImagenJinete(), 33, 36, false, true);
+		imagen = new ImageView(nuevaImagen);
+		
+		this.getChildren().add(imagen);
+	}
+	
+	public void agregarImagenCurandero(ControladorJugador jugador) {
+		Image nuevaImagen = new Image(jugador.obtenerImagenCurador(), 15, 32, false, true);
+		imagen = new ImageView(nuevaImagen);
+		
+		this.getChildren().add(imagen);
+	}
+	
+	public void eliminarImagen() {
+		this.getChildren().remove(imagen);
 	}
 	
 	public void agregarEtiqueta(String letra) {

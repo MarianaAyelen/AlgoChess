@@ -47,11 +47,11 @@ public class TableroView {
 	
 	private static final int WIDTH = 1860;
 	private static final int HEIGHT = 1000;
-	protected int anchoBarraLateral = 300;
+	protected int anchoBarraLateral = 215;
 	protected int largoBarraLateral = 750;
 	protected int posicionXBarraLateralIzquierda = 10;
 	protected int posicionYBarraLateralIzquierda = 10;
-	protected int posicionXBarraLateralDerecha = 1000;
+	protected int posicionXBarraLateralDerecha = 1050;
 	protected int posicionYBarraLateralDerecha = 10;
 	private AnchorPane gamePane;
 	private Scene gameScene;
@@ -129,8 +129,8 @@ public class TableroView {
 		crearBarraJugadorPosicionarPiezas(jugador2, rootBarraLateralParaColocarPiezasDerecha);
 		gamePane.getChildren().add(barraLateralParaColocarPiezasDerecha);
 		
-		gamePane.setTopAnchor(tablero, 70.0); // 
-		gamePane.setLeftAnchor(tablero, 325.0);
+		gamePane.setTopAnchor(tablero, 10.0); // 
+		gamePane.setLeftAnchor(tablero, 255.0);
 		createBackground();
 	}
 	
@@ -228,7 +228,7 @@ public class TableroView {
 	
 	private AlgoChessSubScene crearCeldasDeTablero() {
 
-		AlgoChessSubScene nuevoTableroView = new AlgoChessSubScene(0,0,600,600);
+		AlgoChessSubScene nuevoTableroView = new AlgoChessSubScene(0,0,740,740);
 		Node[][] celdas = new Node[NUM_ROWS][NUM_COLUMNS];
 		for (int i=0; i < NUM_COLUMNS ; i++) {
 			for (int j=0; j < NUM_ROWS ; j++) {
@@ -708,8 +708,9 @@ public void crearBarraLateralEnPartida(ControladorJugador jugador,  AnchorPane r
 	
 	private void agregarJineteATablero(ControladorJugador jugador, int posicionX, int posicionY) {
 		Celda celda = (Celda) celdasView[posicionX][posicionY];
-		celda.agregarEtiqueta("J");
-		celda.pintarCelda(jugador.getColor());
+		celda.agregarImagenJinete(jugador);
+		//celda.agregarEtiqueta("J");
+		//celda.pintarCelda(jugador.getColor());
 		
 		//gamePane.getChildren().add(celda);
 		//Node[][] celdas = new Node[NUM_ROWS][NUM_COLUMNS];
@@ -720,8 +721,9 @@ public void crearBarraLateralEnPartida(ControladorJugador jugador,  AnchorPane r
 	
 	private void agregarSoldadoATablero(ControladorJugador jugador, int posicionX, int posicionY) {
 		Celda celda = (Celda) celdasView[posicionX][posicionY];
-		celda.agregarEtiqueta("S");
-		celda.pintarCelda(jugador.getColor());
+		//celda.agregarEtiqueta("S");
+		celda.agregarImagenSoldado(jugador);
+		//celda.pintarCelda(jugador.getColor());
 		//Node[][] celdas = new Node[NUM_ROWS][NUM_COLUMNS];
 		//celdas[posicionX][posicionY] = new Celda(posicionX,posicionY, jugador.getColor(), "S");
 		//gamePane.getChildren().add(celdas[posicionX][posicionY]);
@@ -730,8 +732,9 @@ public void crearBarraLateralEnPartida(ControladorJugador jugador,  AnchorPane r
 	
 	private void agregarCatapultaATablero(ControladorJugador jugador, int posicionX, int posicionY) {
 		Celda celda = (Celda) celdasView[posicionX][posicionY];
-		celda.agregarEtiqueta("Ca");
-		celda.pintarCelda(jugador.getColor());
+		//celda.agregarEtiqueta("Ca");
+		//celda.pintarCelda(jugador.getColor());
+		celda.agregarImagenCatapulta(jugador);
 		//Node[][] celdas = new Node[NUM_ROWS][NUM_COLUMNS];
 		//celdas[posicionX][posicionY] = new Celda(posicionX,posicionY, jugador.getColor(), "Ca");
 		//gamePane.getChildren().add(celdas[posicionX][posicionY]);
@@ -740,8 +743,9 @@ public void crearBarraLateralEnPartida(ControladorJugador jugador,  AnchorPane r
 	
 	private void agregarCuranderoATablero(ControladorJugador jugador, int posicionX, int posicionY) {
 		Celda celda = (Celda) celdasView[posicionX][posicionY];
-		celda.agregarEtiqueta("Cu");
-		celda.pintarCelda(jugador.getColor());
+		celda.agregarImagenCurandero(jugador);
+		//celda.agregarEtiqueta("Cu");
+		//celda.pintarCelda(jugador.getColor());
 		//Node[][] celdas = new Node[NUM_ROWS][NUM_COLUMNS];
 		//celdas[posicionX][posicionY] = new Celda(posicionX,posicionY,jugador.getColor(), "Cu");
 		//gamePane.getChildren().add(celdas[posicionX][posicionY]);
