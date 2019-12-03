@@ -12,21 +12,24 @@ public class Celda extends StackPane {
 	protected int posX;
 	protected int posY;
 	protected Rectangle rect;
+	private Color colorOriginal;
+	private Label etiqueta = new Label("");
 	
 	public Celda(int x, int y) {
 		this.posX = x;
 		this.posY = y;
-		Color color = null;
+		
 		if ((x+y)%2==1) {
-			color = Color.BISQUE.darker();
+			colorOriginal = Color.BISQUE.darker();
 		}else {
-			color = Color.BISQUE;
+			colorOriginal = Color.BISQUE;
 		}
-		rect = new Rectangle(29,29, color);
+		
+		rect = new Rectangle(29,29, colorOriginal);
 		rect.setStroke(Color.BLACK);
 		rect.setStrokeWidth(2);
 		setAlignment(Pos.CENTER);
-		
+		//getChildren().add(etiqueta);
 		setTranslateX((30 * x));
 		setTranslateY(30 * y);
 		getChildren().addAll(rect);
@@ -82,6 +85,23 @@ public class Celda extends StackPane {
 		});
 		
 		
+	}
+	
+	public void pintarCelda(Color nuevoColor) {
+		rect.setFill(nuevoColor);
+	}
+	
+	public void despintarCelda() {
+		rect.setFill(colorOriginal);
+	}
+	
+	public void agregarEtiqueta(String letra) {
+		etiqueta.setText(letra);
+		etiqueta.setTextFill(Color.WHITESMOKE);
+		this.getChildren().add(etiqueta);
+	}
+	public void eliminarEtiqueta() {
+		etiqueta.setText("");
 	}
 	
 	public void seleccionarCelda() {
