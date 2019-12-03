@@ -78,13 +78,30 @@ public class Tablero {
 		
 	}
 	
-	public void moverUnidad(int posInicialx, int posInicialy,int posFinalx, int posFinaly ) throws Exception {
-		
+	public Batallon moverUnidad(int posInicialx, int posInicialy,int posFinalx, int posFinaly ) throws Exception {
+
 		Celda celdaFinal = this.obtenerCelda(posFinalx, posFinaly);
-		this.obtenerUnidad(posInicialx, posInicialy).mover(celdaFinal);
-		
+		Batallon batallon = formarBatallon(posInicialx, posInicialy, posFinalx, posFinaly);
+		if( batallon != null ) {
+			batallon.moverBatallon();
+		}else {
+			this.obtenerUnidad(posInicialx, posInicialy).mover(celdaFinal);	
+		}
+		return batallon;
 	}
 
+	public Batallon formarBatallon(int posInicialx, int posInicialy, int posFinalx, int posFinaly ) throws Exception {
+		if (this.obtenerUnidad(posInicialx, posInicialy) instanceof SoldadoDeInfanteria) {
+			Celda celdaDestino = this.obtenerCelda(posFinalx, posFinaly);
+			Batallon batallon = new Batallon((SoldadoDeInfanteria) this.obtenerUnidad(posInicialx, posInicialy), celdaDestino);
+			return batallon.handlerBatallon();
+		}
+		else {
+			System.out.println("no es soldado");
+			return null;
+		}
+	}
+	
 	public void moverBatallon(int posInicialx, int posInicialy, int posFinalx, int posFinaly ) throws Exception {
 		if (this.obtenerUnidad(posInicialx, posInicialy) instanceof SoldadoDeInfanteria) {
 			

@@ -24,6 +24,7 @@ public class unidadMovil implements Movilidad{
 //		}
 		if(destino.agregarUnidadEnCasilleroVacio(u)) {					
 			celdaVieja.sacarUnidad();
+			u.celdaPrevia = celdaVieja;
 		}
 	}
 
@@ -41,6 +42,7 @@ public class unidadMovil implements Movilidad{
 		Celda celdaDestino = u.propietario.obtenerCeldaConDireccion(u.obtenerPosicionX(), u.obtenerPosicionY(), direccion);
 		if(celdaDestino.agregarUnidadEnCasilleroVacio(u)) {					
 			celdaVieja.sacarUnidad();
+			u.celdaPrevia = celdaVieja;
 		}
 	}
 

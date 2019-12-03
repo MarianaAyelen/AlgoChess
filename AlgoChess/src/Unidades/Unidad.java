@@ -12,6 +12,7 @@ import java.util.List;
 public class Unidad {
 	
 	protected Celda celdaActual;
+	protected Celda celdaPrevia;
 	protected Jugador propietario;
 	protected int costo;
 	protected int vida;
@@ -40,6 +41,14 @@ public class Unidad {
 	
 	public int obtenerPosicionY() {
 		return celdaActual.obtenerPosicionY();
+	}
+	
+	public int obtenerUltimaPosicionX() {
+		return celdaPrevia.obtenerPosicionX();
+	}
+	
+	public int obtenerUltimaPosicionY() {
+		return celdaPrevia.obtenerPosicionY();
 	}
 	
 	public void asignarPropietario(Jugador unJugador) {

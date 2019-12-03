@@ -38,6 +38,8 @@ import java.util.List;
 
 import Jugadores.Jugador;
 import Tablero.Tablero;
+import Unidades.Batallon;
+import Unidades.SoldadoDeInfanteria;
 import Unidades.Unidad;
 import controller.ControladorJugador;
 import controller.TableroControlador;
@@ -480,7 +482,7 @@ public class TableroView {
 	}*/
 	
 	private void actualizarBarraDeVida(ProgressBar pb, int vidaActual, int vidaTotal) {
-		double value = vidaActual/vidaTotal;
+		double value = Double.valueOf(vidaActual)/Double.valueOf(vidaTotal);
 		if(value>0.7) {
 			pb.setStyle("-fx-accent: green;");
 		}
@@ -601,6 +603,7 @@ public void crearBarraLateralEnPartida(ControladorJugador jugador,  AnchorPane r
 	private void finDelJuego(ControladorJugador jugador) {
 		mostrarNotificacion("El ganador es "+ jugador.obtenerNombre());
 	}
+	
 	private AlgoChessButton movimientoButton(ControladorJugador jugador) {
 		
 		AlgoChessButton movimientoButton = new AlgoChessButton("Mover");		
@@ -611,7 +614,12 @@ public void crearBarraLateralEnPartida(ControladorJugador jugador,  AnchorPane r
 					try {
 						tablero.mover(posicionCeldaAnteriorX+1, posicionCeldaAnteriorY+1, posicionCeldaActualX+1, posicionCeldaActualY+1);
 						try {
-							moverEnTablero(jugador, posicionCeldaAnteriorX, posicionCeldaAnteriorY, posicionCeldaActualX, posicionCeldaActualY);					
+							if ( tablero.devolverBatallon() == null) {
+								moverEnTablero(jugador, posicionCeldaAnteriorX, posicionCeldaAnteriorY, posicionCeldaActualX, posicionCeldaActualY);					
+							}else {
+								moverBatallonEnTablero(jugador, tablero.devolverBatallon());
+								tablero.disolverBatallon();
+							}
 							cambiarTurno(jugador);
 						}catch(Exception e) {
 							noPuedeMoverPieza("Error de movimiento en tablero grafico");						
@@ -686,13 +694,29 @@ public void crearBarraLateralEnPartida(ControladorJugador jugador,  AnchorPane r
 		}
 	}
 	
+	private void moverBatallonEnTablero(ControladorJugador jugador, Batallon batallon) {
+		List<SoldadoDeInfanteria> integrantesBatallon = batallon.obtenerSoldados();
+		for(SoldadoDeInfanteria soldado: integrantesBatallon) {
+			try {
+				desocuparCeldaTablero(soldado.obtenerUltimaPosicionX()-1, soldado.obtenerUltimaPosicionY()-1);			
+			}catch(Exception e){
+				//TODO: siempre lanza excepcion, parece no afectar el juego
+			}
+		}
+		
+		for(SoldadoDeInfanteria soldado: integrantesBatallon) {
+			agregarSoldadoATablero(jugador, soldado.obtenerPosicionX()-1, soldado.obtenerPosicionY()-1);
+		}
+	}
+	
 	private void desocuparCeldaTablero(int posX, int posY) {
 		
 		//Node[][] celdas = new Node[NUM_ROWS][NUM_COLUMNS];
 		//celdas[posX][posY] = new Celda(posicionCeldaAnteriorX,posicionCeldaAnteriorY, Color.CORAL, "");
 		Celda celda = (Celda) celdasView[posX][posY];
-		celda.despintarCelda();
-		celda.eliminarEtiqueta();
+		celda.eliminarImagen();
+//		celda.despintarCelda();
+//		celda.eliminarEtiqueta();
 		//gamePane.getChildren().add(celda);
 		//gamePane.getChildren().add(celdas[posX][posY]);
 		//celdas[posX][posX].addEventHandler(MouseEvent.MOUSE_CLICKED, handlerMostrarPosicionCelda);

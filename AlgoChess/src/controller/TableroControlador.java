@@ -3,6 +3,7 @@ package controller;
 import Jugadores.Jugador;
 import Tablero.Celda;
 import Tablero.Tablero;
+import Unidades.Batallon;
 import Unidades.Unidad;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -25,6 +26,7 @@ public class TableroControlador {
 	public static String IMG_JINETE_BLANCO = "/view/resources/entityChooser/jinete_blanco.png";
 	public static String IMG_CURADOR_NEGRO = "/view/resources/entityChooser/curador_negro.png";
 	public static String IMG_CURADOR_BLANCO = "/view/resources/entityChooser/curador_blanco.png";
+	private Batallon batallonFormado;
 	
 	public void TableroControlador() {
 		cantidadDeJugadoresQueColocaronPiezas = 0;
@@ -134,12 +136,19 @@ public class TableroControlador {
 	}
 	
 	public void realizarComportamiento(int posOrigenX, int posOrigenY, int posFinalX, int posFinalY) {
-		
 		tablero.realizarComportamiento(posOrigenX, posOrigenY, posFinalX, posFinalY);
 	}
 
 	public void mover(int posOrigenX, int posOrigenY, int posFinalX, int posFinalY) throws Exception {
-			tablero.moverUnidad(posOrigenX, posOrigenY, posFinalX, posFinalY);
+			batallonFormado = tablero.moverUnidad(posOrigenX, posOrigenY, posFinalX, posFinalY);
+	}
+	
+	public Batallon devolverBatallon() {
+		return batallonFormado;
+	}
+	
+	public void disolverBatallon() {
+		batallonFormado = null;
 	}
 	
 	public Unidad devolverUnidad(int posX, int posY) {

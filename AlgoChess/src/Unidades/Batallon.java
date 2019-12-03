@@ -66,6 +66,18 @@ public class Batallon {
 		
 	}
 	
+	public Batallon handlerBatallon() {
+		if (existeBatallon) {
+			return this;
+		}else {
+			return null;
+		}
+	}
+	
+	public List<SoldadoDeInfanteria> obtenerSoldados(){
+		return batallon;
+	}
+	
 	public void moverBatallon() throws Exception {
 		if(existeBatallon == true) {
 			
