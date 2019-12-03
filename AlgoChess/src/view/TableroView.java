@@ -69,6 +69,7 @@ public class TableroView {
 	ControladorJugador jugador1;
 	ControladorJugador jugador2;
 	private TableroControlador tablero;
+	Node[][] celdasView = new Node[NUM_ROWS][NUM_COLUMNS];
 	//private Label informacionDePieza;
 	private Label informacionDePiezaJugador1;
 	private Label informacionDePiezaJugador2;
@@ -227,16 +228,17 @@ public class TableroView {
 	
 	private AlgoChessSubScene crearCeldasDeTablero() {
 
-		AlgoChessSubScene tablero = new AlgoChessSubScene(0,0,600,600);
+		AlgoChessSubScene nuevoTableroView = new AlgoChessSubScene(0,0,600,600);
 		Node[][] celdas = new Node[NUM_ROWS][NUM_COLUMNS];
 		for (int i=0; i < NUM_COLUMNS ; i++) {
 			for (int j=0; j < NUM_ROWS ; j++) {
 				celdas[i][j] = new Celda(i,j);
-				tablero.getPane().getChildren().add(celdas[i][j]);
+				nuevoTableroView.getPane().getChildren().add(celdas[i][j]);
 				celdas[i][j].addEventHandler(MouseEvent.MOUSE_CLICKED, handlerMostrarPosicionCelda);
 			}
 		}
-		return tablero;
+		celdasView = celdas;
+		return nuevoTableroView;
 	}
 	
 	EventHandler<MouseEvent> handlerMostrarPosicionCelda = new EventHandler<MouseEvent>() {
@@ -686,10 +688,14 @@ public void crearBarraLateralEnPartida(ControladorJugador jugador,  AnchorPane r
 	
 	private void desocuparCeldaTablero(int posX, int posY) {
 		
-		Node[][] celdas = new Node[NUM_ROWS][NUM_COLUMNS];
-		celdas[posX][posY] = new Celda(posicionCeldaAnteriorX,posicionCeldaAnteriorY, Color.CORAL, "");
-		gamePane.getChildren().add(celdas[posX][posY]);
-		celdas[posX][posX].addEventHandler(MouseEvent.MOUSE_CLICKED, handlerMostrarPosicionCelda);
+		//Node[][] celdas = new Node[NUM_ROWS][NUM_COLUMNS];
+		//celdas[posX][posY] = new Celda(posicionCeldaAnteriorX,posicionCeldaAnteriorY, Color.CORAL, "");
+		Celda celda = (Celda) celdasView[posX][posY];
+		celda.despintarCelda();
+		celda.eliminarEtiqueta();
+		//gamePane.getChildren().add(celda);
+		//gamePane.getChildren().add(celdas[posX][posY]);
+		//celdas[posX][posX].addEventHandler(MouseEvent.MOUSE_CLICKED, handlerMostrarPosicionCelda);
 	}
 	private void noPuedeColocarPieza(String texto) {
 		Alert dialogoAlerta = new Alert(AlertType.INFORMATION);
@@ -701,35 +707,45 @@ public void crearBarraLateralEnPartida(ControladorJugador jugador,  AnchorPane r
 	}
 	
 	private void agregarJineteATablero(ControladorJugador jugador, int posicionX, int posicionY) {
+		Celda celda = (Celda) celdasView[posicionX][posicionY];
+		celda.agregarEtiqueta("J");
+		celda.pintarCelda(jugador.getColor());
 		
-		Node[][] celdas = new Node[NUM_ROWS][NUM_COLUMNS];
-		celdas[posicionX][posicionY] = new Celda(posicionCeldaActualX,posicionCeldaActualY, jugador.getColor(), "J");
-		gamePane.getChildren().add(celdas[posicionCeldaActualX][posicionCeldaActualY]);
-		celdas[posicionCeldaActualX][posicionCeldaActualY].addEventHandler(MouseEvent.MOUSE_CLICKED, handlerMostrarPosicionCelda);
+		//gamePane.getChildren().add(celda);
+		//Node[][] celdas = new Node[NUM_ROWS][NUM_COLUMNS];
+		//celdas[posicionX][posicionY] = new Celda(posicionCeldaActualX,posicionCeldaActualY, jugador.getColor(), "J");
+		//gamePane.getChildren().add(celdas[posicionCeldaActualX][posicionCeldaActualY]);
+		//celdas[posicionCeldaActualX][posicionCeldaActualY].addEventHandler(MouseEvent.MOUSE_CLICKED, handlerMostrarPosicionCelda);
 	}
 	
 	private void agregarSoldadoATablero(ControladorJugador jugador, int posicionX, int posicionY) {
-		
-		Node[][] celdas = new Node[NUM_ROWS][NUM_COLUMNS];
-		celdas[posicionX][posicionY] = new Celda(posicionX,posicionY, jugador.getColor(), "S");
-		gamePane.getChildren().add(celdas[posicionX][posicionY]);
-		celdas[posicionCeldaActualX][posicionCeldaActualY].addEventHandler(MouseEvent.MOUSE_CLICKED, handlerMostrarPosicionCelda);
+		Celda celda = (Celda) celdasView[posicionX][posicionY];
+		celda.agregarEtiqueta("S");
+		celda.pintarCelda(jugador.getColor());
+		//Node[][] celdas = new Node[NUM_ROWS][NUM_COLUMNS];
+		//celdas[posicionX][posicionY] = new Celda(posicionX,posicionY, jugador.getColor(), "S");
+		//gamePane.getChildren().add(celdas[posicionX][posicionY]);
+		//celdas[posicionCeldaActualX][posicionCeldaActualY].addEventHandler(MouseEvent.MOUSE_CLICKED, handlerMostrarPosicionCelda);
 	}
 	
 	private void agregarCatapultaATablero(ControladorJugador jugador, int posicionX, int posicionY) {
-		
-		Node[][] celdas = new Node[NUM_ROWS][NUM_COLUMNS];
-		celdas[posicionX][posicionY] = new Celda(posicionX,posicionY, jugador.getColor(), "Ca");
-		gamePane.getChildren().add(celdas[posicionX][posicionY]);
-		celdas[posicionCeldaActualX][posicionCeldaActualY].addEventHandler(MouseEvent.MOUSE_CLICKED, handlerMostrarPosicionCelda);
+		Celda celda = (Celda) celdasView[posicionX][posicionY];
+		celda.agregarEtiqueta("Ca");
+		celda.pintarCelda(jugador.getColor());
+		//Node[][] celdas = new Node[NUM_ROWS][NUM_COLUMNS];
+		//celdas[posicionX][posicionY] = new Celda(posicionX,posicionY, jugador.getColor(), "Ca");
+		//gamePane.getChildren().add(celdas[posicionX][posicionY]);
+		//celdas[posicionCeldaActualX][posicionCeldaActualY].addEventHandler(MouseEvent.MOUSE_CLICKED, handlerMostrarPosicionCelda);
 	}
 	
 	private void agregarCuranderoATablero(ControladorJugador jugador, int posicionX, int posicionY) {
-		
-		Node[][] celdas = new Node[NUM_ROWS][NUM_COLUMNS];
-		celdas[posicionX][posicionY] = new Celda(posicionX,posicionY,jugador.getColor(), "Cu");
-		gamePane.getChildren().add(celdas[posicionX][posicionY]);
-		celdas[posicionCeldaActualX][posicionCeldaActualY].addEventHandler(MouseEvent.MOUSE_CLICKED, handlerMostrarPosicionCelda);
+		Celda celda = (Celda) celdasView[posicionX][posicionY];
+		celda.agregarEtiqueta("Cu");
+		celda.pintarCelda(jugador.getColor());
+		//Node[][] celdas = new Node[NUM_ROWS][NUM_COLUMNS];
+		//celdas[posicionX][posicionY] = new Celda(posicionX,posicionY,jugador.getColor(), "Cu");
+		//gamePane.getChildren().add(celdas[posicionX][posicionY]);
+		//celdas[posicionCeldaActualX][posicionCeldaActualY].addEventHandler(MouseEvent.MOUSE_CLICKED, handlerMostrarPosicionCelda);
 	}
 	
 	
