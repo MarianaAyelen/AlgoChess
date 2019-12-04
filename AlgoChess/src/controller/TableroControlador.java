@@ -162,7 +162,14 @@ public class TableroControlador {
 		
 		return celdaPerteneceAJugador;
 	}
+
+	public int getCantidadFilas() {
+		return tablero.getCantidadFilas();
+	}
 	
+	public int getCantidadColumnas() {
+		return tablero.getCantidadColumnas();
+	}
 	
 }
 

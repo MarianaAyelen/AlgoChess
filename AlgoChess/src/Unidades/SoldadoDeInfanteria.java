@@ -57,6 +57,14 @@ public class SoldadoDeInfanteria extends UnidadAtacante {
 			
 		}
 		
+		public int obtenerUltimaPosicionX() {
+			return celdaPrevia.obtenerPosicionX();
+		}
+		
+		public int obtenerUltimaPosicionY() {
+			return celdaPrevia.obtenerPosicionY();
+		}
+		
 		//Tipo de unidad
 		public int tipoDeUnidad() {
 			return 3;

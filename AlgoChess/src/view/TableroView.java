@@ -273,9 +273,14 @@ public class TableroView {
 	};
 	
 	private void actualizarInfoDeCeldas() {
+		if (!tablero.yaComenzoLaPartida()) {
+			return;
+		}
 		int x = posicionCeldaAnteriorX;
-		int y = posicionCeldaAnteriorY;
-		if (tablero.yaComenzoLaPartida()) {
+		int y = posicionCeldaAnteriorY;		
+		if(tablero.celdaVacia(x+1, y+1)) {
+			desocuparCeldaTablero(x,y);
+		}else {
 			int vida = tablero.mostrarVida(x+1, y+1);
 			int vidaMax = tablero.mostrarVidaMax(x+1, y+1);
 			String strVida = Integer.toString(vida); 
@@ -292,7 +297,9 @@ public class TableroView {
 		}
 		x = posicionCeldaActualX;
 		y = posicionCeldaActualY;
-		if (tablero.yaComenzoLaPartida()) {
+		if(tablero.celdaVacia(x+1, y+1)) {
+			desocuparCeldaTablero(x,y);	
+		}else {
 			int vida = tablero.mostrarVida(x+1, y+1);
 			int vidaMax = tablero.mostrarVidaMax(x+1, y+1);
 			String strVida = Integer.toString(vida); 
@@ -306,8 +313,17 @@ public class TableroView {
 				actualizarEtiquetaDeEstring("Informacion de la pieza:\n", "Tipo de pieza: " + tablero.mostrarTipoDePieza(x+1,y+1) + "\n" + "Vida: " + strVida + "/" + strVidaMax, informacionDePiezaJugador2);
 				actualizarBarraDeVida(pb2, vida, vidaMax);
 			}
+		}		
+	}
+	
+	private void chequearCeldasMuertas() {
+		for(int x=0; x<tablero.getCantidadFilas();x++) {
+			for(int y=0; y<tablero.getCantidadColumnas();y++) {
+				if(tablero.celdaVacia(x+1, y+1)) {
+					desocuparCeldaTablero(x,y);
+				}
+			}
 		}
-		
 	}
 	
 	
@@ -580,7 +596,8 @@ public void crearBarraLateralEnPartida(ControladorJugador jugador,  AnchorPane r
 						tablero.realizarComportamiento(posicionCeldaAnteriorX +1 , posicionCeldaAnteriorY+1, posicionCeldaActualX +1 , posicionCeldaActualY +1 );
 						jugador.setComportamientoPosible(false);
 						mostrarNotificacion("Comportamiento realizado");
-						actualizarInfoDeCeldas();							
+						actualizarInfoDeCeldas();
+						chequearCeldasMuertas();// necesario para el caso del ataque de catapulta (puede matar varias unidades)
 						chequearGanador();
 					}catch(Exception e) {
 						mostrarNotificacion("Ataque invalido: "+e.toString());//TODO
@@ -690,7 +707,7 @@ public void crearBarraLateralEnPartida(ControladorJugador jugador,  AnchorPane r
 		try {
 			desocuparCeldaTablero(posOrigenX, posOrigenY);			
 		}catch(Exception e){
-			//TODO: siempre lanza excepcion, parece no afectar el juego
+			//siempre lanza excepcion, parece no afectar el juego
 		}
 	}
 	
@@ -700,7 +717,7 @@ public void crearBarraLateralEnPartida(ControladorJugador jugador,  AnchorPane r
 			try {
 				desocuparCeldaTablero(soldado.obtenerUltimaPosicionX()-1, soldado.obtenerUltimaPosicionY()-1);			
 			}catch(Exception e){
-				//TODO: siempre lanza excepcion, parece no afectar el juego
+				//siempre lanza excepcion, parece no afectar el juego
 			}
 		}
 		
