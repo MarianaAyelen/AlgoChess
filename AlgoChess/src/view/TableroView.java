@@ -593,7 +593,7 @@ public void crearBarraLateralEnPartida(ControladorJugador jugador,  AnchorPane r
 						chequearCeldasMuertas();// necesario para el caso del ataque de catapulta (puede matar varias unidades)
 						chequearGanador();
 					}catch(Exception e) {
-						mostrarNotificacion("Ataque invalido: "+e.toString());//TODO
+						mostrarNotificacion("Ataque invalido: "+e.getMessage());//TODO
 					}
 				}
 			}	
@@ -642,7 +642,7 @@ public void crearBarraLateralEnPartida(ControladorJugador jugador,  AnchorPane r
 							noPuedeMoverPieza("Error de movimiento en tablero grafico");						
 						}
 					}catch(Exception e) {
-						noPuedeMoverPieza("Movimiento invalido: "+e.toString());
+						noPuedeMoverPieza("Movimiento invalido: "+e.getMessage());
 					}
 				}
 			}	
