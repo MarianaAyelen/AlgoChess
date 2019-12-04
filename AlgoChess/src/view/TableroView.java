@@ -15,6 +15,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -507,7 +508,8 @@ public class TableroView {
 		crearBarraLateralEnPartida(jugador[0], rootBarraLateralParaJugarPiezasIzquierda, informacionDePiezaJugador1, pb1);
 		gamePane.getChildren().add(barraLateralParaJugarPiezasIzquierda);
 		gamePane.getChildren().add(turnoJugador);
-		AnchorPane.setTopAnchor(turnoJugador, 0.0);
+		turnoJugador.setTextFill(Color.HONEYDEW);
+		AnchorPane.setTopAnchor(turnoJugador, 800.0);
 		AnchorPane.setLeftAnchor(turnoJugador, 550.0);
 		
 		barraLateralParaJugarPiezasDerecha = new AlgoChessSubScene(posicionXBarraLateralDerecha,posicionYBarraLateralDerecha,largoBarraLateral,anchoBarraLateral, AlgoChessSubScene.IMG_TEXTURA);
