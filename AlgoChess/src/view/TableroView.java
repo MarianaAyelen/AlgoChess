@@ -65,8 +65,8 @@ public class TableroView {
 	private ProgressBar pb2 = new ProgressBar();
 	private Label turnoJugador;
 	
-	private static final int NUM_ROWS = 20;
-	private static final int NUM_COLUMNS = 20;
+	public static final int NUM_ROWS = 20;
+	public static final int NUM_COLUMNS = 20;
 
 	private static final String PUNTOS_INSUFICIENTES = "No posee los puntos necesarios para colocar la unidad";
 	private static final String TERRITORIO_ENEMIGO = "No puede colocar unidades en territorio enemigo";
@@ -227,6 +227,16 @@ public class TableroView {
 		}
 		celdasView = celdas;
 		return nuevoTableroView;
+	}
+	
+	private void pintarTableroNormal() {
+		for (int i=0; i < NUM_COLUMNS ; i++) {
+			for (int j=0; j < NUM_ROWS ; j++) {
+				Celda celda = (Celda) celdasView[i][j];
+				celda.volverAColorOriginal();
+			}
+		}
+		
 	}
 	
 	EventHandler<MouseEvent> handlerMostrarPosicionCelda = new EventHandler<MouseEvent>() {
@@ -499,6 +509,7 @@ public class TableroView {
 	}
 
 	public void crearJugadorEnPartidaSubEscenaJugador(ControladorJugador jugador[]) {
+		this.pintarTableroNormal();
 		
 		turnoJugador = etiquetaStringMasString(jugador1.obtenerNombre()," es su turno", 35);
 		

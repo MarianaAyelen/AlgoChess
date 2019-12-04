@@ -10,12 +10,15 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import view.TableroView;
 
 public class Celda extends StackPane {
 	protected int posX;
 	protected int posY;
 	protected Rectangle rect;
 	private Color colorOriginal;
+	private Color colorPorSeparacionDeTablero;
+	private Color colorActual;
 	private Label etiqueta = new Label("");
 	
 	private ImageView imagen;
@@ -31,11 +34,18 @@ public class Celda extends StackPane {
 			colorOriginal = Color.BISQUE.darker();
 		}
 		
-		rect = new Rectangle(36,36, colorOriginal);
+		if(x<TableroView.NUM_ROWS/2) {
+			colorPorSeparacionDeTablero = colorOriginal.darker();
+		}else{
+			colorPorSeparacionDeTablero = colorOriginal;
+		}
+		colorActual = colorPorSeparacionDeTablero;
+		
+		rect = new Rectangle(36,36, colorActual);
+		
 		rect.setStroke(Color.BLACK);
 		rect.setStrokeWidth(2);
 		setAlignment(Pos.CENTER);
-		//getChildren().add(etiqueta);
 		setTranslateX((37 * x));
 		setTranslateY(37 * y);
 		getChildren().addAll(rect);
@@ -44,7 +54,7 @@ public class Celda extends StackPane {
 
 			@Override
 			public void handle(MouseEvent event) {
-				rect.setStroke(Color.GREENYELLOW);	
+				rect.setStroke(Color.WHITESMOKE);	
 				
 			}
 		});
@@ -64,10 +74,6 @@ public class Celda extends StackPane {
 		this.posY = y;
 		
 		
-		//imagenSoldado = new ImageView();
-		
-		
-		
 		Rectangle rect = new Rectangle(36,36, color);
 		rect.setStroke(Color.BLACK);
 		rect.setStrokeWidth(3);
@@ -85,7 +91,7 @@ public class Celda extends StackPane {
 
 			@Override
 			public void handle(MouseEvent event) {
-				rect.setStroke(Color.GREENYELLOW);	
+				rect.setStroke(Color.WHITESMOKE);	
 			}
 		});
 		
@@ -98,6 +104,10 @@ public class Celda extends StackPane {
 		});
 		
 		
+	}
+	
+	public void volverAColorOriginal() {
+		rect.setFill(colorOriginal);
 	}
 	
 	public void pintarCelda(Color nuevoColor) {
