@@ -1,43 +1,28 @@
 package view;
 
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.AlgoChessButton;
 import model.AlgoChessSubScene;
 import model.Celda;
-import model.EntityPicker;
-
-import java.awt.BorderLayout;
-import java.nio.file.WatchEvent;
 import java.util.List;
 
-import Jugadores.Jugador;
-import Tablero.Tablero;
 import Unidades.Batallon;
 import Unidades.SoldadoDeInfanteria;
 import Unidades.Unidad;
@@ -131,8 +116,8 @@ public class TableroView {
 		crearBarraJugadorPosicionarPiezas(jugador2, rootBarraLateralParaColocarPiezasDerecha);
 		gamePane.getChildren().add(barraLateralParaColocarPiezasDerecha);
 		
-		gamePane.setTopAnchor(tablero, 10.0); // 
-		gamePane.setLeftAnchor(tablero, 255.0);
+		AnchorPane.setTopAnchor(tablero, 10.0); // 
+		AnchorPane.setLeftAnchor(tablero, 255.0);
 		createBackground();
 	}
 	
@@ -195,34 +180,34 @@ public class TableroView {
 		root.getChildren().add(etiquetaCatapultasColocadas);
 	    
 		//posiciones
-		root.setTopAnchor(etiquetaNombreJugador, 100.0);
-		root.setLeftAnchor(etiquetaNombreJugador, 10.0);
-		root.setTopAnchor(etiquetaPuntosRestantes, 200.0);
-		root.setLeftAnchor(etiquetaPuntosRestantes, 10.0);
-		root.setTopAnchor(botonJinete, 280.0);
-		root.setLeftAnchor(botonJinete, 10.0);
+		AnchorPane.setTopAnchor(etiquetaNombreJugador, 100.0);
+		AnchorPane.setLeftAnchor(etiquetaNombreJugador, 10.0);
+		AnchorPane.setTopAnchor(etiquetaPuntosRestantes, 200.0);
+		AnchorPane.setLeftAnchor(etiquetaPuntosRestantes, 10.0);
+		AnchorPane.setTopAnchor(botonJinete, 280.0);
+		AnchorPane.setLeftAnchor(botonJinete, 10.0);
 		AnchorPane.setTopAnchor(etiquetaCostoJinetes, 330.0);
 		AnchorPane.setLeftAnchor(etiquetaCostoJinetes, 10.0);
-		root.setTopAnchor(etiquetaJinetesColocados, 348.0);
-		root.setLeftAnchor(etiquetaJinetesColocados, 10.0);
-		root.setTopAnchor(botonSoldado, 380.0);
-		root.setLeftAnchor(botonSoldado, 10.0);
+		AnchorPane.setTopAnchor(etiquetaJinetesColocados, 348.0);
+		AnchorPane.setLeftAnchor(etiquetaJinetesColocados, 10.0);
+		AnchorPane.setTopAnchor(botonSoldado, 380.0);
+		AnchorPane.setLeftAnchor(botonSoldado, 10.0);
 		AnchorPane.setTopAnchor(etiquetaCostoSoldados, 430.0);
 		AnchorPane.setLeftAnchor(etiquetaCostoSoldados, 10.0);
-		root.setTopAnchor(etiquetaSoldadosColocados, 448.0);
-		root.setLeftAnchor(etiquetaSoldadosColocados, 10.0);
-		root.setTopAnchor(botonCurandero, 480.0);
-		root.setLeftAnchor(botonCurandero, 10.0);
+		AnchorPane.setTopAnchor(etiquetaSoldadosColocados, 448.0);
+		AnchorPane.setLeftAnchor(etiquetaSoldadosColocados, 10.0);
+		AnchorPane.setTopAnchor(botonCurandero, 480.0);
+		AnchorPane.setLeftAnchor(botonCurandero, 10.0);
 		AnchorPane.setTopAnchor(etiquetaCostoCuranderos, 530.0);
 		AnchorPane.setLeftAnchor(etiquetaCostoCuranderos, 10.0);
-		root.setTopAnchor(etiquetaCuranderosColocados, 548.0);
-		root.setLeftAnchor(etiquetaCuranderosColocados, 10.0);
-		root.setTopAnchor(botonCatapulta, 580.0);
-		root.setLeftAnchor(botonCatapulta, 10.0);
+		AnchorPane.setTopAnchor(etiquetaCuranderosColocados, 548.0);
+		AnchorPane.setLeftAnchor(etiquetaCuranderosColocados, 10.0);
+		AnchorPane.setTopAnchor(botonCatapulta, 580.0);
+		AnchorPane.setLeftAnchor(botonCatapulta, 10.0);
 		AnchorPane.setTopAnchor(etiquetaCostoCatapultas, 630.0);
 		AnchorPane.setLeftAnchor(etiquetaCostoCatapultas, 10.0);
-		root.setTopAnchor(etiquetaCatapultasColocadas, 648.0);
-		root.setLeftAnchor(etiquetaCatapultasColocadas, 10.0);
+		AnchorPane.setTopAnchor(etiquetaCatapultasColocadas, 648.0);
+		AnchorPane.setLeftAnchor(etiquetaCatapultasColocadas, 10.0);
 		
 	}
 	
@@ -522,8 +507,8 @@ public class TableroView {
 		crearBarraLateralEnPartida(jugador[0], rootBarraLateralParaJugarPiezasIzquierda, informacionDePiezaJugador1, pb1);
 		gamePane.getChildren().add(barraLateralParaJugarPiezasIzquierda);
 		gamePane.getChildren().add(turnoJugador);
-		gamePane.setTopAnchor(turnoJugador, 0.0);
-		gamePane.setLeftAnchor(turnoJugador, 550.0);
+		AnchorPane.setTopAnchor(turnoJugador, 0.0);
+		AnchorPane.setLeftAnchor(turnoJugador, 550.0);
 		
 		barraLateralParaJugarPiezasDerecha = new AlgoChessSubScene(posicionXBarraLateralDerecha,posicionYBarraLateralDerecha,largoBarraLateral,anchoBarraLateral, AlgoChessSubScene.IMG_TEXTURA);
 		AnchorPane rootBarraLateralParaJugarPiezasDerecha = barraLateralParaJugarPiezasDerecha.getPane();
@@ -549,18 +534,18 @@ public void crearBarraLateralEnPartida(ControladorJugador jugador,  AnchorPane r
 		root.getChildren().add(botonPausar);
 		
 		
-		root.setTopAnchor(etiquetaNombreJugador, 10.0);
-		root.setLeftAnchor(etiquetaNombreJugador, 10.0);
-		root.setTopAnchor(informacionDePieza, 70.0);
-		root.setLeftAnchor(informacionDePieza, 20.0);
-		root.setTopAnchor(pb, 140.0);
-		root.setLeftAnchor(pb, 20.0);
-		root.setTopAnchor(comportamientoBoton1, 200.0);
-		root.setLeftAnchor(comportamientoBoton1, 10.0);
-		root.setTopAnchor(movimientoBoton1, 400.0);
-		root.setLeftAnchor(movimientoBoton1, 10.0);
-		root.setTopAnchor(botonPausar, 600.0);
-		root.setLeftAnchor(botonPausar, 10.0);
+		AnchorPane.setTopAnchor(etiquetaNombreJugador, 10.0);
+		AnchorPane.setLeftAnchor(etiquetaNombreJugador, 10.0);
+		AnchorPane.setTopAnchor(informacionDePieza, 70.0);
+		AnchorPane.setLeftAnchor(informacionDePieza, 20.0);
+		AnchorPane.setTopAnchor(pb, 140.0);
+		AnchorPane.setLeftAnchor(pb, 20.0);
+		AnchorPane.setTopAnchor(comportamientoBoton1, 200.0);
+		AnchorPane.setLeftAnchor(comportamientoBoton1, 10.0);
+		AnchorPane.setTopAnchor(movimientoBoton1, 400.0);
+		AnchorPane.setLeftAnchor(movimientoBoton1, 10.0);
+		AnchorPane.setTopAnchor(botonPausar, 600.0);
+		AnchorPane.setLeftAnchor(botonPausar, 10.0);
 		
 	}
 	
@@ -572,6 +557,14 @@ public void crearBarraLateralEnPartida(ControladorJugador jugador,  AnchorPane r
 			@Override
 			public void handle(ActionEvent event) {
 				if (jugador.getTurno()) {
+					if(jugador.getcomportamientoPosible()) {
+						tablero.aumentarTurnosSinActividad();
+						if(tablero.getTurnosSinActividad()>=6) {
+							finDelJuegoPorEmpate();
+						}
+					}else {
+						tablero.resetearTurnosSinActividad();
+					}
 					cambiarTurno(jugador);
 				}	
 			}	
@@ -616,10 +609,17 @@ public void crearBarraLateralEnPartida(ControladorJugador jugador,  AnchorPane r
 			finDelJuego(jugador1);
 		}
 	}
-	
+		
 	private void finDelJuego(ControladorJugador jugador) {
 		mostrarNotificacion("El ganador es "+ jugador.obtenerNombre());
+		gameStage.close();
 	}
+	
+	private void finDelJuegoPorEmpate() {
+		mostrarNotificacion("Empate");
+		gameStage.close();	
+	}
+
 	
 	private AlgoChessButton movimientoButton(ControladorJugador jugador) {
 		

@@ -27,6 +27,7 @@ public class TableroControlador {
 	public static String IMG_CURADOR_NEGRO = "/view/resources/entityChooser/curador_negro.png";
 	public static String IMG_CURADOR_BLANCO = "/view/resources/entityChooser/curador_blanco.png";
 	private Batallon batallonFormado;
+	private int contadorTurnosSinActividad;
 	
 	public void TableroControlador() {
 		cantidadDeJugadoresQueColocaronPiezas = 0;
@@ -171,5 +172,17 @@ public class TableroControlador {
 		return tablero.getCantidadColumnas();
 	}
 	
+	public void resetearTurnosSinActividad() {
+		contadorTurnosSinActividad=0;
+	}
+
+	public void aumentarTurnosSinActividad() {
+		contadorTurnosSinActividad++;
+	}
+	
+	public int getTurnosSinActividad() {
+		return contadorTurnosSinActividad;
+	}
+
 }
 
