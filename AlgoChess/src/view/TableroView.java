@@ -15,6 +15,8 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -22,6 +24,8 @@ import javafx.stage.StageStyle;
 import model.AlgoChessButton;
 import model.AlgoChessSubScene;
 import model.Celda;
+
+import java.io.File;
 import java.util.List;
 
 import Unidades.Batallon;
@@ -74,6 +78,11 @@ public class TableroView {
 	public static final String IMG_MADERA = "/view/resources/madera.jpg";
 	private Label etiquetaJinetesColocados;
 	
+	private MediaPlayer menuMusicPlayer;
+	private MediaPlayer gameMusicPlayer;
+	private final String MENU_MUSIC_PATH = "src/view/resources/menu.mp3";
+	private final String GAME_MUSIC_PATH = "src/view/resources/game.mp3";
+		
 	/*
 	public TableroView() {
 		initializeStage();
@@ -93,7 +102,19 @@ public class TableroView {
 		jugador2 = controladorJugador2;
 		tablero = controladorTablero;
 		initializeStage();
-				
+		
+		String pathMenuMusic = new File(MENU_MUSIC_PATH).getAbsolutePath();
+		Media musicMenuFile = new Media(new File(pathMenuMusic).toURI().toString()); 
+		menuMusicPlayer = new MediaPlayer(musicMenuFile);
+		menuMusicPlayer.setAutoPlay(true);
+		menuMusicPlayer.setVolume(0.5);
+		
+		String pathGameMusic = new File(GAME_MUSIC_PATH).getAbsolutePath();
+		Media musicGameFile = new Media(new File(pathGameMusic).toURI().toString()); 
+		gameMusicPlayer = new MediaPlayer(musicGameFile);
+		gameMusicPlayer.setAutoPlay(true);
+		gameMusicPlayer.stop();
+		gameMusicPlayer.setVolume(0.15);
 	}
 	
 	
@@ -528,6 +549,9 @@ public class TableroView {
 		informacionDePiezaJugador2 = new Label("Jugador 2");
 		crearBarraLateralEnPartida(jugador[1], rootBarraLateralParaJugarPiezasDerecha, informacionDePiezaJugador2, pb2);
 		gamePane.getChildren().add(barraLateralParaJugarPiezasDerecha);
+		
+		menuMusicPlayer.stop();;
+		gameMusicPlayer.play();;
 		
 	}
 	
